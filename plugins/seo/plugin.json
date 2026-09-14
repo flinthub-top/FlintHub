@@ -1,0 +1,17 @@
+﻿{
+    "name": "SEO 优化",
+    "version": "1.2.0",
+    "author": "SoSite",
+    "description": "搜索引擎优化插件，支持自定义Meta标签、Open Graph、JSON-LD结构化数据、站点地图、robots.txt",
+    "activated": true,
+    "category": "system",
+    "icon": "filter",
+    "admin_url": "\/admin\/seo",
+    "hooks": {
+        "init_after": "hook\/init_after.php",
+        "route_register": "hook\/route_register.php",
+        "admin_route_register": "hook\/admin_route_register.php",
+        "layout_head_end": "hook\/layout_head_end.php"
+    },
+    "permissions": ["route:admin", "system:settings"]
+}

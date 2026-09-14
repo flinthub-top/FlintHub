@@ -1,0 +1,18 @@
+﻿{
+    "name": "单页\/链接管理",
+    "version": "1.0.0",
+    "author": "FlintHub",
+    "description": "在社区页脚展示站内静态页面与外部链接，支持后台管理",
+    "activated": false,
+    "category": "content",
+    "icon": "file",
+    "admin_url": "/admin/single-page",
+    "hooks": {
+        "init_after": "hook\/init_after.php",
+        "route_register": "hook\/route_register.php",
+        "admin_route_register": "hook\/admin_route_register.php",
+        
+        "footer_links": "hook\/footer_links.php"
+    },
+    "permissions": ["route:admin"]
+}

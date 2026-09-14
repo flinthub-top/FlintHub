@@ -1,0 +1,263 @@
+/* ===== 任务中心插件样式（前台 + 后台，tc- 前缀，零内联）===== */
+
+/* ---- 前台任务列表 ---- */
+.tc-wrap {
+    padding: 20px;
+}
+
+.tc-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.tc-points {
+    font-size: 13px;
+    color: #e6a23c;
+    font-weight: 600;
+    background: rgba(230, 162, 60, 0.1);
+    padding: 4px 12px;
+    border-radius: 999px;
+}
+
+.tc-flash {
+    margin-bottom: 12px;
+}
+
+.tc-empty {
+    text-align: center;
+    color: var(--mn-text-muted, #888);
+    padding: 40px 0;
+}
+
+.tc-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: var(--mn-bg-card, #fff);
+    border: 1px solid var(--mn-border, #e5e7eb);
+    margin-bottom: 10px;
+    transition: box-shadow 0.15s ease;
+}
+
+.tc-card:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.tc-dep {
+    opacity: 0.55;
+}
+
+.tc-icon {
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: rgba(64, 158, 255, 0.1);
+    color: #409eff;
+    font-size: 20px;
+}
+
+.tc-body {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tc-title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.tc-title {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.tc-daily {
+    font-size: 11px;
+    color: #e6a23c;
+    border: 1px solid rgba(230, 162, 60, 0.5);
+    border-radius: 4px;
+    padding: 1px 6px;
+}
+
+.tc-desc {
+    font-size: 12px;
+    color: var(--mn-text-muted, #888);
+    margin: 4px 0 8px;
+}
+
+.tc-progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 420px;
+}
+
+.tc-progress-track {
+    flex: 1 1 auto;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--mn-border, #e5e7eb);
+    overflow: hidden;
+}
+
+.tc-progress-fill {
+    height: 100%;
+    width: 0;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #409eff, #67c23a);
+    transition: width 0.3s ease;
+}
+
+.tc-progress-text {
+    flex: 0 0 auto;
+    font-size: 12px;
+    color: var(--mn-text-muted, #888);
+}
+
+.tc-side {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    min-width: 120px;
+}
+
+.tc-reward {
+    font-size: 13px;
+    font-weight: 600;
+    color: #e6a23c;
+}
+
+.tc-inline {
+    display: inline;
+}
+
+.tc-claimed {
+    font-size: 13px;
+    color: #67c23a;
+    font-weight: 600;
+}
+
+.tc-dep-tag {
+    font-size: 12px;
+    color: var(--mn-text-muted, #888);
+}
+
+.tc-pending {
+    font-size: 12px;
+    color: var(--mn-text-muted, #888);
+}
+
+/* ---- 后台 ---- */
+.tc-form-card .tc-form {
+    max-width: 640px;
+}
+
+.tc-form-row {
+    margin-bottom: 12px;
+}
+
+.tc-form-inline {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.tc-form-col {
+    flex: 1 1 140px;
+    min-width: 140px;
+}
+
+.tc-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.tc-input {
+    width: 100%;
+}
+
+.tc-input-sm {
+    max-width: 160px;
+}
+
+.tc-help {
+    font-size: 12px;
+    color: #888;
+    margin-top: 2px;
+}
+
+.tc-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    margin-right: 16px;
+}
+
+.tc-form-actions {
+    margin-top: 16px;
+}
+
+.tc-th-id {
+    width: 60px;
+}
+
+.tc-th-actions {
+    width: 150px;
+}
+
+.tc-badge {
+    display: inline-block;
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 6px;
+    background: #f0f2f5;
+    color: #606266;
+}
+
+.tc-dep-warn {
+    display: inline-block;
+    margin-left: 8px;
+    font-size: 11px;
+    color: #e6a23c;
+    background: rgba(230, 162, 60, 0.12);
+    padding: 1px 6px;
+    border-radius: 4px;
+}
+
+.tc-ok {
+    color: #67c23a;
+    font-weight: 600;
+}
+
+.tc-off {
+    color: #909399;
+}
+
+.tc-actions {
+    white-space: nowrap;
+}
+
+.tc-delete-form {
+    margin-left: 8px;
+}
+
+
+/* ===== 旧类收敛补丁（JS 显隐钩子） ===== */
+.tc-field { }

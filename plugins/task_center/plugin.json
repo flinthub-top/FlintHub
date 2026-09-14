@@ -1,0 +1,24 @@
+﻿{
+    "name": "任务中心",
+    "version": "1.0.0",
+    "author": "FlintHub",
+    "description": "任务中心：注册/发帖/回帖/签到/完善资料/邀请/点赞/登录 任务，达标领取积分奖励，支持每日任务与自定义任务",
+    "activated": false,
+    "category": "community",
+    "icon": "clipboard-list",
+    "admin_url": "/admin/task-center",
+    "hooks": {
+        "init_after": "hook/init_after.php",
+        "route_register": "hook/route_register.php",
+        "admin_route_register": "hook/admin_route_register.php",
+        "nav_plugin_links": "hook/nav_plugin_links.php",
+        "layout_head_end": "hook/layout_head_end.php",
+        "auth_register_after": "hook/auth_register_after.php",
+        "thread_create_after": "hook/thread_create_after.php",
+        "post_create_after": "hook/post_create_after.php",
+        "vote_after": "hook/vote_after.php",
+        "auth_login_after": "hook/auth_login_after.php",
+        "avatar_upload_after": "hook/avatar_upload_after.php"
+    },
+    "permissions": ["route:admin"]
+}

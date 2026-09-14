@@ -1,0 +1,17 @@
+{
+    "name": "用户主页",
+    "version": "1.0.0",
+    "author": "SoSite",
+    "description": "查看其他用户的公开资料，包括个人资料、积分等级、发布的帖子和博客",
+    "activated": true,
+    "category": "community",
+    "icon": "user",
+    "hooks": {
+        "init_after": "hook\/init_after.php",
+        "route_register": "hook\/route_register.php",
+        "admin_route_register": "hook\/admin_route_register.php",
+        
+        "nav_plugin_links": "hook\/nav_plugin_links.php"
+    },
+    "permissions": ["route:admin"]
+}

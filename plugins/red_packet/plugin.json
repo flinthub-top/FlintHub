@@ -1,0 +1,17 @@
+﻿{
+    "name": "积分红包",
+    "version": "1.8.0",
+    "author": "SoSite",
+    "description": "用户消耗积分创建红包，其他用户可以抢，抢到的积分自动加到账户",
+    "activated": false,
+    "category": "entertainment",
+    "icon": "gift",
+    "hooks": {
+        "init_after": "hook\/init_after.php",
+        "route_register": "hook\/route_register.php",
+        "nav_plugin_links": "hook\/nav_plugin_links.php",
+        "thread_create_after": "hook\/thread_create_after.php",
+        "post_create_extra": "hook\/post_create_extra.php",
+        "thread_redpacket_area": "hook\/thread_redpacket_area.php"
+    }
+}

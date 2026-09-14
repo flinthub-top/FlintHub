@@ -1,0 +1,37 @@
+/* ===== 单页/链接管理插件（single_page）独立样式 =====
+   零内联：后台页面样式全部收敛于此，不修改核心 admin.css */
+
+/* ---------- 后台：表单卡片 ---------- */
+.sp-form-card { max-width: 720px; }
+.sp-form { display: flex; flex-direction: column; gap: 14px; }
+.sp-form-row { display: flex; flex-direction: column; gap: 4px; }
+.sp-form-inline { flex-direction: row; align-items: center; gap: 10px; }
+.sp-form-actions { flex-direction: row; align-items: center; gap: 10px; margin-top: 4px; }
+.sp-label { font-size: 13px; font-weight: 600; color: var(--c-text-secondary, #444); }
+.sp-input { width: 100%; max-width: 480px; }
+.sp-input-sort { max-width: 120px; }
+.sp-textarea { min-height: 200px; resize: vertical; font-family: monospace; font-size: 13px; line-height: 1.6; }
+.sp-help { font-size: 12px; color: var(--c-text-light, #999); margin: 2px 0 0; }
+.sp-check { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 400; }
+
+/* ---------- 后台：列表 ---------- */
+.sp-th-sort { width: 60px; }
+.sp-th-actions { width: 170px; }
+.sp-target { font-size: 13px; word-break: break-all; }
+.sp-actions { display: flex; align-items: center; gap: 6px; }
+.sp-inline { display: inline; }
+.sp-empty { color: var(--c-text-light, #999); font-size: 13px; padding: 10px 0; }
+
+/* 类型徽标 */
+.sp-badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 12px; line-height: 1.4; }
+.sp-badge-page { background: var(--c-info-bg, #eef1ff); color: var(--c-info, #4f6ef7); }
+.sp-badge-link { background: var(--c-warning-bg, #fff7e8); color: var(--c-warning, #b8860b); }
+
+/* 公开状态 */
+.sp-ok { color: var(--c-success, #16a34a); font-size: 13px; }
+.sp-off { color: var(--c-text-light, #999); font-size: 13px; }
+
+
+/* ===== 旧类收敛补丁（JS 显隐/删除确认钩子） ===== */
+.sp-field-page, .sp-field-link { }
+.sp-delete-form { display: inline; }

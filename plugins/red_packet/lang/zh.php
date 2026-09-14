@@ -1,0 +1,78 @@
+<?php
+/**
+ * 积分红包插件语言包 — 简体中文
+ * 插件语言包放入 plugins/{插件名}/lang/{语言}.php 即自动生效（核心 I18n 自动合并，无需钩子）
+ * @file plugins/red_packet/lang/zh.php
+ */
+return [
+    'plugin.red_packet.title'      => '积分红包',
+    'plugin.red_packet.subtitle'   => '消耗积分发红包，大家一起抢',
+    'plugin.red_packet.my_points'  => '我的积分：',
+    'plugin.red_packet.create'     => '发红包',
+    'plugin.red_packet.total_points' => '总积分',
+    'plugin.red_packet.total_count'  => '个数',
+    'plugin.red_packet.expire'     => '有效期',
+    'plugin.red_packet.expire_hour'=> '{n} 小时',
+    'plugin.red_packet.expire_day' => '{n} 天',
+    'plugin.red_packet.min_hint'   => '总积分不能小于个数',
+    'plugin.red_packet.submit'     => '塞进红包',
+    'plugin.red_packet.available'  => '可抢的红包',
+    'plugin.red_packet.empty'      => '暂时没有可抢的红包',
+    'plugin.red_packet.empty_hint' => '快发一个红包吧！',
+    'plugin.red_packet.unknown'    => '未知',
+    'plugin.red_packet.creator_pkt'=> '{name} 的红包',
+    'plugin.red_packet.remaining'  => '剩余 <strong>{count}</strong> / {total} 个 · 共 {points} 积分',
+    'plugin.red_packet.claimed'    => '已抢',
+    'plugin.red_packet.grab'       => '抢',
+    'plugin.red_packet.my_packets' => '我发的红包',
+    'plugin.red_packet.no_packets' => '还没有发过红包',
+    'plugin.red_packet.pts_pkt'    => '{points} 积分红包',
+    'plugin.red_packet.expired'    => '已过期',
+    'plugin.red_packet.finished'   => '已抢完',
+    'plugin.red_packet.remaining_n'=> '剩余 {count} 个',
+
+    // 详情页
+    'plugin.red_packet.detail_title' => '抢红包',
+    'plugin.red_packet.sent'         => '发了一个积分红包',
+    'plugin.red_packet.points_unit'  => '积分',
+    'plugin.red_packet.deposited'    => '已存入账户',
+    'plugin.red_packet.expired_pkt'  => '红包已过期',
+    'plugin.red_packet.empty_pkt'    => '红包已被抢完',
+    'plugin.red_packet.open'         => '开',
+    'plugin.red_packet.open_hint'    => '戳一下开红包',
+    'plugin.red_packet.rem_count'    => '剩余个数',
+    'plugin.red_packet.rem_points'   => '剩余积分',
+    'plugin.red_packet.total_count_lbl' => '总个数',
+    'plugin.red_packet.valid_until'  => '有效期至：{time}',
+    'plugin.red_packet.expired_at'   => '已过期（{time}）',
+    'plugin.red_packet.claims_title' => '领取详情',
+    'plugin.red_packet.claims_people'=> '{count} 人',
+    'plugin.red_packet.no_claims'    => '还没有人领取，快来抢沙发！',
+    'plugin.red_packet.best_hand'    => '手气最佳',
+    'plugin.red_packet.back_list'    => '← 返回红包列表',
+
+    // 帖子内嵌红包（thread_redpacket_area / post_create_extra / detail 来源链接）
+    'plugin.red_packet.thread_card_title'    => '🧧 楼主红包',
+    'plugin.red_packet.thread_remaining'     => '剩余 {count} / {total} 个',
+    'plugin.red_packet.thread_claimed'       => '已抢 +{points}',
+    'plugin.red_packet.thread_mine'          => '我发的红包',
+    'plugin.red_packet.thread_login'         => '登录后抢',
+    'plugin.red_packet.thread_create_hint'   => '发帖附带红包，其他人可抢',
+    'plugin.red_packet.thread_create_min_hint' => '总积分不能小于个数；不填则不带红包',
+    'plugin.red_packet.from_thread'          => '来自帖子：《{title}》',
+
+    // 控制器消息
+    'plugin.red_packet.err_points_lt_count' => '总积分不能小于红包个数（每个红包至少1积分）',
+    'plugin.red_packet.err_count_range'     => '红包个数须在 1~100 之间',
+    'plugin.red_packet.err_points_min'      => '总积分至少为1',
+    'plugin.red_packet.err_points'          => '积分不足',
+    'plugin.red_packet.created'             => '红包创建成功！共 {points} 积分，{count} 个',
+    'plugin.red_packet.err_create'          => '创建红包失败，请稍后重试',
+    'plugin.red_packet.err_not_found'       => '红包不存在',
+    'plugin.red_packet.err_expired'         => '红包已过期',
+    'plugin.red_packet.err_empty'           => '红包已被抢完',
+    'plugin.red_packet.err_already'         => '你已经抢过这个红包了',
+    'plugin.red_packet.err_calc'            => '红包金额计算异常',
+    'plugin.red_packet.grabbed'             => '恭喜！抢到 {points} 积分 🧧',
+    'plugin.red_packet.err_grab'            => '抢红包失败，请稍后重试',
+];

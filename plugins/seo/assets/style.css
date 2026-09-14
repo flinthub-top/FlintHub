@@ -1,0 +1,12 @@
+.seo-settings .form-group { margin-bottom: 16px; }
+.seo-settings label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 4px; color: #333; }
+.seo-settings .form-hint { font-size: 12px; color: #999; margin-top: 2px; }
+.seo-settings .form-hint code { background: #f5f5f5; padding: 1px 5px; border-radius: 3px; font-size: 12px; }
+.seo-settings textarea { min-height: 80px; resize: vertical; font-family: 'Courier New', monospace; font-size: 13px; }
+.seo-settings .seo-section { background: #f9f9fb; border: 1px solid #eef0f4; border-radius: 8px; padding: 18px 20px; margin-bottom: 16px; }
+.seo-settings .seo-section h3 { margin: 0 0 12px; font-size: 15px; color: #444; }
+.seo-settings .seo-section h3 i { margin-right: 6px; }
+/* 快捷链接提示区（收编视图内联色值） */
+.seo-settings .seo-section-info { background:#eef6ff; border-color:#b8d4fe; }
+.seo-settings .seo-links-text { font-size:13px; color:#555; line-height:2; }
+.seo-settings .seo-save-row { margin-top:20px; }

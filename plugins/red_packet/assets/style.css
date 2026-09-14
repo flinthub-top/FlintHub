@@ -1,0 +1,440 @@
+/* ===== 红包插件样式 ===== */
+
+/* ===== 红包首页样式 ===== */
+.rp-page {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 20px 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+.rp-container {
+    background: #f5f5f5;
+    border-radius: 12px;
+    overflow: hidden;
+    
+}
+.rp-alert {
+    padding: 14px 20px;
+    font-size: 14px;
+    text-align: center;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(0,0,0,.06);
+}
+.rp-alert-success { background: linear-gradient(135deg, #fdf6e3, #fff3cd); color: #856404; }
+.rp-alert-error { background: linear-gradient(135deg, #ffeef0, #fdd); color: #a33; }
+
+/* 红包头部 */
+.rp-header {
+    background: linear-gradient(135deg, #c0392b, #e74c3c, #c0392b);
+    text-align: center;
+    padding: 40px 20px 30px;
+    position: relative;
+    overflow: hidden;
+}
+.rp-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 40%, rgba(255,215,0,.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(255,215,0,.06) 0%, transparent 50%);
+    pointer-events: none;
+}
+.rp-header-icon {
+    font-size: 56px;
+    margin-bottom: 8px;
+    position: relative;
+    color: #ffd700;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,.2));
+    
+}
+.rp-header-title {
+    color: #ffd700;
+    font-size: 28px;
+    margin: 0 0 6px;
+    
+    position: relative;
+}
+.rp-header-sub {
+    color: rgba(255,255,255,.85);
+    font-size: 14px;
+    margin: 0 0 16px;
+    position: relative;
+}
+.rp-points-badge {
+    display: inline-block;
+    background: rgba(255,255,255,.2);
+    color: #fff;
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    position: relative;
+    backdrop-filter: blur(4px);
+}
+.rp-points-badge strong { color: #ffd700; font-size: 18px; }
+
+/* 发红包卡片 */
+.rp-create-card {
+    background: #fff;
+    margin: 16px;
+    border-radius: 10px;
+    padding: 20px;
+    
+}
+.rp-card-title { font-size: 17px; font-weight: 600; color: #333; margin-bottom: 16px; display: flex; align-items: center; gap: 6px; }
+.rp-card-title-icon { font-size: 20px; }
+.rp-form { margin: 0; }
+.rp-form-row { display: flex; gap: 12px; margin-bottom: 12px; }
+.rp-form-group { flex: 1; display: flex; flex-direction: column; }
+.rp-form-group label { font-size: 13px; color: #666; margin-bottom: 4px; font-weight: 500; }
+.rp-form-group input, .rp-form-group select {
+    padding: 10px 12px; border: 1px solid #ddd; border-radius: 8px;
+    font-size: 15px; outline: none;  background: #fafafa;
+}
+.rp-form-group input:focus, .rp-form-group select:focus { border-color: #e74c3c; background: #fff; }
+.rp-form-hint { font-size: 12px; color: #999; padding-top: 4px; line-height: 1.4; }
+
+/* 按钮 */
+.rp-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 12px 24px; border-radius: 8px; font-size: 16px; font-weight: 600; border: none; cursor: pointer;  text-decoration: none; }
+.rp-btn-red { background: linear-gradient(135deg, #e74c3c, #c0392b); color: #fff;  }
+.rp-btn-red:hover { transform: translateY(-2px);  }
+.rp-btn-block { width: 100%; }
+
+.rp-section { margin: 0 16px 16px; }
+.rp-section-title { font-size: 16px; font-weight: 600; color: #333; margin: 0 0 12px; padding: 16px 0 0; }
+.rp-empty { text-align: center; padding: 30px 20px; background: #fff; border-radius: 10px; color: #999;  }
+.rp-empty-icon { font-size: 48px; margin-bottom: 8px; }
+.rp-empty p { margin: 4px 0; font-size: 14px; }
+.rp-empty-sub { font-size: 13px; color: #bbb; }
+
+/* 红包列表 */
+.rp-list { background: #fff; border-radius: 10px; overflow: hidden;  }
+.rp-list-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid #f0f0f0; text-decoration: none;  }
+.rp-list-item:last-child { border-bottom: none; }
+.rp-list-item:hover { background: #fafafa; text-decoration: none; }
+.rp-list-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.rp-list-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #fff5f5, #ffe0e0); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+.rp-list-info { min-width: 0; }
+.rp-list-name { font-size: 15px; font-weight: 500; color: #333; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rp-list-meta { font-size: 12px; color: #999; margin-top: 2px; }
+.rp-list-meta strong { color: #e74c3c; }
+.rp-list-right { flex-shrink: 0; margin-left: 12px; }
+.rp-list-tag { display: inline-block; padding: 3px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+.rp-list-tag-red { background: linear-gradient(135deg, #e74c3c, #c0392b); color: #fff;  }
+.rp-list-tag-gray { background: #f0f0f0; color: #999; }
+.rp-list-right small { color: #bbb; font-size: 12px; }
+
+/* ===== 红包详情页样式 ===== */
+.rp-detail-page {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 20px 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+.rp-detail-container { background: #f5f5f5; border-radius: 12px; overflow: hidden;  }
+
+/* 红包头部 */
+.rp-detail-header {
+    background: linear-gradient(135deg, #c0392b, #e74c3c, #c0392b);
+    text-align: center;
+    padding: 32px 20px 20px;
+    position: relative;
+    overflow: hidden;
+    
+}
+.rp-detail-header.rp-opened { background: linear-gradient(135deg, #b03a2e, #d63031, #b03a2e); }
+.rp-detail-bg-pattern {
+    position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+    background: radial-gradient(circle at 20% 30%, rgba(255,215,0,.08) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(255,215,0,.05) 0%, transparent 40%);
+    pointer-events: none;
+}
+
+/* 红包封面 */
+.rp-envelope { position: relative; display: inline-block; width: 220px; margin: 0 auto;  }
+.rp-envelope-inner { position: relative; width: 100%; }
+.rp-envelope-top { position: relative; z-index: 2; }
+.rp-envelope-flap {
+    width: 0; height: 0;
+    border-left: 110px solid transparent; border-right: 110px solid transparent;
+    border-bottom: 60px solid #c0392b;
+    position: relative; margin: 0 auto; 
+    
+}
+.rp-envelope-flap-inner {
+    position: absolute; top: 10px; left: -95px;
+    width: 0; height: 0;
+    border-left: 95px solid transparent; border-right: 95px solid transparent;
+    border-bottom: 50px solid #e74c3c;
+}
+.rp-envelope-open .rp-envelope-flap { transform: rotateX(180deg); transform-origin: top center; border-bottom-color: #a93226; }
+.rp-envelope-body {
+    background: #fff; border-radius: 0 0 12px 12px; padding: 20px 16px 24px;
+    position: relative; z-index: 1; min-height: 160px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    
+}
+.rp-unopened-sender { font-size: 16px; font-weight: 600; color: #333; margin-bottom: 4px; }
+.rp-unopened-label { font-size: 13px; color: #999; margin-bottom: 12px; }
+.rp-unopened-envelope { font-size: 64px; margin-bottom: 16px; }
+.rp-unopened-self, .rp-unopened-gone { font-size: 13px; color: #999; padding: 6px 16px; background: #f5f5f5; border-radius: 20px; }
+.rp-unopened-hint { font-size: 12px; color: #bbb; margin-top: 8px; }
+
+/* 开红包按钮 */
+.rp-grab-form { margin: 0; }
+.rp-grab-btn {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+    border: 4px solid #f1c40f; color: #fff; font-size: 28px; font-weight: 700;
+    cursor: pointer; 
+    
+    display: inline-flex; align-items: center; justify-content: center;
+}
+.rp-grab-btn:hover { transform: scale(1.1);  }
+.rp-grab-btn:active { transform: scale(0.95); }
+.rp-grab-btn-text { position: relative; z-index: 1;  }
+
+
+.rp-result-label { font-size: 14px; color: #999; margin-bottom: 8px; }
+.rp-result-amount { font-size: 52px; font-weight: 800; color: #c0392b; line-height: 1; margin-bottom: 4px;  }
+.rp-result-unit { font-size: 16px; color: #666; margin-bottom: 4px; }
+.rp-result-msg { font-size: 13px; color: #27ae60; font-weight: 500; }
+
+/* 红包统计 */
+.rp-detail-info { display: flex; justify-content: center; gap: 24px; margin-top: 16px; position: relative; }
+.rp-detail-stat { text-align: center; }
+.rp-detail-stat-val { display: block; font-size: 20px; font-weight: 700; color: #ffd700; }
+.rp-detail-stat-lbl { display: block; font-size: 11px; color: rgba(255,255,255,.7); margin-top: 2px; }
+.rp-detail-expire { font-size: 12px; color: rgba(255,255,255,.6); margin-top: 12px; position: relative; }
+
+/* 领取详情 */
+.rp-claims-section { background: #fff; margin: 16px; border-radius: 10px; padding: 16px;  }
+.rp-claims-title { font-size: 16px; font-weight: 600; color: #333; margin: 0 0 12px; display: flex; align-items: center; justify-content: space-between; }
+.rp-claims-count { font-size: 13px; color: #999; font-weight: 400; }
+.rp-claims-empty { text-align: center; padding: 20px; color: #999; font-size: 14px; }
+.rp-claims-list { display: flex; flex-direction: column; }
+.rp-claims-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
+.rp-claims-item:last-child { border-bottom: none; }
+.rp-claims-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #e74c3c, #c0392b); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; flex-shrink: 0; overflow: hidden; }
+.rp-claims-avatar-img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+.rp-claims-info { flex: 1; min-width: 0; }
+.rp-claims-name { font-size: 14px; font-weight: 500; color: #333; display: flex; align-items: center; gap: 6px; }
+.rp-claims-best-tag { font-size: 10px; background: linear-gradient(135deg, #f39c12, #e67e22); color: #fff; padding: 1px 6px; border-radius: 8px; font-weight: 600; }
+.rp-claims-time { font-size: 11px; color: #bbb; margin-top: 2px; }
+.rp-claims-points { text-align: right; flex-shrink: 0; font-size: 12px; color: #999; }
+.rp-claims-points strong { font-size: 16px; color: #e74c3c; }
+.rp-claims-best .rp-claims-points strong { color: #e67e22; font-size: 18px; }
+
+.rp-back { text-align: center; padding: 0 16px 20px; }
+.rp-back-btn { display: inline-block; padding: 10px 24px; background: #fff; color: #666; border-radius: 8px; font-size: 14px; text-decoration: none;   }
+.rp-back-btn:hover { background: #fafafa; color: #333; text-decoration: none; }
+
+@media (max-width: 600px) {
+    .rp-header { padding: 30px 16px 24px; }
+    .rp-header-icon { font-size: 44px; }
+    .rp-header-title { font-size: 22px; }
+    .rp-create-card { margin: 12px; padding: 16px; }
+    .rp-section { margin: 0 12px 12px; }
+    .rp-form-row { flex-direction: column; gap: 8px; }
+    .rp-detail-header { padding: 24px 16px 16px; }
+    .rp-envelope { width: 180px; }
+    .rp-envelope-flap { border-left-width: 90px; border-right-width: 90px; border-bottom-width: 50px; }
+    .rp-envelope-flap-inner { top: 8px; left: -78px; border-left-width: 78px; border-right-width: 78px; border-bottom-width: 42px; }
+    .rp-envelope-body { min-height: 140px; padding: 16px 12px 20px; }
+    .rp-result-amount { font-size: 40px; }
+    .rp-detail-info { gap: 16px; }
+    .rp-claims-section { margin: 12px; padding: 12px; }
+}
+
+/* ===== Modern 主题红包详情补充 ===== */
+.rp-modern-container { margin:0 auto; }
+.rp-modern-alert { text-align:center; margin:16px 24px 0; }
+.rp-modern-body { padding:30px 24px; text-align:center; }
+.rp-modern-card { background:linear-gradient(135deg,var(--mn-error),#dc2626); border-radius:16px; padding:30px 20px; margin-bottom:16px; position:relative; overflow:hidden; }
+.rp-modern-card-bg { position:absolute; top:0; left:0; right:0; bottom:0; opacity:0.1; background:radial-gradient(circle at 20% 50%,#fff 0%,transparent 50%),radial-gradient(circle at 80% 50%,#fff 0%,transparent 50%); }
+.rp-modern-card-content { position:relative; z-index:1; }
+.rp-modern-creator { font-size:14px; color:rgba(255,255,255,0.8); margin-bottom:4px; }
+.rp-modern-creator-lg { font-size:16px; color:rgba(255,255,255,0.9); }
+.rp-modern-amount { font-size:48px; font-weight:800; color:#fff; line-height:1.2; }
+.rp-modern-unit { font-size:14px; color:rgba(255,255,255,0.8); }
+.rp-modern-msg { font-size:12px; color:rgba(255,255,255,0.6); margin-top:8px; }
+.rp-modern-label { font-size:14px; color:rgba(255,255,255,0.7); margin-bottom:16px; }
+.rp-modern-gift { font-size:48px; margin-bottom:12px; }
+.rp-modern-gone { font-size:16px; color:rgba(255,255,255,0.7); }
+.rp-modern-grab-btn { width:64px; height:64px; border-radius:50%; border:3px solid rgba(255,255,255,0.8); background:rgba(255,255,255,0.15); color:#fff; font-size:24px; font-weight:700; cursor:pointer; transition:all 0.2s; }
+.rp-modern-grab-btn:hover { background:rgba(255,255,255,0.3); transform:scale(1.05); }
+.rp-modern-hint { font-size:12px; color:rgba(255,255,255,0.5); margin-top:8px; }
+.rp-modern-claims-section { padding:0 24px 24px; }
+.rp-modern-claims-title { font-size:15px; font-weight:600; margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid var(--mn-border-light); }
+.rp-modern-claim-item { padding:10px 0; border-bottom:1px solid var(--mn-border-light); }
+.rp-modern-claim-best { background:var(--mn-primary-subtle); margin:0 -24px; padding:10px 24px; }
+.rp-modern-avatar-placeholder { width:36px; height:36px; border-radius:4px; background:var(--mn-primary-light); color:var(--mn-primary); display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600; }
+.rp-modern-claim-name { font-size:14px; font-weight:500; }
+.rp-modern-best-tag { background:#fef3c7; color:#d97706; }
+
+/* ===== Modern 主题红包列表补充（收编内联样式） ===== */
+/* 插件局部变量：消息提示成功/失败色板（原视图内联 #hex） */
+:root {
+    --rp-success-bg: #f0fdf4;
+    --rp-success-text: #16a34a;
+    --rp-success-border: #bbf7d0;
+    --rp-error-bg: #fef2f2;
+    --rp-error-text: #dc2626;
+    --rp-error-border: #fecaca;
+}
+.rp-modern-alert-index { text-align:center; margin:0 24px 16px; }
+.rp-modern-alert-success { background:var(--rp-success-bg); color:var(--rp-success-text); border:1px solid var(--rp-success-border); }
+.rp-modern-alert-error { background:var(--rp-error-bg); color:var(--rp-error-text); border:1px solid var(--rp-error-border); }
+.rp-modern-create-card { margin:0 24px 20px; padding:16px; }
+.rp-modern-form-input { padding:6px 10px; }
+.rp-modern-form-select { padding:6px 10px; width:100%; }
+.rp-modern-submit-btn { background:var(--mn-error); color:#fff; border-color:var(--mn-error); padding:8px; }
+.rp-modern-lists-wrap { padding:0 24px 24px; }
+.rp-modern-empty { padding:20px; color:var(--mn-text-muted); }
+.rp-modern-packet-item { padding:12px; border:1px solid var(--mn-border); border-radius:8px; margin-bottom:8px; text-decoration:none; transition:background 0.1s; }
+.rp-modern-packet-item:hover { background:var(--mn-bg-row-hover); }
+.rp-modern-claim-tag { font-size:12px; padding:3px 10px; border-radius:12px; font-weight:600; }
+.rp-modern-claim-tag-done { background:var(--mn-bg-body); color:var(--mn-text-muted); }
+.rp-modern-claim-tag-go { background:var(--mn-error); color:#fff; }
+.rp-modern-index-title { margin:0 0 4px; }
+.rp-modern-index-subtitle { margin:0 0 12px; }
+.rp-modern-points-badge { font-size:13px; color:var(--mn-text-muted); background:var(--mn-bg-body); padding:6px 16px; border-radius:20px; display:inline-block; }
+.rp-modern-points-val { color:var(--mn-primary); }
+.rp-modern-list-title { margin:16px 0 12px; }
+
+/* ===== 帖子内嵌红包卡片（thread_redpacket_area 钩子渲染，扁平红包样式） ===== */
+.rp-thread-card {
+    margin: 16px 0 6px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--mn-error, #ef4444), #c0392b);
+    padding: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+}
+.rp-thread-inner {
+    margin: 7px;
+    padding: 12px 14px;
+    border: 1.5px dashed rgba(255, 215, 0, 0.55);
+    border-radius: 8px;
+}
+.rp-thread-head {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+.rp-thread-head-icon {
+    font-size: 13px;
+    font-weight: 600;
+    color: #ffd700;
+}
+.rp-thread-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+.rp-thread-info { display: flex; flex-direction: column; gap: 3px; }
+.rp-thread-amount {
+    font-size: 24px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.1;
+}
+.rp-thread-plus { color: #ffd700; font-weight: 700; margin-right: 2px; }
+.rp-thread-unit { font-size: 13px; font-weight: 500; color: rgba(255, 255, 255, 0.85); }
+.rp-thread-meta {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+}
+.rp-thread-action { flex-shrink: 0; }
+/* 金色圆形抢红包按钮（扁平） */
+.rp-thread-grab-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    border: 2px solid #ffd700;
+    background: linear-gradient(135deg, #ffd700, #f0b429);
+    color: #7c2d12;
+    font-size: 18px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.rp-thread-grab-btn:hover { transform: scale(1.08); box-shadow: 0 2px 10px rgba(255, 215, 0, 0.5); }
+.rp-thread-grab-btn:active { transform: scale(0.95); }
+.rp-thread-grab-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+/* 登录提示按钮（半透明白底） */
+.rp-thread-login-btn {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.35);
+    color: #fff;
+}
+.rp-thread-login-btn:hover { background: rgba(255, 255, 255, 0.3); }
+.rp-thread-status {
+    font-size: 12px;
+    padding: 5px 14px;
+    border-radius: 999px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.rp-thread-status-ok {
+    background: rgba(255, 215, 0, 0.22);
+    color: #ffd700;
+}
+.rp-thread-status-off {
+    background: rgba(255, 255, 255, 0.18);
+    color: rgba(255, 255, 255, 0.9);
+}
+.rp-thread-msg {
+    margin-top: 8px;
+    font-size: 12px;
+    min-height: 0;
+    text-align: center;
+}
+.rp-thread-msg.rp-thread-msg-ok { color: #ffd700; }
+.rp-thread-msg.rp-thread-msg-err { color: #fff; }
+
+/* ===== 发帖页"附带红包"折叠表单（post_create_extra 钩子渲染） ===== */
+.rp-thread-create {
+    margin: 24px 0 12px;
+    border: 1px dashed var(--mn-border, #dde0e4);
+    border-radius: 8px;
+    padding: 10px 14px;
+    background: var(--mn-bg-body, #f8f9fa);
+}
+.rp-thread-create-summary {
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--mn-text, #1a1a2e);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+.rp-thread-create-summary::-webkit-details-marker { display: none; }
+.rp-thread-create-hint {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--mn-text-muted, #9ca3af);
+}
+.rp-thread-create-body {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--mn-border-light, #eaeef5);
+}
+.rp-thread-create-field { flex: 0 0 auto; }
+/* 发帖页红包表单控件宽度（收编视图内联 max-width:140px） */
+.rp-field-w { max-width: 140px; }
+
+
+/* ===== 旧类收敛补丁 ===== */
+.rp-thread-create-details { margin: 8px 0; }

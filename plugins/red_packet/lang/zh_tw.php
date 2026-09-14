@@ -1,0 +1,78 @@
+<?php
+/**
+ * 積分紅包外掛語言包 — 繁體中文
+ * 外掛語言包放入 plugins/{外掛名}/lang/{語言}.php 即自動生效（核心 I18n 自動合併，無需鉤子）
+ * @file plugins/red_packet/lang/zh_tw.php
+ */
+return [
+    'plugin.red_packet.title'      => '積分紅包',
+    'plugin.red_packet.subtitle'   => '消耗積分發紅包，大家一起搶',
+    'plugin.red_packet.my_points'  => '我的積分：',
+    'plugin.red_packet.create'     => '發紅包',
+    'plugin.red_packet.total_points' => '總積分',
+    'plugin.red_packet.total_count'  => '個數',
+    'plugin.red_packet.expire'     => '有效期',
+    'plugin.red_packet.expire_hour'=> '{n} 小時',
+    'plugin.red_packet.expire_day' => '{n} 天',
+    'plugin.red_packet.min_hint'   => '總積分不能小於個數',
+    'plugin.red_packet.submit'     => '塞進紅包',
+    'plugin.red_packet.available'  => '可搶的紅包',
+    'plugin.red_packet.empty'      => '暫時沒有可搶的紅包',
+    'plugin.red_packet.empty_hint' => '快發一個紅包吧！',
+    'plugin.red_packet.unknown'    => '未知',
+    'plugin.red_packet.creator_pkt'=> '{name} 的紅包',
+    'plugin.red_packet.remaining'  => '剩餘 <strong>{count}</strong> / {total} 個 · 共 {points} 積分',
+    'plugin.red_packet.claimed'    => '已搶',
+    'plugin.red_packet.grab'       => '搶',
+    'plugin.red_packet.my_packets' => '我發的紅包',
+    'plugin.red_packet.no_packets' => '還沒有發過紅包',
+    'plugin.red_packet.pts_pkt'    => '{points} 積分紅包',
+    'plugin.red_packet.expired'    => '已過期',
+    'plugin.red_packet.finished'   => '已搶完',
+    'plugin.red_packet.remaining_n'=> '剩餘 {count} 個',
+
+    // 詳情頁
+    'plugin.red_packet.detail_title' => '搶紅包',
+    'plugin.red_packet.sent'         => '發了一個積分紅包',
+    'plugin.red_packet.points_unit'  => '積分',
+    'plugin.red_packet.deposited'    => '已存入帳戶',
+    'plugin.red_packet.expired_pkt'  => '紅包已過期',
+    'plugin.red_packet.empty_pkt'    => '紅包已被搶完',
+    'plugin.red_packet.open'         => '開',
+    'plugin.red_packet.open_hint'    => '戳一下開紅包',
+    'plugin.red_packet.rem_count'    => '剩餘個數',
+    'plugin.red_packet.rem_points'   => '剩餘積分',
+    'plugin.red_packet.total_count_lbl' => '總個數',
+    'plugin.red_packet.valid_until'  => '有效期至：{time}',
+    'plugin.red_packet.expired_at'   => '已過期（{time}）',
+    'plugin.red_packet.claims_title' => '領取詳情',
+    'plugin.red_packet.claims_people'=> '{count} 人',
+    'plugin.red_packet.no_claims'    => '還沒有人領取，快來搶沙發！',
+    'plugin.red_packet.best_hand'    => '手氣最佳',
+    'plugin.red_packet.back_list'    => '← 返回紅包列表',
+
+    // 帖子內嵌紅包（thread_redpacket_area / post_create_extra / detail 來源連結）
+    'plugin.red_packet.thread_card_title'    => '🧧 樓主紅包',
+    'plugin.red_packet.thread_remaining'     => '剩餘 {count} / {total} 個',
+    'plugin.red_packet.thread_claimed'       => '已搶 +{points}',
+    'plugin.red_packet.thread_mine'          => '我發的紅包',
+    'plugin.red_packet.thread_login'         => '登入後搶',
+    'plugin.red_packet.thread_create_hint'   => '發帖附帶紅包，其他人可搶',
+    'plugin.red_packet.thread_create_min_hint' => '總積分不能小於個數；不填則不帶紅包',
+    'plugin.red_packet.from_thread'          => '來自帖子：《{title}》',
+
+    // 控制器訊息
+    'plugin.red_packet.err_points_lt_count' => '總積分不能小於紅包個數（每個紅包至少1積分）',
+    'plugin.red_packet.err_count_range'     => '紅包個數須在 1~100 之間',
+    'plugin.red_packet.err_points_min'      => '總積分至少為1',
+    'plugin.red_packet.err_points'          => '積分不足',
+    'plugin.red_packet.created'             => '紅包建立成功！共 {points} 積分，{count} 個',
+    'plugin.red_packet.err_create'          => '建立紅包失敗，請稍後重試',
+    'plugin.red_packet.err_not_found'       => '紅包不存在',
+    'plugin.red_packet.err_expired'         => '紅包已過期',
+    'plugin.red_packet.err_empty'           => '紅包已被搶完',
+    'plugin.red_packet.err_already'         => '你已經搶過這個紅包了',
+    'plugin.red_packet.err_calc'            => '紅包金額計算異常',
+    'plugin.red_packet.grabbed'             => '恭喜！搶到 {points} 積分 🧧',
+    'plugin.red_packet.err_grab'            => '搶紅包失敗，請稍後重試',
+];
