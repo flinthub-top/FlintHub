@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SplitDB-CORE 全量代码审计报告</title>
+<style>
+  :root{
+    --ink:#1a1b1c; --mut:#6b7280; --line:#e5e7eb; --bg:#f7f8fa;
+    --h:#c0392b; --m:#d68910; --l:#1f6feb; --i:#6b7280;
+    --ok:#27ae60; --card:#fff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;font-size:15px}
+  .wrap{max-width:980px;margin:0 auto;padding:24px 20px 64px}
+  h1{font-size:26px;margin:8px 0 4px}
+  h2{font-size:20px;margin:36px 0 12px;border-left:4px solid var(--ink);padding-left:10px}
+  h3{font-size:16px;margin:20px 0 8px}
+  .sub{color:var(--mut);font-size:13px;margin-bottom:20px}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 8px}
+  .pill{background:#eef1f5;border:1px solid var(--line);border-radius:20px;padding:3px 12px;font-size:12px;color:#374151}
+  .verdict{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin:18px 0}
+  .verdict b{color:var(--h)}
+  table{width:100%;border-collapse:collapse;background:var(--card);font-size:13.5px}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:#f0f2f5;font-weight:600}
+  .sev{display:inline-block;min-width:58px;text-align:center;border-radius:4px;padding:1px 6px;font-size:12px;font-weight:600;color:#fff}
+  .sH{background:var(--h)} .sM{background:var(--m)} .sL{background:var(--l)} .sI{background:var(--i)}
+  .loc{font-family:Consolas,Menlo,monospace;font-size:12px;color:#0b5394;background:#eef3f8;padding:0 5px;border-radius:3px;white-space:nowrap}
+  .find{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:14px 18px;margin:12px 0}
+  .find h4{margin:0 0 6px;font-size:15px}
+  .find .tag{font-size:12px;color:var(--mut)}
+  .note{background:#fff8e6;border:1px solid #f0e0a8;border-radius:8px;padding:10px 14px;font-size:13px;margin:8px 0}
+  .good{background:#eefaf1;border:1px solid #bfe6cb;border-radius:8px;padding:10px 14px;font-size:13px;margin:8px 0}
+  .chartbox{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin:14px 0}
+  #chart{width:100%;height:400px}
+  .noscript{color:var(--mut);font-size:12px}
+  code{font-family:Consolas,Menlo,monospace;background:#f1f3f5;padding:1px 5px;border-radius:3px;font-size:13px}
+  .src{font-size:12px;color:var(--mut)}
+  footer{margin-top:48px;color:var(--mut);font-size:12px;border-top:1px solid var(--line);padding-top:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>SplitDB-CORE 全量代码审计报告</h1>
+<div class="sub">FlintHub 1.0 (SplitDB) — 分片 SQLite 存储引擎核心 | 只读审计，未改动任何程序代码</div>
+
+<div class="meta">
+  <span class="pill">审计目录：<b>D:\phpstudy_pro\WWW\app\SplitDB</b></span>
+  <span class="pill">覆盖文件：10 个 PHP + readme.md</span>
+  <span class="pill">运行环境实测：PHP 8.2.9 / SQLite 3.39.2 / CLI 无 APCu</span>
+  <span class="pill">审计日期：2026-09-02</span>
+</div>
+
+<div class="verdict">
+  <b>总体结论：</b>代码质量在同类自研存储引擎中属于上乘——事务边界、索引设计、降级路径、幂等建表均有详细注释与明确取舍依据，参数绑定覆盖彻底，未发现可直接利用的 SQL 注入/路径穿越面。<br>
+  <b>需要优先处理：</b>3 类中高危风险——① 跨季度编辑正文时旧归档索引作废失效（实测确认，可致编辑静默不生效）；② 单条大语句批量 INSERT 依赖 SQLite 编译期变量上限（默认 999 上限的主机上长文发帖会整体回滚）；③ 浏览量计数 APCu 键无 TTL、先扣后落库导致计数丢失/内存增长。其余为中低危健壮性、并发、运维类问题。
+</div>
+
+<div class="chartbox">
+  <h3 style="margin-top:0">发现数量分布：维度 × 严重度</h3>
+  <div id="chart"></div>
+  <div class="noscript" id="chartFallback">（图表由 ECharts 渲染；若 CDN 不可用，请直接参考下方按严重度排列的清单表。）</div>
+</div>
+
+<h2>一、审计范围与方法</h2>
+<ul>
+  <li><b>范围</b>：<code>D:\phpstudy_pro\WWW\app\SplitDB</code> 下全部 10 个 PHP 文件 + readme.md。调用方（app\Core\Database、Segmenter、Search、Thread 等）不在本目录，涉及跨模块契约处单列说明。</li>
+  <li><b>方法</b>：全量逐行阅读 → 静态审计（安全/正确性/并发/性能/架构/可维护性）→ 实证验证：<code>php -l</code> 全文件语法校验通过；Windows rename 覆盖行为、SQLite 变量上限、ExternStorage 同季度/跨季度编辑作废链路均用独立探针脚本实测（探针已删除，未留下任何文件）。</li>
+  <li><b>约束</b>：未修改、未新建任何程序代码；探针仅在系统临时目录运行。</li>
+</ul>
+
+<h2>二、关键发现总表（按严重度）</h2>
+<table>
+  <tr><th>编号</th><th>严重度</th><th>维度</th><th>位置</th><th>问题摘要</th></tr>
+  <tr><td>H-01</td><td><span class="sev sH">高危</span></td><td>正确性</td><td><span class="loc">ExternStorage.php:71-123</span></td><td>跨季度编辑时旧归档 .idx 作废失效 → 编辑可能静默不生效（实测确认）</td></tr>
+  <tr><td>H-02</td><td><span class="sev sH">高危</span></td><td>性能/移植</td><td><span class="loc">SearchIndexStore.php:203-215</span></td><td>单条巨型 INSERT 依赖 SQLITE_MAX_VARIABLE_NUMBER，默认 999 宿主上长文索引整体回滚</td></tr>
+  <tr><td>M-01</td><td><span class="sev sM">中危</span></td><td>并发/缓存</td><td><span class="loc">ViewCounter.php:30-33,73-99</span></td><td>APCu 键无 TTL 只减不删（内存增长）；先 apcu_dec 后落库，DB 失败丢计数</td></tr>
+  <tr><td>M-02</td><td><span class="sev sM">中危</span></td><td>并发</td><td><span class="loc">DBFactory.php:86-93,106-121</span></td><td>closeAll 内 foreach+置 null 为无效代码；LRU 淘汰不检查活动事务</td></tr>
+  <tr><td>M-03</td><td><span class="sev sM">中危</span></td><td>可维护性</td><td><span class="loc">ExternStorage.php:42-49,111-116</span></td><td>Windows rename 兜底基于过时前提（PHP8.2 实测可覆盖），且两处 rename 处理不一致</td></tr>
+  <tr><td>M-04</td><td><span class="sev sM">中危</span></td><td>架构/运维</td><td><span class="loc">Queue.php / QueueConsumer.php</span></td><td>done/failed 任务永不清理；每队列文件需独立 worker，否则多队列积压</td></tr>
+  <tr><td>M-05</td><td><span class="sev sM">中危</span></td><td>并发</td><td><span class="loc">QueueConsumer.php:57-76</span></td><td>recoverTimeout 仅空闲时触发，高吞吐下挂起任务回收延迟</td></tr>
+  <tr><td>M-06</td><td><span class="sev sM">中危</span></td><td>正确性</td><td><span class="loc">ExternStorage.php:143-158</span></td><td>read 端 APCu 缓存写入与 write 端新值竞态，600s 窗口可能读到旧正文</td></tr>
+  <tr><td>M-07</td><td><span class="sev sM">中危</span></td><td>性能</td><td><span class="loc">SearchIndexStore.php:268-330</span></td><td>高频词查询把全部去重 target 装入 PHP 内存，无上限保护</td></tr>
+  <tr><td>M-08</td><td><span class="sev sM">中危</span></td><td>架构</td><td><span class="loc">Schema.php:307-340,619-681</span></td><td>过渡期三份真相（business.threads/posts、分片桶、main_index）一致性完全依赖外部调用方</td></tr>
+  <tr><td>L-01</td><td><span class="sev sL">低危</span></td><td>安全</td><td><span class="loc">Schema.php:96-144</span></td><td>data/ web 防护依赖部署（Nginx 需外部 config，Apache 需 AllowOverride 开启）</td></tr>
+  <tr><td>L-02</td><td><span class="sev sL">低危</span></td><td>健壮性</td><td><span class="loc">Queue.php:88</span></td><td>json_encode 无失败检测，非法 UTF-8 载荷静默存空串</td></tr>
+  <tr><td>L-03</td><td><span class="sev sL">低危</span></td><td>正确性</td><td><span class="loc">ShardRouter.php:51-55</span></td><td>quarter(0) 因 falsy 判断回退当前季度，语义边界</td></tr>
+  <tr><td>L-04</td><td><span class="sev sL">低危</span></td><td>正确性</td><td><span class="loc">Schema.php:763-780</span></td><td>缺失归档桶读路径静默重建空库，掩盖真实数据缺失</td></tr>
+  <tr><td>L-05</td><td><span class="sev sL">低危</span></td><td>架构</td><td><span class="loc">Schema.php:153-225</span></td><td>默认数据固定 id + INSERT OR IGNORE，删掉默认项后重跑 bootstrap 会复活</td></tr>
+  <tr><td>L-06</td><td><span class="sev sL">低危</span></td><td>健壮性</td><td><span class="loc">ShardRouter.php:157,170 等</span></td><td>多处 mkdir / file_put_contents 未加 @，与周边 @ 风格不一致</td></tr>
+  <tr><td>L-07</td><td><span class="sev sL">低危</span></td><td>一致性</td><td><span class="loc">ExternStorage.php:37-49</span></td><td>正文文件无 fsync，断电可能丢最近写入（WAL 不覆盖正文文件）</td></tr>
+  <tr><td>L-08</td><td><span class="sev sL">低危</span></td><td>安全/信息</td><td><span class="loc">CountingPDO.php:23-38</span></td><td>页脚暴露“总 SQL”内部遥测计数（轻微信息暴露）</td></tr>
+</table>
+
+<h2>三、高危问题详解</h2>
+
+<div class="find">
+  <h4>H-01 · 跨季度编辑时旧归档索引作废失效，编辑可能静默不生效</h4>
+  <div class="tag"><span class="loc">ExternStorage.php:71-123</span> invalidateArchiveEntry() 按「新 relPath 所在目录」计算 .idx 路径</div>
+  <p><b>机理</b>：正文编辑后 <code>write()</code> 用当前季度生成新 .txt 路径，然后调 <code>invalidateArchiveEntry()</code> 去删除旧 .idx 条目。但该方法用 <b>新路径的目录</b> 拼 .idx 文件名，而归档 .bin/.idx 位于<b>原始季度目录</b>。同季度编辑时两者同目录、可命中；跨季度（如 18 个月归档后的老帖被编辑）时，新路径目录下没有 .idx → 提前 return，<b>旧 .idx 条目永不作废</b>。</p>
+  <div class="note"><b>实测确认</b>：构造「归档在 2026Q2、编辑写 2026Q4」场景，Q2 的 22000.idx 中 22005 条目未被动过（探针输出：<code>old Q2 idx intact? YES</code>）。此时若调用方未同步重写 bucket 行的 extern_path，读取链路将命中旧 .bin 归档 → <b>用户编辑后看到的仍是旧正文</b>，且无任何报错。</div>
+  <p><b>触发条件</b>：① 被编辑正文的归档与编辑发生在不同季度（常见于 18 个月归档机制 + 老帖二次编辑）；② 调用方编辑时未重写 extern_path。<b>修复方向</b>：作废应基于旧路径（或在写入时按「原归档目录」扫描作废），而非仅新路径。</p>
+</div>
+
+<div class="find">
+  <h4>H-02 · 单条巨型 INSERT 的占位符数量依赖编译期 SQLITE_MAX_VARIABLE_NUMBER</h4>
+  <div class="tag"><span class="loc">SearchIndexStore.php:203-215</span> writeIndex() 一次性内联全部 token</div>
+  <p><b>机理</b>：整篇索引把全部词条放进<b>一条</b>多行 INSERT（每词条 2 个占位符 + 3 个共享参数）。SQLite 的单语句变量数上限由编译期宏决定：<b>默认编译为 999</b>，约 330 词条即触发 <code>too many SQL variables</code>；本机 phpstudy 构建实测上限 <b>32766</b>（约 1.6 万词条）。</p>
+  <div class="note"><b>实证</b>：本机 SQLite 3.39.2 上限实测 32766；但代码注释宣称兼容 SQLite 3.33 基线、面向低配虚拟主机——这些宿主很可能使用默认编译（上限 999）。中文长文分词可达数千词条，在默认宿主上 <b>整个索引事务回滚 → 发帖/改帖直接失败</b>，且为运行时才暴露。</div>
+  <p><b>修复方向</b>：按固定块（如每 200~300 词条）分多条 INSERT，块间共用同一事务。</p>
+</div>
+
+<div class="find">
+  <h4>M-01 · 浏览量计数：APCu 键无 TTL 只减不删 + 先扣后落库</h4>
+  <div class="tag"><span class="loc">ViewCounter.php:30-33,73-99</span></div>
+  <p>① <code>inc()</code> 的 <code>apcu_inc(key,1)</code> 未传 TTL，对不存在键会新建且<b>永不过期</b>；<code>flush()</code> 用 <code>apcu_dec</code> 扣到 0 但<b>从不删除键</b> → 每个被访问过的主题永久占用一个 APCu 键，键数量随历史访问主题数无限增长（低配宿主 APCu 共享内存压力）。② <code>flush()</code> 先 <code>apcu_dec</code> 再 UPDATE 落库：若落库过程中 DB 抛错回滚，APCu 计数已扣、无法恢复 → <b>该批浏览量丢失</b>。③ 30s 节流文件读写非原子，多 FPM worker 下节流形同虚设（写锁串行化可避免重复计数，但节流本意失效）。</p>
+</div>
+
+<h2>四、中危问题摘要</h2>
+<table>
+  <tr><th>编号</th><th>问题</th><th>影响 / 建议</th></tr>
+  <tr><td>M-02</td><td><code>DBFactory::closeAll()</code> 内 <code>foreach + $pdo=null</code> 是无效代码（foreach 传值拷贝，置 null 不影响数组），真实清理靠 <code>$connections=[]</code>；<code>evictLRU()</code> 淘汰时未检查句柄是否处于活动事务</td><td>误导性死代码建议删除；极端场景（请求内开多库 + 事务句柄空闲超 7 个）可能静默回滚未提交事务——概率低但建议淘汰前检查 <code>$pdo->inTransaction()</code></td></tr>
+  <tr><td>M-03</td><td><code>write()</code> 的 Windows 兜底（unlink 旧目标再 rename）基于过时前提——实测 PHP 8.2 Windows 下 <code>rename()</code> 可原子覆盖已存在文件；且 <code>write()</code> 有兜底、<code>invalidateArchiveEntry()</code> 无兜底，两处不一致</td><td>兜底分支若真触发（旧版 PHP），删旧+改名窗口内读取会短暂失败/读空；建议统一并删除过时注释</td></tr>
+  <tr><td>M-04</td><td>队列表只增不删：done/failed 永不清理，queue_*.sqlite 无限增长；<code>QueueConsumer</code> 每个实例绑定单个队列文件</td><td>需 purge 策略；部署时必须每队列文件各起一个 worker，否则 queue_1/2 积压永不消费（文档未明确）</td></tr>
+  <tr><td>M-05</td><td><code>recoverTimeout()</code> 只在「无 pending 任务」（空闲）时调用</td><td>高吞吐下崩溃任务卡在 processing 无法及时回收重试；建议每 N 次循环或按时间戳节流调用</td></tr>
+  <tr><td>M-06</td><td>read 端 <code>apcu_store('extern_'.$id, …)</code> 可能在 write 端已写入新值后，用旧内容覆盖缓存</td><td>600s 窗口内读到旧正文的窄竞态；建议写端缓存键带版本或写后延迟刷新读缓存</td></tr>
+  <tr><td>M-07</td><td><code>countTargets()</code> / <code>searchByTokens()</code> 对高频词把所有去重 target 装入 PHP 数组（O(结果集)）</td><td>超大结果集内存压力；建议按 take 分页或用 SQL 端去重计数</td></tr>
+  <tr><td>M-08</td><td>过渡期三份真相并存：business.threads/posts（退役中）、分片桶 topic/reply、main_index 索引，同步完全依赖外部调用方</td><td>任一路径漏写即静默漂移；建议明确「唯一真相源」并尽早退役 transitional 表，或加启动时对账</td></tr>
+</table>
+
+<h2>五、低危与提示</h2>
+<table>
+  <tr><th>编号</th><th>问题</th></tr>
+  <tr><td>L-01</td><td>data/ 防护文件只在 Apache/IIS 生效；Nginx 需外部 nginx-server.conf deny、Apache 需 AllowOverride 开启，否则 data/ 下 SQLite（含密码哈希/会话）可被 HTTP 直下——上线前需按部署环境核对</td></tr>
+  <tr><td>L-02</td><td><code>Queue::push</code> 的 json_encode 未检查失败（非法 UTF-8 载荷 → false → 存空串，任务静默损坏）</td></tr>
+  <tr><td>L-03</td><td><code>ShardRouter::quarter($ts)</code> 用 <code>$ts ?: time()</code>，时间戳 0 会回退当前季度（对业务无实际影响，但语义边界不严谨）</td></tr>
+  <tr><td>L-04</td><td><code>Schema::bucketFromPath</code> 对不存在的归档桶会静默建空库并建表 → 读到空数据而非报错，掩盖真实缺失</td></tr>
+  <tr><td>L-05</td><td>seedDefaults 固定 id + INSERT OR IGNORE：管理员删除默认版块/分类后重跑 bootstrap 会被复活</td></tr>
+  <tr><td>L-06</td><td>多处 mkdir / file_put_contents 未加 @，磁盘满/权限问题时冒 PHP warning（与周边 @ 风格不一致）</td></tr>
+  <tr><td>L-07</td><td>extern 正文写 tmp + rename 未 fsync；断电可能丢最近正文写入（SQLite 侧有 WAL 兜底，正文文件无）</td></tr>
+  <tr><td>L-08</td><td>CountingPDO 全量计数经页脚“总 SQL”展示，为内部遥测轻微信息暴露（无安全实质影响）</td></tr>
+</table>
+
+<h2>六、安全专项结论</h2>
+<div class="good">
+  <b>未发现可直接利用的漏洞：</b>全部用户输入走参数绑定；唯一字符串内联为 int 白名单（deleteTargets 已 intval）；bucket_path / extern_path 均经正则白名单约束后拼路径，无注入与目录穿越面；PDO 持久连接红线已禁止；WAL + busy_timeout + synchronous=NORMAL 配置合理。
+</div>
+<table>
+  <tr><th>关注点</th><th>结论</th></tr>
+  <tr><td>SQL 注入</td><td>无（全参数化 + int 白名单内联）</td></tr>
+  <tr><td>路径穿越</td><td>无（正则白名单：<code>\d{4}Q\d</code> / <code>\d+</code>）</td></tr>
+  <tr><td>存储型 XSS</td><td>引擎按 HTML 原样存取 extern 正文（ExternStorage），XSS 防线完全在应用层输出侧——本目录无法验证；建议对正文输出做白名单过滤/转义，属集成红线</td></tr>
+  <tr><td>数据目录直下</td><td>部署依赖（见 L-01），Apache/IIS 有自动防护，Nginx 需外部配置</td></tr>
+  <tr><td>会话/密码哈希</td><td>sessions 独立库、用户密码哈希在 business.sqlite，均在 data/ 下受目录防护保护</td></tr>
+  <tr><td>计数/遥测</td><td>页脚“总 SQL”轻微信息暴露（L-08），无实质风险</td></tr>
+</table>
+
+<h2>七、架构与设计评价</h2>
+<div class="good">
+  <b>做得好的地方：</b>
+  <ul>
+    <li>事务边界严谨：IDGenerator 用 BEGIN IMMEDIATE 规避 PDO-SQLite 混用 commit 的 “no active transaction” 陷阱，并有明确注释；对 SQLite 3.33 基线的兼容取舍清晰。</li>
+    <li>索引设计有实测依据与回退记录（如撤销覆盖索引避免列表查询 TEMP B-TREE 回归、uid 复合索引防规划器误选），说明走过真实调优。</li>
+    <li>降级路径完备：无 APCu 静默降级、.bin/.idx 缺失回退 .txt、正文 16MB 长度防御、队列防挂起 CAS + 超时恢复。</li>
+    <li>幂等建表 + PRAGMA 补列策略完整，老库升级路径安全；目录防护文件覆盖 Apache/IIS/Nginx 三场景。</li>
+    <li>命名规范、注释质量高（含白皮书章节引用、修复日期标注），可维护性好。</li>
+  </ul>
+</div>
+<table>
+  <tr><th>维度</th><th>评价</th></tr>
+  <tr><td>扩展性</td><td>季度 + 哈希双层分片、读取以 bucket_path 为准的零迁移扩容设计合理；扩容仅影响新写入，旧桶冻结是刻意取舍</td></tr>
+  <tr><td>写放大</td><td>全局 ID 单锁（global_id.sqlite BEGIN IMMEDIATE）为全站写入串行点，低并发社区可接受；高并发下是吞吐上限（架构提示）</td></tr>
+  <tr><td>队列模式</td><td>默认 queue_mode=sync，即“异步架构”默认同步执行；cli/cron 模式才真正异步（最终一致性）——需在文档中明确预期</td></tr>
+  <tr><td>连接池</td><td>8 句柄 LRU 为单请求级（非持久连接），请求内多库触顶会重复开关文件；对常规页面负载无影响</td></tr>
+</table>
+
+<h2>八、建议修复优先级</h2>
+<table>
+  <tr><th>优先级</th><th>动作</th></tr>
+  <tr><td>P0（先做）</td><td>H-01：作废逻辑改为按「旧归档目录」处理或传入旧路径；H-02：writeIndex 分块 INSERT</td></tr>
+  <tr><td>P1</td><td>M-01：flush 改为「落库成功后再 apcu_dec」、对归零键 apcu_delete、inc 传 TTL；M-02：closeAll 清理死代码 + 淘汰前检查 inTransaction</td></tr>
+  <tr><td>P2</td><td>M-03~M-08：统一 rename 策略、队列 purge + 每队列 worker 文档化、recoverTimeout 定时触发、读缓存竞态、内存上限、明确唯一真相源</td></tr>
+  <tr><td>P3</td><td>L-01~L-08 按部署与代码规范逐项收尾</td></tr>
+</table>
+
+<footer>
+  本报告基于 2026-09-02 全量逐行审计 + PHP 8.2.9 / SQLite 3.39.2 运行环境实证验证。未修改任何程序代码；验证探针为临时脚本，已删除。<br>
+  跨模块依赖（app\Core\Database、Segmenter、Search::searchByIndex 等）不在本目录，相关结论以契约风险形式标注。
+</footer>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<script>
+(function(){
+  try{
+    if(typeof echarts === 'undefined'){ return; }
+    var chart = echarts.init(document.getElementById('chart'));
+    var option = {
+      backgroundColor: 'transparent',
+      tooltip: { trigger: 'axis', triggerOn: 'click', renderMode: 'richText', confine: true, textStyle: {fontSize:11, lineHeight:15}, padding:[6,8] },
+      legend: { top: 8, itemWidth: 14, itemHeight: 8, textStyle: {color:'#6B7280', fontSize: 12} },
+      grid: { left: 44, right: 20, top: 48, bottom: 8, containLabel: true },
+      xAxis: { type: 'category', data: ['正确性/一致性','并发与锁','性能/扩展','安全','架构/一致性','可维护性/健壮性'], axisLabel: {color:'#555', fontSize: 11, interval: 0}, axisTick:{alignWithLabel:true} },
+      yAxis: { type: 'value', name: '发现数', minInterval: 1, axisLabel: {color:'#555', fontSize: 11} },
+      series: [
+        { name: '高危', type: 'bar', stack: 's', barMaxWidth: 40, itemStyle: {color:'#c0392b'}, data: [1,0,1,0,0,0] },
+        { name: '中危', type: 'bar', stack: 's', itemStyle: {color:'#d68910'}, data: [1,3,1,0,2,1] },
+        { name: '低危', type: 'bar', stack: 's', itemStyle: {color:'#1f6feb'}, data: [3,0,0,2,1,2] }
+      ]
+    };
+    chart.setOption(option);
+    window.addEventListener('resize', function(){ chart.resize(); });
+    document.getElementById('chartFallback').style.display = 'none';
+  }catch(e){
+    document.getElementById('chartFallback').textContent = '图表加载失败：' + e.message + '（请参考上方表格）';
+  }
+})();
+</script>
+</body>
+</html>
