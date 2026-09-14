@@ -1,0 +1,153 @@
+/*
+Theme Name: 紫罗兰 🟣
+Theme URI: modern-purple
+Author: SoSite
+Description: 高雅紫罗兰色调，神秘而富有质感
+Version: 1.1
+Color: #7c3aed
+*/
+
+:root {
+    /* 主色 */
+    --mn-primary: #7c3aed;
+    --mn-primary-hover: #6d28d9;
+    --mn-primary-light: #f3e8ff;
+    --mn-primary-subtle: #f5f0ff;
+
+    /* 背景 */
+    --mn-bg: #ffffff;
+    --mn-bg-body: #f6f5f8;
+    --mn-bg-card: #ffffff;
+    --mn-bg-nav: #2d1b69;
+    --mn-bg-sidebar: #ffffff;
+    --mn-bg-row-hover: #f5f0ff;
+    --mn-bg-input: #ffffff;
+    --mn-bg-tag: #f3e8ff;
+
+    /* 文字 */
+    --mn-text: #1a1a2e;
+    --mn-text-secondary: #5b5b6e;
+    --mn-text-muted: #9ca3af;
+    --mn-text-inverse: #ffffff;
+    --mn-text-link: #7c3aed;
+    --mn-text-nav: #e2d9f5;
+    --mn-text-nav-hover: #ffffff;
+    --mn-bg-nav-hover: rgba(255,255,255,0.12);
+
+    /* 边框 */
+    --mn-border: #e4e0ed;
+    --mn-border-light: #efeaf5;
+    --mn-divider: #f0ecf5;
+
+    /* 语义色 */
+    --mn-success: #22c55e;
+    --mn-error: #ef4444;
+    --mn-warning: #f59e0b;
+
+    /* 标签 */
+    --mn-tag-bg: #f3e8ff;
+    --mn-tag-text: #7c3aed;
+    --mn-tag-hot-bg: #fef2f2;
+    --mn-tag-hot-text: #dc2626;
+    --mn-tag-elite-bg: #fefce8;
+    --mn-tag-elite-text: #a16207;
+
+    /* 白字（主色底/深色底上的文字） */
+    --mn-text-white: #ffffff;
+
+    /* 标签-警告 */
+    --mn-tag-warning-bg: #fef3c7;
+    --mn-tag-warning-text: #d97706;
+
+    /* 提示框 */
+    --mn-alert-success-bg: #f0fdf4;
+    --mn-alert-success-text: #16a34a;
+    --mn-alert-success-border: #bbf7d0;
+    --mn-alert-error-bg: #fef2f2;
+    --mn-alert-error-text: #dc2626;
+    --mn-alert-error-border: #fecaca;
+
+    /* 正文内容（帖子/博客正文、表格） */
+    --mn-content-text: #3d3d52;
+    --mn-content-border: #e4e0ed;
+
+    /* 代码块（白天浅色：浅紫灰底 + 深紫字） */
+    --mn-code-bg: #f4f1fa;
+    --mn-code-text: #5b21b6;
+
+    /* 杂项 */
+    --mn-bg-theme-badge: rgba(124,58,237,0.14);
+    --mn-bg-strength-track: #ede9fe;
+
+    /* 阴影 */
+    --mn-shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+    --mn-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    --mn-shadow-dropdown: 0 4px 16px rgba(124,58,237,0.12);
+    --mn-shadow-dropdown-up: 0 -4px 16px rgba(124,58,237,0.12);
+    --mn-shadow-mobile-nav: 0 -2px 8px rgba(0,0,0,0.05);
+    --mn-shadow-primary-glow: 0 2px 8px rgba(124,58,237,0.35);
+    --mn-shadow-float: 0 2px 8px rgba(0,0,0,0.12);
+
+    /* 旧版通用变量（兼容 style.css / editor.css / 插件 CSS）：统一指向 --mn-* */
+    --primary-color: var(--mn-primary);
+    --primary-hover: var(--mn-primary-hover);
+    --bg-light: var(--mn-primary-subtle);
+    --bg-white: var(--mn-bg-card);
+    --border-color: var(--mn-border);
+    --text-dark: var(--mn-text);
+    --text-muted: var(--mn-text-muted);
+    --success-color: var(--mn-success);
+
+    /* 编辑器（WYSIWYG / Markdown） */
+    --mn-editor-toolbar-bg: #faf8fd;
+    --mn-editor-tab-hover-bg: rgba(124,58,237,0.06);
+    --mn-editor-btn-text: #5b5b6e;
+    --mn-editor-btn-hover-bg: #f3e8ff;
+    --mn-editor-btn-hover-text: #6d28d9;
+    --mn-editor-btn-press-bg: #ede9fe;
+    --mn-editor-separator-bg: #d8cce8;
+    --mn-editor-placeholder-text: #b8a8d0;
+    --mn-editor-quote-bg: #f5f0ff;
+    --mn-editor-quote-text: #5b5b6e;
+    --mn-editor-quote-bg-2: #faf8fd;
+    --mn-editor-quote-text-2: #5b5b6e;
+    --mn-editor-code-inline-bg: #f3e8ff;
+    --mn-editor-code-inline-text: #9333ea;
+    --mn-editor-table-border: #e4e0ed;
+    --mn-editor-table-th-bg: #f5f0ff;
+    --mn-editor-emoji-border: #e4e0ed;
+    --mn-editor-emoji-hover-bg: #f3e8ff;
+    --mn-editor-btn-highlight-bg: #ede9fe;
+    --mn-editor-btn-highlight-text: #7c3aed;
+    --mn-editor-btn-highlight-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    --mn-editor-word-count-text: #9ca3af;
+
+    /* 旧组件（components.css） */
+    --mn-comp-tag-hot-bg: #fef2f2;
+    --mn-comp-tag-hot-text: #dc2626;
+    --mn-comp-tag-danger-bg: #fce4ec;
+    --mn-comp-tag-danger-text: #be185d;
+    --mn-comp-alert-error-bg: #fee;
+    --mn-comp-alert-error-border: #f00;
+    --mn-comp-alert-error-text: #c00;
+    --mn-comp-alert-success-bg: #d4edda;
+    --mn-comp-alert-success-border: #28a745;
+    --mn-comp-alert-success-text: #155724;
+    --mn-comp-alert-warning-bg: #fff3cd;
+    --mn-comp-alert-warning-border: #ffc107;
+    --mn-comp-alert-warning-text: #856404;
+    --mn-comp-input-border: #e4e0ed;
+    --mn-comp-label-text: #1a1a2e;
+    --mn-comp-hint-text: #9ca3af;
+    --mn-comp-btn-danger-bg: #dc2626;
+    --mn-comp-tag-badge-bg: #7c3aed;
+    --mn-comp-tag-badge-hover-bg: #6d28d9;
+    --mn-comp-vote-up-active: #ef4444;
+    --mn-comp-vote-up-hover-bg: #fef2f2;
+    --mn-comp-reply-lock-bg: #fef3c7;
+    --mn-comp-reply-lock-border: #f59e0b;
+    --mn-comp-pagination-active-bg: #7c3aed;
+    --mn-comp-swatch-border: #e4e0ed;
+    --mn-comp-preview-border: #e4e0ed;
+    --mn-comp-overlay-bg: rgba(0,0,0,0.85);
+}

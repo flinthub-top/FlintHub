@@ -1,0 +1,54 @@
+/* assets/css/style.css — 基础核心文件 */
+
+/* ===== 重置 ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: var(--bg-light);
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+
+}
+a:hover {
+    color: var(--primary-hover);
+}
+
+/* ===== 工具类（唯一，不重复components.css） ===== */
+.text-success { color: var(--success-color); }
+.hidden { display: none; }
+
+/* 全局图片溢出防护 */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ===== 内容卡片容器 ===== */
+.content-card {
+    background: var(--bg-white);
+    border-radius: 12px;
+    padding: 20px;
+}
+@media (max-width: 768px) {
+    .content-card {
+        padding: 6px;
+    }
+}
+@media (max-width: 480px) {
+    .content-card {
+        padding: 5px;
+        border-radius: 10px;
+    }
+}
+

@@ -1,0 +1,7 @@
+/* ===== 通知中心核心样式（通知插件内置化后收编） ===== */
+
+/* 通知卡片：未读高亮 */
+.noti-card { border: 1px solid var(--mn-border-light); }
+.noti-card.noti-unread { background: var(--mn-primary-subtle); }
+/* 类型图标背景（内联 CSS 变量注入） */
+.noti-circle { background: var(--noti-bg, var(--mn-primary)); }

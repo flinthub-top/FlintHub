@@ -1,0 +1,153 @@
+/*
+Theme Name: 暗夜星辰 🌌
+Theme URI: modern-night
+Author: SoSite
+Description: 深邃夜空蓝黑色调，沉稳科技感，护眼低蓝光
+Version: 1.0
+Color: #1e293b
+*/
+
+:root {
+    /* 主色 */
+    --mn-primary: #6366f1;
+    --mn-primary-hover: #4f46e5;
+    --mn-primary-light: #3b3f6b;
+    --mn-primary-subtle: #2b3054;
+
+    /* 背景 */
+    --mn-bg: #111c31;
+    --mn-bg-body: #0f172a;
+    --mn-bg-card: #1e293b;
+    --mn-bg-nav: #1e293b;
+    --mn-bg-sidebar: #16203a;
+    --mn-bg-row-hover: #263449;
+    --mn-bg-input: #16203a;
+    --mn-bg-tag: #263449;
+
+    /* 文字 */
+    --mn-text: #e2e8f0;
+    --mn-text-secondary: #94a3b8;
+    --mn-text-muted: #64748b;
+    --mn-text-inverse: #ffffff;
+    --mn-text-link: #818cf8;
+    --mn-text-nav: #cbd5e1;
+    --mn-text-nav-hover: #ffffff;
+    --mn-bg-nav-hover: rgba(255,255,255,0.12);
+
+    /* 边框 */
+    --mn-border: #2c3a4f;
+    --mn-border-light: #243145;
+    --mn-divider: #243145;
+
+    /* 语义色 */
+    --mn-success: #4ade80;
+    --mn-error: #f87171;
+    --mn-warning: #fbbf24;
+
+    /* 标签 */
+    --mn-tag-bg: #263449;
+    --mn-tag-text: #818cf8;
+    --mn-tag-hot-bg: #3b1f24;
+    --mn-tag-hot-text: #fca5a5;
+    --mn-tag-elite-bg: #3a3320;
+    --mn-tag-elite-text: #fcd34d;
+
+    /* 白字（主色底/深色底上的文字） */
+    --mn-text-white: #ffffff;
+
+    /* 标签-警告 */
+    --mn-tag-warning-bg: #3d3419;
+    --mn-tag-warning-text: #fbbf24;
+
+    /* 提示框 */
+    --mn-alert-success-bg: #12291a;
+    --mn-alert-success-text: #4ade80;
+    --mn-alert-success-border: #1f4030;
+    --mn-alert-error-bg: #2c1416;
+    --mn-alert-error-text: #f87171;
+    --mn-alert-error-border: #4a2326;
+
+    /* 正文内容（帖子/博客正文、表格） */
+    --mn-content-text: #cbd5e1;
+    --mn-content-border: #334155;
+
+    /* 代码块 */
+    --mn-code-bg: #0d1117;
+    --mn-code-text: #cdd6f4;
+
+    /* 杂项 */
+    --mn-bg-theme-badge: rgba(255,255,255,0.14);
+    --mn-bg-strength-track: #334155;
+
+    /* 阴影 */
+    --mn-shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+    --mn-shadow: 0 1px 3px rgba(0,0,0,0.35);
+    --mn-shadow-dropdown: 0 4px 16px rgba(0,0,0,0.45);
+    --mn-shadow-dropdown-up: 0 -4px 16px rgba(0,0,0,0.45);
+    --mn-shadow-mobile-nav: 0 -2px 8px rgba(0,0,0,0.4);
+    --mn-shadow-primary-glow: 0 2px 8px rgba(99,102,241,0.45);
+    --mn-shadow-float: 0 2px 8px rgba(0,0,0,0.5);
+
+    /* 旧版通用变量（兼容 style.css / editor.css / 插件 CSS）：统一指向 --mn-* */
+    --primary-color: var(--mn-primary);
+    --primary-hover: var(--mn-primary-hover);
+    --bg-light: var(--mn-primary-subtle);
+    --bg-white: var(--mn-bg-card);
+    --border-color: var(--mn-border);
+    --text-dark: var(--mn-text);
+    --text-muted: var(--mn-text-muted);
+    --success-color: var(--mn-success);
+
+    /* 编辑器（WYSIWYG / Markdown） */
+    --mn-editor-toolbar-bg: #111c31;
+    --mn-editor-tab-hover-bg: rgba(255,255,255,0.06);
+    --mn-editor-btn-text: #cbd5e1;
+    --mn-editor-btn-hover-bg: #263449;
+    --mn-editor-btn-hover-text: #f1f5f9;
+    --mn-editor-btn-press-bg: #2c3a4f;
+    --mn-editor-separator-bg: #334155;
+    --mn-editor-placeholder-text: #64748b;
+    --mn-editor-quote-bg: #16203a;
+    --mn-editor-quote-text: #94a3b8;
+    --mn-editor-quote-bg-2: #16203a;
+    --mn-editor-quote-text-2: #94a3b8;
+    --mn-editor-code-inline-bg: #263449;
+    --mn-editor-code-inline-text: #fca5a5;
+    --mn-editor-table-border: #334155;
+    --mn-editor-table-th-bg: #263449;
+    --mn-editor-emoji-border: #2c3a4f;
+    --mn-editor-emoji-hover-bg: #263449;
+    --mn-editor-btn-highlight-bg: #2c3a4f;
+    --mn-editor-btn-highlight-text: #818cf8;
+    --mn-editor-btn-highlight-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
+    --mn-editor-word-count-text: #64748b;
+
+    /* 旧组件（components.css） */
+    --mn-comp-tag-hot-bg: #3d3419;
+    --mn-comp-tag-hot-text: #fbbf24;
+    --mn-comp-tag-danger-bg: #3b1f24;
+    --mn-comp-tag-danger-text: #fca5a5;
+    --mn-comp-alert-error-bg: #2c1416;
+    --mn-comp-alert-error-border: #4a2326;
+    --mn-comp-alert-error-text: #f87171;
+    --mn-comp-alert-success-bg: #12291a;
+    --mn-comp-alert-success-border: #1f4030;
+    --mn-comp-alert-success-text: #4ade80;
+    --mn-comp-alert-warning-bg: #33291a;
+    --mn-comp-alert-warning-border: #4a3a1f;
+    --mn-comp-alert-warning-text: #fbbf24;
+    --mn-comp-input-border: #334155;
+    --mn-comp-label-text: #e2e8f0;
+    --mn-comp-hint-text: #64748b;
+    --mn-comp-btn-danger-bg: #b91c1c;
+    --mn-comp-tag-badge-bg: #6366f1;
+    --mn-comp-tag-badge-hover-bg: #4f46e5;
+    --mn-comp-vote-up-active: #f87171;
+    --mn-comp-vote-up-hover-bg: #3b1f24;
+    --mn-comp-reply-lock-bg: #3d3419;
+    --mn-comp-reply-lock-border: #b45309;
+    --mn-comp-pagination-active-bg: #6366f1;
+    --mn-comp-swatch-border: #334155;
+    --mn-comp-preview-border: #2c3a4f;
+    --mn-comp-overlay-bg: rgba(0,0,0,0.85);
+}

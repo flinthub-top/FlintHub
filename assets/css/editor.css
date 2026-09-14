@@ -1,0 +1,399 @@
+/* ===== WYSIWYG 编辑器样式 ===== */
+.editor-container {
+    border: 1px solid var(--border-color, #ddd);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    background: var(--bg-white, #fff);
+
+}
+
+/* === 模式切换选项卡 === */
+.editor-tabs {
+    display: flex;
+    background: var(--bg-light, #f5f5f5);
+    border-bottom: 1px solid var(--border-color, #ddd);
+    user-select: none;
+}
+
+.editor-tab {
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--text-muted, #666);
+    border-bottom: 2px solid transparent;
+
+}
+
+.editor-tab:hover {
+    color: var(--text-dark, #333);
+    background: var(--mn-editor-tab-hover-bg, rgba(0,0,0,0.03));
+}
+
+.editor-tab.active {
+    color: var(--primary-color, #0066cc);
+    border-bottom-color: var(--primary-color, #0066cc);
+    background: var(--bg-white, #fff);
+    font-weight: 600;
+}
+
+/* === 工具栏 === */
+.editor-toolbar {
+    background: var(--mn-editor-toolbar-bg, #f8f9fa);
+    border-bottom: 1px solid var(--border-color, #ddd);
+    padding: 6px 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    align-items: center;
+    user-select: none;
+}
+
+.editor-btn {
+    background: transparent;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 9px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--mn-editor-btn-text, #495057);
+    min-width: 30px;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.editor-btn .fa {
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+.editor-btn .fa-header sub {
+    font-size: 9px;
+    vertical-align: bottom;
+    line-height: 1;
+}
+
+.editor-btn:hover {
+    background: var(--mn-editor-btn-hover-bg, #e9ecef);
+    color: var(--mn-editor-btn-hover-text, #212529);
+}
+
+.editor-btn:active {
+    background: var(--mn-editor-btn-press-bg, #dee2e6);
+    transform: scale(0.95);
+}
+
+.editor-btn:focus-visible {
+    outline: 2px solid var(--primary-color, #0066cc);
+    outline-offset: 1px;
+}
+
+.editor-separator {
+    display: inline-block;
+    width: 1px;
+    height: 20px;
+    background: var(--mn-editor-separator-bg, #ced4da);
+    margin: 0 5px;
+    flex-shrink: 0;
+}
+
+/* === 编辑区域 === */
+.editor-editable {
+    padding: 16px;
+    height: 550px; /* PC 端固定高度：舒适展示长文本，长文由内部滚动承载 */
+    outline: none;
+    font-size: 15px;
+    line-height: 1.7;
+    font-family: inherit;
+    background: var(--bg-white, #fff);
+    color: var(--text-dark, #333);
+    overflow-y: auto;
+}
+
+.editor-editable:empty:before {
+    content: attr(data-placeholder);
+    color: var(--mn-editor-placeholder-text, #adb5bd);
+    pointer-events: none;
+}
+
+.editor-editable img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+}
+
+.editor-editable blockquote {
+    border-left: 4px solid var(--primary-color, #0066cc);
+    margin: 12px 0;
+    padding: 10px 18px;
+    background: var(--mn-editor-quote-bg, #f0f4ff);
+    color: var(--mn-editor-quote-text, #495057);
+    border-radius: 0 6px 6px 0;
+}
+
+.editor-editable pre {
+    background: var(--mn-code-bg, #1e1e2e);
+    color: var(--mn-code-text, #cdd6f4);
+    border: none;
+    border-radius: 6px;
+    padding: 14px 16px;
+    overflow-x: auto;
+    font-family: 'Cascadia Code', 'Fira Code', Consolas, Monaco, monospace;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.editor-editable code {
+    background: var(--mn-editor-code-inline-bg, #e9ecef);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Cascadia Code', 'Fira Code', Consolas, Monaco, monospace;
+    font-size: 13px;
+    color: var(--mn-editor-code-inline-text, #e03131);
+}
+
+.editor-editable pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+    border-radius: 0;
+    font-size: inherit;
+}
+
+.editor-editable table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+    table-layout: auto;
+    margin: 12px 0;
+    font-size: 14px;
+}
+
+.editor-editable th, .editor-editable td {
+    border: 1px solid var(--mn-editor-table-border, #dee2e6);
+    padding: 8px 12px;
+    text-align: left;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+.editor-editable th {
+    background: var(--mn-editor-table-th-bg, #f8f9fa);
+    font-weight: 600;
+}
+
+.editor-editable ul, .editor-editable ol {
+    padding-left: 24px;
+    margin: 8px 0;
+}
+
+.editor-editable li {
+    margin-bottom: 4px;
+}
+
+.editor-editable a {
+    color: var(--primary-color, #0066cc);
+    text-decoration: underline;
+}
+
+/* === Markdown 编辑区 === */
+.editor-md-wrap textarea {
+    font-family: 'Cascadia Code', 'Fira Code', Consolas, Monaco, monospace;
+    font-size: 15px;
+    background: var(--bg-white, #fff);
+    color: var(--mn-content-text, #333);
+    padding: 16px;
+    line-height: 1.7;
+    tab-size: 4;
+    resize: vertical;
+}
+.editor-md-wrap textarea:focus {
+    outline: none;
+}
+
+/* ===== 移动端 ===== */
+@media (max-width: 768px) {
+    .editor-toolbar {
+        padding: 5px;
+        gap: 1px;
+    }
+
+    .editor-btn {
+        height: 34px;
+        font-size: 15px;
+        padding: 4px 7px;
+        min-width: 28px;
+        border-radius: 4px;
+    }
+
+    .editor-separator {
+        height: 18px;
+        margin: 0 3px;
+    }
+
+    .editor-editable {
+        height: 300px; /* 移动端固定高度：配合软键盘，不遮挡输入区域 */
+        padding: 14px;
+        font-size: 15px;
+    }
+}
+
+/* ===== QQ 表情选择器 ===== */
+.emoji-picker {
+    position: fixed;
+    z-index: 99999;
+    width: 352px;
+    max-height: 260px;
+    background: var(--mn-bg-card, #fff);
+    border: 1px solid var(--mn-editor-emoji-border, #e0e0e0);
+    border-radius: 8px;
+
+    overflow-y: auto;
+    padding: 8px;
+}
+
+.emoji-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+}
+
+.emoji-item {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 4px;
+
+}
+
+.emoji-item:hover {
+    background: var(--mn-editor-emoji-hover-bg, #f0f0f0);
+}
+
+.emoji-item img {
+    display: block;
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+/* 帖子中显示的表情 */
+img.emoji-emotion {
+    display: inline-block;
+    vertical-align: middle;
+    width: 28px;
+    height: 28px;
+}
+
+/* ===== 按钮高亮状态（当前格式激活） ===== */
+.editor-toolbar .editor-btn-active {
+    background: var(--mn-editor-btn-highlight-bg, #d0d7de);
+    color: var(--mn-editor-btn-highlight-text, #0969da);
+    box-shadow: var(--mn-editor-btn-highlight-shadow, inset 0 1px 3px rgba(0,0,0,0.12));
+}
+
+/* ===== 颜色选择按钮 ===== */
+.editor-color-btn {
+    text-decoration: none;
+    position: relative;
+}
+.editor-color-btn::after {
+    content: '';
+    display: block;
+    width: 14px;
+    height: 3px;
+    border-radius: 2px;
+    background: currentColor;
+    margin: 1px auto 0;
+}
+
+/* ===== 颜色下拉面板 ===== */
+.editor-color-panel {
+    z-index: 100005;
+    background: var(--mn-bg-card, #fff);
+    border: 1px solid var(--mn-comp-input-border, #ddd);
+}
+.editor-color-panel div[style*="cursor:pointer"]:hover {
+    transform: scale(1.25);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    transition: transform 0.1s;
+}
+
+/* ===== 底部字数统计栏 ===== */
+.editor-footer-bar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 4px 12px;
+    background: var(--mn-editor-toolbar-bg, #f8f9fa);
+    border-top: 1px solid var(--border-color, #ddd);
+    user-select: none;
+}
+
+.editor-word-count {
+    font-size: 12px;
+    color: var(--mn-editor-word-count-text, #8b949e);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ===== 全屏模式 ===== */
+.editor-container.editor-fullscreen {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100000;
+    margin: 0;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-white, #fff);
+}
+.editor-fullscreen .editor-toolbar {
+    border-radius: 0;
+}
+.editor-fullscreen .editor-editable {
+    flex: 1;
+    overflow-y: auto;
+}
+.editor-fullscreen .editor-visual-wrap {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+}
+.editor-fullscreen .editor-md-wrap {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.editor-fullscreen .editor-md-textarea {
+    flex: 1;
+}
+
+/* ===== 编辑器内标签样式沙箱（防全局主题污染） ===== */
+.editor-editable h1,
+.editor-editable h2,
+.editor-editable h3 {
+    margin-top: 14px;
+    margin-bottom: 8px;
+    color: var(--text-dark, #333);
+    line-height: 1.4;
+}
+.editor-editable h1 { font-size: 1.8em; }
+.editor-editable h2 { font-size: 1.5em; }
+.editor-editable h3 { font-size: 1.25em; }
+.editor-editable blockquote {
+    margin: 10px 0;
+    padding: 10px 16px;
+    border-left: 4px solid var(--primary-color, #4f6ef7);
+    background: var(--mn-editor-quote-bg-2, #f4f5f7);
+    color: var(--mn-editor-quote-text-2, #555);
+    border-radius: 0 6px 6px 0;
+}

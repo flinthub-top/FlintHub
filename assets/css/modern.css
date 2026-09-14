@@ -1,0 +1,2780 @@
+/* =============================================
+   Morden 主题 — 主结构样式
+   全部颜色通过 CSS 变量控制，零硬编码
+   ============================================= */
+
+/* ===== 1. 重置 & 基础 ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { font-size: 14px; -webkit-font-smoothing: antialiased; overflow-y: auto; scrollbar-gutter: stable; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    background: var(--mn-bg-body);
+    color: var(--mn-text);
+    min-height: 100vh;
+    /* 视口滚动由 html 控制（overflow-y:auto + scrollbar-gutter:stable），
+       body 不再强制常显滚动条，避免内容不满一屏时右侧出现滚动条占位 */
+}
+
+a { color: var(--mn-text-link); text-decoration: none; }
+a:hover { color: var(--mn-primary-hover); }
+
+img { max-width: 100%; height: auto; }
+ul, ol { list-style: none; }
+input, textarea, select, button { font-family: inherit; font-size: inherit; outline: none; }
+table { border-collapse: collapse; width: 100%; }
+
+/* ===== 2. 容器 ===== */
+.mn-container {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ===== 3. 导航栏 ===== */
+.mn-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: var(--mn-nav-height);
+    background: var(--mn-bg-nav);
+    border-bottom: 1px solid var(--mn-border);
+    box-shadow: var(--mn-shadow-sm);
+}
+
+.mn-nav-inner {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    gap: 24px;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.mn-logo {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--mn-text-nav-hover);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: -0.3px;
+    padding: 6px 14px;
+    border-radius: 6px;
+    transition: color .15s, background-color .15s;
+}
+.mn-logo:hover {
+    background: var(--mn-bg-nav-hover);
+    color: var(--mn-text-nav-hover);
+}
+
+/* 两行 logo（前台导航：站点名 + 站点描述） */
+.mn-logo-stacked {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    line-height: 1.25;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+.mn-logo-line {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.mn-logo-desc {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--mn-text-nav);
+    letter-spacing: 0;
+    max-width: 220px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* 窄屏隐藏描述：规则已合并至「22b 统一响应式块」 */
+/* 移动端左侧抽屉（汉堡按钮 + 侧栏）：桌面隐藏，≤768px 显示 */
+.mn-drawer-toggle {
+    display: none;
+}
+.mn-drawer-logo-icon {
+    display: inline-flex;
+}
+.mn-drawer-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: rgba(15, 23, 42, 0.45);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    pointer-events: none;
+}
+.mn-drawer-overlay.mn-drawer-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+.mn-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    max-width: 85vw;
+    z-index: 1000;
+    background: var(--mn-bg-card);
+    box-shadow: 2px 0 16px rgba(0, 0, 0, 0.12);
+    transform: translateX(-110%);
+    transition: transform 0.22s ease;
+    display: flex;
+    flex-direction: column;
+}
+.mn-drawer.mn-drawer-open {
+    transform: translateX(0);
+}
+.mn-drawer-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--mn-border-light);
+}
+.mn-drawer-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--mn-text);
+}
+/* 抽屉头部站名 + 站点 logo 并排：inline-flex 垂直居中，logo 圆角 */
+.mn-drawer-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.mn-drawer-logo img {
+    display: block;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+.mn-drawer-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 22px;
+    line-height: 1;
+    color: var(--mn-text-muted);
+    padding: 2px 6px;
+}
+.mn-drawer-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 0 16px;
+}
+.mn-drawer-group-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 18px 6px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--mn-text);
+    text-decoration: none;
+}
+.mn-drawer-sublist {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.mn-drawer-sublist a {
+    display: block;
+    padding: 9px 18px 9px 46px;
+    font-size: 14px;
+    color: var(--mn-text-secondary);
+    text-decoration: none;
+}
+.mn-drawer-sublist a:active {
+    background: var(--mn-primary-subtle);
+}
+.mn-drawer-group-title.mn-drawer-active {
+    color: var(--mn-primary);
+}
+.mn-drawer-sublist a.mn-drawer-active {
+    color: var(--mn-primary);
+    font-weight: 700;
+    background: var(--mn-primary-subtle);
+}
+.mn-drawer-divider {
+    height: 1px;
+    background: var(--mn-border-light);
+    margin: 8px 0;
+}
+/* 抽屉按钮/导航 gap：规则已合并至「22b 统一响应式块」 */
+
+.mn-nav-spacer {
+    width: 0;
+    flex-shrink: 0;
+}
+
+@media (min-width: 769px) {
+    .mn-nav-spacer {
+        width: 220px;
+    }
+}
+
+.mn-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+    flex: 1;
+    margin-left: 20px;
+}
+
+.mn-nav-links a {
+    padding: 6px 14px;
+    border-radius: 6px;
+    color: var(--mn-text-nav);
+    font-size: 14px;
+    font-weight: 450;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: color .15s, background-color .15s;
+}
+.mn-nav-links a:hover {
+    background: var(--mn-bg-nav-hover);
+    color: var(--mn-text-nav-hover);
+}
+.mn-nav-links a.mn-active {
+    color: var(--mn-text-nav-hover);
+    font-weight: 600;
+    background: var(--mn-bg-nav-hover);
+}
+
+/* 语言切换（PC：button 不继承 .mn-nav-links a 的悬停，单独对齐搜索/主题图标悬停；
+   移动端：容器/下拉/高亮机制对齐应用图标 .mn-mobile-icon-apps / .mn-apps-dropdown） */
+.mn-nav-links .mn-nav-lang-btn,
+.mn-nav-right .mn-nav-lang-btn {
+    color: var(--mn-text-nav);
+    transition: color .15s, background-color .15s;
+}
+/* 语言按钮对齐导航链接字号(14px)：mn-btn-sm 的 12px 会让单模式下
+   「语言」文字与图标比搜索/主题小一号，PC 端导航内统一为 14px */
+.mn-nav-links .mn-nav-lang-btn {
+    font-size: 14px;
+}
+.mn-nav-links .mn-nav-lang-btn:hover,
+.mn-nav-right .mn-nav-lang-btn:hover {
+    background: var(--mn-bg-nav-hover);
+    color: var(--mn-text-nav-hover);
+}
+/* 移动端语言切换容器（对齐 .mn-mobile-icon-apps；仅命中移动端容器） */
+.mn-mobile-icon.mn-nav-lang {
+    position: relative;
+    cursor: pointer;
+    color: var(--mn-text-nav);
+}
+.mn-mobile-icon.mn-nav-lang:active,
+.mn-mobile-icon.mn-nav-lang.mn-lang-open {
+    background: var(--mn-bg-nav-hover);
+}
+/* 移动端语言下拉面板（对齐 .mn-apps-dropdown） */
+.mn-mobile-lang-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 8px;
+    background: var(--mn-bg-card);
+    border: 1px solid var(--mn-border);
+    border-radius: 10px;
+    box-shadow: var(--mn-shadow-dropdown);
+    min-width: 160px;
+    overflow: hidden;
+    z-index: 300;
+}
+/* 语言项：block 竖排，并覆盖 .mn-nav-right a 的 inline-flex（避免两个语言横排） */
+.mn-nav-right .mn-mobile-lang-dropdown a {
+    display: block;
+    padding: 10px 14px;
+    font-size: 14px;
+    color: var(--mn-text);
+    text-decoration: none;
+    transition: background 0.1s;
+}
+.mn-nav-right .mn-mobile-lang-dropdown a:hover {
+    background: var(--mn-bg-hover);
+}
+.mn-nav-lang.mn-lang-open .mn-mobile-lang-dropdown {
+    display: block;
+}
+
+.mn-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.mn-nav-right a {
+    padding: 6px 10px;
+    border-radius: 6px;
+    color: var(--mn-text-nav);
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: color .15s, background-color .15s;
+}
+.mn-nav-right a:hover {
+    background: var(--mn-bg-nav-hover);
+    color: var(--mn-text-nav-hover);
+}
+
+.mn-nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--mn-text-nav);
+    cursor: pointer;
+    padding: 6px;
+}
+
+/* 移动端图标 */
+@media (min-width: 769px) {
+    .mn-nav-right .mn-mobile-icon,
+    .mn-nav-right .mn-mobile-icon-apps {
+        display: none;
+    }
+}
+
+/* 移动端头像（供底部「我的」触发器复用） */
+.mn-mobile-avatar-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.mn-mobile-avatar-placeholder {
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    background: var(--mn-bg-nav-hover);
+    color: var(--mn-text-nav-hover);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.mn-mobile-avatar-divider {
+    height: 1px;
+    background: var(--mn-border-light);
+    margin: 0;
+}
+
+/* 移动端应用下拉 */
+.mn-mobile-icon-apps {
+    position: relative;
+    cursor: pointer;
+    color: var(--mn-text-nav);
+}
+.mn-apps-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 8px;
+    background: var(--mn-bg-card);
+    border: 1px solid var(--mn-border);
+    border-radius: 10px;
+    box-shadow: var(--mn-shadow-dropdown);
+    min-width: 160px;
+    overflow: hidden;
+    z-index: 300;
+}
+.mn-apps-dropdown a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    color: var(--mn-text);
+    text-decoration: none;
+    transition: background 0.1s;
+}
+.mn-apps-dropdown a:hover {
+    background: var(--mn-bg-hover);
+}
+.mn-nav-right.mn-apps-open .mn-apps-dropdown {
+    display: block;
+}
+
+/* 下拉菜单文字色钉住：菜单 DOM 嵌在导航栏内，深色主题下导航悬停文字色
+   （--mn-text-nav-hover 为白色）会经级联覆盖菜单链接文字，导致白字白底不可见；
+   此处以导航级作用域显式保持菜单文字为 --mn-text，悬停时同样不变 */
+.mn-nav-right .mn-apps-dropdown a {
+    color: var(--mn-text);
+}
+.mn-nav-right .mn-apps-dropdown a:hover {
+    color: var(--mn-text);
+}
+
+/* 移动端下拉触发器反馈（无动画）：按压高亮，打开期间持续高亮
+   注意：.mn-mobile-icon-apps 是展开面板的父级容器，不能加 transform
+   （缩放会连同面板一起抖动，并导致面板内链接点击失效） */
+.mn-mobile-icon-apps:active {
+    background: var(--mn-bg-nav-hover);
+}
+.mn-nav-right.mn-apps-open .mn-mobile-icon-apps {
+    background: var(--mn-bg-nav-hover);
+}
+
+/* ===== 4. 三栏主体 ===== */
+.mn-body {
+    display: flex;
+    gap: 20px;
+    padding-top: 20px;
+    padding-bottom: 50px;
+    min-height: calc(100vh - var(--mn-nav-height) - 60px);
+    max-width: 1320px;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* 左栏 */
+.mn-left {
+    width: var(--mn-left-width);
+    flex-shrink: 0;
+}
+
+/* 中栏 */
+.mn-center {
+    flex: 1;
+    min-width: 0;
+}
+
+/* 右栏 */
+.mn-right {
+    width: var(--mn-right-width);
+    flex-shrink: 0;
+}
+
+/* ===== 5. 卡片容器 ===== */
+.mn-card {
+    background: var(--mn-bg-card);
+    border: 1px solid var(--mn-border);
+    border-radius: 10px;
+    box-shadow: var(--mn-shadow-sm);
+    overflow: hidden;
+}
+
+.mn-card-header {
+    padding: 16px 20px 0;
+}
+.mn-card-body {
+    padding: 16px 20px;
+}
+.mn-card-footer {
+    padding: 12px 20px;
+    border-top: 1px solid var(--mn-border-light);
+}
+
+/* ===== 6. 面板（左右栏通用） ===== */
+.mn-panel {
+    background: var(--mn-bg-card);
+    border: 1px solid var(--mn-border);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: var(--mn-shadow-sm);
+}
+
+.mn-panel-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--mn-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--mn-border-light);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* ===== 7. 左栏：分类列表 ===== */
+.mn-cat-list li { margin-bottom: 1px; }
+
+.mn-cat-list a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 7px 10px;
+    border-radius: 6px;
+    color: var(--mn-text-secondary);
+    font-size: 13px;
+    font-weight: 450;
+    transition: color .12s, background-color .12s;
+}
+.mn-cat-list a:hover {
+    background: var(--mn-primary-subtle);
+    color: var(--mn-primary);
+}
+.mn-cat-list a.mn-cat-active {
+    background: var(--mn-primary-subtle);
+    color: var(--mn-primary);
+    font-weight: 600;
+}
+
+/* 顶栏用户名按钮：对齐顶栏导航链接（.mn-nav-links a）字号/颜色/hover/active */
+.mn-user-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 14px;
+    border: none;
+    background: none;
+    border-radius: 6px;
+    color: var(--mn-text-nav);
+    font-size: 14px;
+    font-weight: 450;
+    transition: color .15s, background-color .15s;
+}
+.mn-user-btn:hover,
+.mn-user-btn:active {
+    background: var(--mn-bg-nav-hover);
+    color: var(--mn-text-nav-hover);
+}
+
+/* PC 用户下拉 + PC/后台语言切换共用面板与菜单项（原内联样式收进 CSS，消除重复） */
+.mn-dropdown-wrap {
+    position: relative;
+}
+.mn-dropdown-panel {
+    /* 不能在此写 display:none：Alpine x-show 只接管"内联 display"，
+       打开时清空内联样式后会回落到本类 display:none → 下拉永远隐藏。
+       初始隐藏由模板面板内联 style="display:none" 提供（Alpine 官方防闪烁模式） */
+    position: absolute;
+    top: 100%;
+    margin-top: 6px;
+    background: var(--mn-bg-card);
+    border: 1px solid var(--mn-border-light);
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .08);
+    padding: 4px;
+    z-index: 100;
+    min-width: 96px;
+}
+.mn-dropdown-panel-left  { left: 0; }
+.mn-dropdown-panel-right { right: 0; }
+.mn-dropdown-panel-lg    { min-width: 170px; } /* PC 用户下拉加宽 */
+
+/* 下拉项选择器带 .mn-dropdown-panel 前缀：提高特异性，
+   压过容器规则（.mn-nav-links a:hover / .mn-nav-right a:hover 会把文字设成亮蓝，
+   导致抽离成类后下拉文字变淡蓝看不清——内联时无此问题，类需更高优先级） */
+.mn-dropdown-panel .mn-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    font-size: 13px;
+    border-radius: 6px;
+    text-decoration: none;
+    /* 文字用深色主色，保证白底可读（原 --mn-text-secondary 偏灰蓝、hover 亮蓝） */
+    color: var(--mn-text);
+    transition: background 0.12s;
+}
+.mn-dropdown-panel .mn-dropdown-item:hover {
+    background: var(--mn-primary-subtle);
+    color: var(--mn-text);
+}
+.mn-dropdown-panel .mn-dropdown-item-active { /* 语言切换当前项高亮：深色加粗 + 淡蓝底，不依赖文字变色 */
+    color: var(--mn-text);
+    font-weight: 600;
+    background: var(--mn-primary-subtle);
+}
+.mn-dropdown-panel .mn-dropdown-item-logout { /* 退出登录：全宽左对齐 + 危险红 */
+    width: 100%;
+    text-align: left;
+    color: var(--mn-danger, #dc2626);
+}
+.mn-dropdown-panel .mn-dropdown-item-logout:hover {
+    background: var(--mn-primary-subtle);
+    color: var(--mn-danger, #dc2626);
+}
+.mn-dropdown-panel .mn-dropdown-hookitems a { /* 插件注入项（第三方绑定/问答等）：与 mn-dropdown-item 同款 */
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    font-size: 13px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--mn-text);
+    transition: background 0.12s;
+}
+.mn-dropdown-panel .mn-dropdown-hookitems a:hover {
+    background: var(--mn-primary-subtle);
+    color: var(--mn-text);
+}
+
+.mn-cat-count {
+    margin-left: auto;
+    background: var(--mn-bg-body);
+    color: var(--mn-text-muted);
+    padding: 1px 7px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+/* ===== 8. 中栏：内容区域 ===== */
+.mn-section {
+    background: var(--mn-bg-card);
+    border: 1px solid var(--mn-border);
+    border-radius: 10px;
+    margin-bottom: 18px;
+    box-shadow: var(--mn-shadow-sm);
+    overflow: hidden;
+}
+
+.mn-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--mn-border-light);
+}
+
+.mn-section-header h2 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--mn-text);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.mn-section-more {
+    font-size: 12px;
+    color: var(--mn-text-muted);
+    transition: color 0.12s;
+}
+.mn-section-more:hover {
+    color: var(--mn-primary);
+}
+
+.mn-section-tab {
+    padding: 6px 14px;
+    font-size: 13px;
+    color: var(--mn-text-secondary);
+    border-radius: 6px;
+    transition: color .12s, background-color .12s;
+}
+.mn-section-tab:hover {
+    background: var(--mn-primary-subtle);
+    color: var(--mn-primary);
+}
+.mn-section-tab.mn-active {
+    background: var(--mn-primary-subtle);
+    color: var(--mn-primary);
+    font-weight: 600;
+}
+
+/* ===== 9. 帖子行 ===== */
+.mn-row {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--mn-border-light);
+    gap: 5px;
+    transition: background 0.12s;
+}
+.mn-row:last-child { border-bottom: none; }
+.mn-row:hover {
+    background: var(--mn-bg-row-hover);
+}
+/* 博客评论区条目：无 hover 变色（保持卡片底色） */
+.mn-row.blog-comment-row:hover {
+    background: transparent;
+}
+
+.mn-row-avatar {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    position: relative;
+}
+
+.mn-row-avatar-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    object-fit: cover;
+    display: block;
+}
+
+.mn-row-avatar-placeholder {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    background: var(--mn-primary-light);
+    color: var(--mn-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+/* 摘要行元信息内的小头像（2026-09-05）：18×18 圆角4，与博客列表头像同尺寸；img 复用 mn-wp-18/mn-hp-18/mn-rounded-4 */
+.mn-row-meta-avatar {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+.mn-row-meta-avatar-ph {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    background: var(--mn-primary-light);
+    color: var(--mn-primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.mn-avatar-level {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    min-width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    color: var(--mn-text-white);
+    font-size: 9px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 3px;
+    line-height: 1;
+    z-index: 1;
+}
+
+.mn-row-main {
+    flex: 1;
+    min-width: 0;
+}
+/* 回复贴元信息分隔线 */
+.mn-reply-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 10px 0;
+    margin: 0 0 10px 0;
+    border-bottom: 1px solid var(--mn-border-light);
+}
+
+.mn-row-title {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 4px;
+    overflow: hidden;
+}
+.mn-row-title a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--mn-text);
+    transition: color 0.12s;
+}
+.mn-row-title a:hover {
+    color: var(--mn-primary);
+}
+
+/* 列表内容模式：帖子列表摘要行（标题下方；文字在上 + 图片网格在下，微博信息流样式）
+   字号/颜色/行高/间距与博客摘要（.mn-blog-excerpt）对齐：13px / secondary / 1.6 / 标题下 6px */
+.mn-row-excerpt {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 6px;
+    margin-bottom: 6px; /* 摘要与元信息行间距（2026-09-05）：原为 0，摘要底与元信息贴在一起 */
+    font-size: 13px;
+    color: var(--mn-text-secondary);
+    line-height: 1.6;
+    max-width: 100%;
+}
+.mn-row-excerpt-text {
+    /* 两行截断（-webkit-line-clamp 现代浏览器全支持） */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    /* 长单词/URL 防横向溢出 */
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+/* 图片网格（微博样式）：单图大图；多图 3×3 网格，最多 9 张 */
+.mn-excerpt-thumbs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+    max-width: 320px;
+}
+.mn-excerpt-thumbs-single {
+    display: block;
+    max-width: 180px;
+}
+.mn-excerpt-thumb {
+    display: block;
+    width: 100%;
+    height: 96px;
+    object-fit: cover;
+    border-radius: 6px;
+    background: var(--mn-bg-row, #f0f0f0);
+}
+.mn-excerpt-thumbs-single .mn-excerpt-thumb {
+    height: 120px;
+}
+
+.mn-row-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    color: var(--mn-text-muted);
+    flex-wrap: wrap;
+}
+
+.mn-row-author {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--mn-text-secondary);
+}
+
+.mn-row-stat {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+}
+
+.mn-row-right {
+    text-align: right;
+    flex-shrink: 0;
+    min-width: 70px;
+    padding-top: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+}
+
+.mn-row-replies {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--mn-primary);
+    line-height: 1.3;
+    white-space: nowrap;
+}
+
+.mn-level-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 4px;
+    background: var(--mn-primary);
+    color: var(--mn-text-white);
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.5;
+    white-space: nowrap;
+}
+
+.mn-row-replies-label {
+    font-size: 11px;
+    color: var(--mn-text-muted);
+}
+
+/* ===== 10. 标签/徽章 ===== */
+.mn-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.5;
+    white-space: nowrap;
+}
+.mn-tag-hot {
+    background: var(--mn-tag-hot-bg);
+    color: var(--mn-tag-hot-text);
+}
+.mn-tag-elite {
+    background: var(--mn-tag-elite-bg);
+    color: var(--mn-tag-elite-text);
+}
+.mn-tag-primary {
+    background: var(--mn-tag-bg);
+    color: var(--mn-tag-text);
+}
+.mn-tag-warning {
+    background: var(--mn-tag-warning-bg);
+    color: var(--mn-tag-warning-text);
+}
+.mn-tag-cat {
+    padding: 1px 7px;
+    font-size: 12px;
+    color: var(--mn-primary);
+    background: var(--mn-tag-bg);
+    border-radius: 3px;
+    font-weight: 500;
+}
+
+/* ===== 11. 分页 ===== */
+.mn-pagination {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    padding: 16px 20px;
+    border-top: 1px solid var(--mn-border-light);
+}
+
+.mn-page-link {
+    padding: 6px 12px;
+    border: 1px solid var(--mn-border);
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--mn-text-secondary);
+    transition: color .12s, background-color .12s, border-color .12s;
+}
+.mn-page-link:hover {
+    border-color: var(--mn-primary);
+    color: var(--mn-primary);
+    background: var(--mn-primary-subtle);
+}
+.mn-page-link.mn-active {
+    background: var(--mn-primary);
+    border-color: var(--mn-primary);
+    color: var(--mn-text-inverse);
+}
+.mn-page-dots {
+    padding: 6px 4px;
+    color: var(--mn-text-muted);
+    font-size: 13px;
+}
+
+/* 移动端分页条缩小：规则已合并至「22b 统一响应式块」 */
+
+/* ===== 12. 表单 & 按钮 ===== */
+.mn-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 8px 18px;
+    border: 1px solid var(--mn-border);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color .15s, background-color .15s, border-color .15s;
+    background: var(--mn-bg);
+    color: var(--mn-text-secondary);
+    line-height: 1.4;
+}
+.mn-btn:hover {
+    border-color: var(--mn-primary);
+    color: var(--mn-primary);
+    background: var(--mn-primary-subtle);
+}
+
+.mn-btn-primary {
+    background: var(--mn-primary);
+    border-color: var(--mn-primary);
+    color: var(--mn-text-inverse);
+}
+.mn-btn-primary:hover {
+    background: var(--mn-primary-hover);
+    border-color: var(--mn-primary-hover);
+    color: var(--mn-text-inverse);
+}
+
+.mn-btn-sm {
+    padding: 5px 12px;
+    font-size: 12px;
+}
+
+.mn-input {
+    width: 100%;
+    padding: 9px 13px;
+    border: 1px solid var(--mn-border);
+    border-radius: 8px;
+    background: var(--mn-bg-input);
+    color: var(--mn-text);
+    font-size: 14px;
+    transition: border-color 0.15s;
+}
+.mn-input:focus {
+    border-color: var(--mn-primary);
+    box-shadow: 0 0 0 3px var(--mn-primary-light);
+}
+/* checkbox/file 等行内元素自动宽高 */
+.mn-input-auto { width: auto; height: auto; display: inline; }
+
+.mn-textarea {
+    width: 100%;
+    padding: 10px 13px;
+    border: 1px solid var(--mn-border);
+    border-radius: 8px;
+    background: var(--mn-bg-input);
+    color: var(--mn-text);
+    font-size: 14px;
+    resize: vertical;
+    transition: border-color 0.15s;
+}
+.mn-textarea:focus {
+    border-color: var(--mn-primary);
+    box-shadow: 0 0 0 3px var(--mn-primary-light);
+}
+
+.mn-select {
+    padding: 9px 13px;
+    border: 1px solid var(--mn-border);
+    border-radius: 8px;
+    background: var(--mn-bg-input);
+    color: var(--mn-text);
+    font-size: 14px;
+}
+
+/* ===== 13. 右栏：用户面板 ===== */
+.mn-user-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+.mn-user-avatar-placeholder {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--mn-primary-light);
+    color: var(--mn-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.mn-user-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--mn-text);
+}
+
+.mn-user-level {
+    font-size: 11px;
+    color: var(--mn-text-muted);
+    margin-top: 1px;
+}
+
+.mn-user-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--mn-border-light);
+}
+
+.mn-user-stat {
+    text-align: center;
+    padding: 6px 0;
+    background: var(--mn-bg-body);
+    border-radius: 6px;
+}
+.mn-user-stat-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--mn-text);
+}
+.mn-user-stat-label {
+    font-size: 11px;
+    color: var(--mn-text-muted);
+}
+
+.mn-user-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 12px;
+}
+
+/* ===== 13b. 右栏：主题卡片（帖子详情页） ===== */
+.mn-thread-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.mn-thread-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+.mn-thread-card-title {
+    flex: 1;
+    min-width: 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--mn-text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.mn-thread-card-copy {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--mn-border);
+    border-radius: 6px;
+    background: var(--mn-bg);
+    color: var(--mn-text-muted);
+    cursor: pointer;
+    transition: color .12s, background-color .12s, border-color .12s;
+}
+.mn-thread-card-copy:hover {
+    border-color: var(--mn-primary);
+    color: var(--mn-primary);
+    background: var(--mn-primary-subtle);
+}
+.mn-thread-card-copy.mn-copied {
+    border-color: var(--mn-success);
+    color: var(--mn-success);
+    background: var(--mn-primary-subtle);
+}
+.mn-thread-card-url {
+    font-size: 11px;
+    color: var(--mn-text-muted);
+    word-break: break-all;
+    line-height: 1.5;
+    background: var(--mn-bg-body);
+    border: 1px solid var(--mn-border-light);
+    border-radius: 6px;
+    padding: 6px 8px;
+}
+.mn-thread-card-body {
+    display: flex;
+    justify-content: center;
+    padding-top: 4px;
+}
+.mn-thread-card-qr {
+    padding: 8px;
+    background: var(--mn-bg-card);
+    border: 1px solid var(--mn-border-light);
+    border-radius: 8px;
+}
+
+/* ===== 14. 右栏：统计 ===== */
+.mn-stat-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.mn-stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--mn-border-light);
+}
+.mn-stat-item:last-child {
+    border-bottom: none;
+}
+.mn-stat-label {
+    color: var(--mn-text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.mn-stat-value {
+    color: var(--mn-text);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* ===== 15. 右栏：标签云 ===== */
+.mn-tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    /* 基准字号 12px：视图内联 font-size 为 em，若不设容器基准则相对 html(14px)
+       计算 → 热门标签被放大到 21px。设 12px 后 0.8~1.5em = 9.6~18px */
+    font-size: 12px;
+}
+
+.mn-tag-cloud a {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--mn-text-secondary);
+    background: var(--mn-bg-body);
+    border: 1px solid var(--mn-border-light);
+    transition: color .12s, background-color .12s, border-color .12s;
+}
+.mn-tag-cloud a:hover {
+    background: var(--mn-primary);
+    color: var(--mn-text-inverse);
+    border-color: var(--mn-primary);
+}
+
+/* ===== 16. 右栏：友情链接 ===== */
+.mn-friend-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* 卡片底部留白：最下方的友链（文字/logo 网格/申请链接）不与卡片下分割线贴住 */
+    padding-bottom: 6px;
+}
+
+/* 文字链接：胶囊标签 */
+.mn-friend-links .friend-links-text {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.mn-friend-links .friend-link-text-item {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    font-size: 12px;
+    color: var(--mn-text-secondary);
+    background: var(--mn-bg-body);
+    border: 1px solid var(--mn-border-light);
+    border-radius: 999px;
+    text-decoration: none;
+    transition: color .12s, background-color .12s, border-color .12s;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.mn-friend-links .friend-link-text-item:hover {
+    background: var(--mn-primary);
+    border-color: var(--mn-primary);
+    color: var(--mn-text-inverse);
+}
+
+/* LOGO 链接：网格展示 */
+.mn-friend-links .friend-links-logo {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+    gap: 8px;
+}
+.mn-friend-links .friend-link-logo-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border: 1px solid var(--mn-border-light);
+    border-radius: 8px;
+    background: var(--mn-bg);
+    transition: background-color .12s, border-color .12s;
+}
+.mn-friend-links .friend-link-logo-item:hover {
+    border-color: var(--mn-primary);
+    background: var(--mn-primary-subtle);
+}
+.mn-friend-links .friend-link-logo-img {
+    max-width: 100%;
+    max-height: 36px;
+    object-fit: contain;
+}
+
+/* 申请友链入口 */
+.mn-friend-links .friend-links-apply {
+    text-align: center;
+    border-top: 1px solid var(--mn-border-light);
+    /* 拉开"最下面友链 / 分割线"的距离（配合容器 gap 共约 22px），不动分割线与"申请"文字间距 */
+    margin-top: 12px;
+    padding-top: 10px;
+}
+.mn-friend-links .friend-links-apply a {
+    font-size: 12px;
+    color: var(--mn-text-muted);
+    text-decoration: none;
+    transition: color 0.12s;
+}
+.mn-friend-links .friend-links-apply a:hover {
+    color: var(--mn-primary);
+}
+
+/* 隐藏插件输出的重复标题，保留链接和申请入口 */
+.mn-friend-links .home-sidebar-title {
+    display: none;
+}
+
+/* ===== 17. 页脚 ===== */
+.mn-footer {
+    border-top: 1px solid var(--mn-border);
+    padding: 20px 0;
+    text-align: center;
+    font-size: 12px;
+    color: var(--mn-text-muted);
+    background: var(--mn-bg);
+}
+.mn-footer a {
+    color: var(--mn-text-muted);
+}
+.mn-footer a:hover {
+    color: var(--mn-primary);
+}
+.mn-footer-badge {
+    height: 16px;
+    display: inline-block;
+    vertical-align: middle;
+}
+/* 页脚链接区（footer_links 钩子输出）分隔符：相邻链接间自动插入 ·，插件无需自带分隔符 */
+.mn-footer-right a + a::before {
+    content: '·';
+    margin: 0 6px;
+}
+
+/* ===== 18. 空状态 & 提示 ===== */
+.mn-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--mn-text-muted);
+    font-size: 14px;
+}
+
+.mn-alert {
+    padding: 11px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-bottom: 14px;
+}
+.mn-alert-success {
+    background: var(--mn-alert-success-bg);
+    color: var(--mn-alert-success-text);
+    border: 1px solid var(--mn-alert-success-border);
+}
+.mn-alert-error {
+    background: var(--mn-alert-error-bg);
+    color: var(--mn-alert-error-text);
+    border: 1px solid var(--mn-alert-error-border);
+}
+
+/* ===== 19. 面包屑 ===== */
+.mn-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    color: var(--mn-text-muted);
+    padding-bottom: 14px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid var(--mn-border-light);
+}
+.mn-breadcrumb a {
+    color: var(--mn-text-muted);
+}
+.mn-breadcrumb a:hover {
+    color: var(--mn-primary);
+}
+
+/* ===== 20. 博客行 ===== */
+.mn-blog-item {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--mn-border-light);
+    transition: background 0.12s;
+}
+.mn-blog-item:last-child { border-bottom: none; }
+.mn-blog-item:hover {
+    background: var(--mn-bg-row-hover);
+}
+
+.mn-blog-cover {
+    flex-shrink: 0;
+    width: 160px;
+    height: 100px;
+    border-radius: 6px;
+    background-size: cover;
+    background-position: center;
+    margin-right: 5px;
+}
+
+/* 博客行移动端单列：规则已合并至「22b 统一响应式块」 */
+
+.mn-blog-title {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+.mn-blog-title a {
+    color: var(--mn-text);
+}
+.mn-blog-title a:hover {
+    color: var(--mn-primary);
+}
+
+.mn-blog-excerpt {
+    font-size: 13px;
+    color: var(--mn-text-secondary);
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+.mn-blog-meta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 12px;
+    color: var(--mn-text-muted);
+}
+
+/* ===== 21. 实用工具 ===== */
+.mn-flex { display: flex; }
+.mn-flex-center { display: flex; align-items: center; }
+.mn-flex-between { display: flex; align-items: center; justify-content: space-between; }
+.mn-flex-1 { flex: 1; min-width: 0; }
+.mn-flex-col { display: flex; flex-direction: column; }
+.mn-flex-wrap { flex-wrap: wrap; }
+.mn-gap-4 { gap: 4px; }
+.mn-gap-6 { gap: 6px; }
+.mn-gap-8 { gap: 8px; }
+.mn-gap-10 { gap: 10px; }
+.mn-gap-3 { gap: 3px; }
+.mn-d-none { display: none; }
+.mn-pb-16 { padding-bottom: 16px; }
+.mn-p-24-20-20 { padding: 24px 20px 20px; }
+.mn-items-stretch { align-items: stretch; }
+.mn-basis-full { flex-basis: 100%; }
+.mn-justify-end { justify-content: flex-end; }
+.mn-text-link { color: var(--mn-text-link); }
+.mn-color-inherit { color: inherit; }
+.mn-text-decoration-none { text-decoration: none; }
+.mn-link-inherit { color: inherit; text-decoration: none; }
+.mn-avatar-22 { width: 22px; height: 22px; border-radius: 50%; }
+.mn-avatar-22-placeholder { width: 22px; height: 22px; border-radius: 50%; font-size: 11px; display: inline-flex; align-items: center; justify-content: center; }
+.mn-gap-12 { gap: 12px; }
+.mn-gap-14 { gap: 14px; }
+.mn-gap-16 { gap: 16px; }
+.mn-text-center { text-align: center; }
+.mn-text-muted { color: var(--mn-text-muted); }
+.mn-text-secondary { color: var(--mn-text-secondary); }
+.mn-text-nav { color: var(--mn-text-nav); }
+.mn-text-primary { color: var(--mn-primary); }
+/* 回复数在 PC 端默认隐藏，移动端显示（与浏览数并存） */
+.mn-mobile-reply { display: none; }
+/* 移动端元信息里的分类标签：PC 端隐藏（由右侧列展示），仅 ≤768px 显示 */
+.mn-cat-mobile { display: none; }
+/* 论坛分类页：版块头部默认不吸顶，仅移动端吸顶 */
+.mn-cat-head-sticky { position: static; }
+/* 移动端分类横向滚动条（仅在 <768px 可见） */
+.mn-mobile-cats {
+    display: none;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 8px 16px;
+    gap: 6px;
+    background: var(--mn-bg-card);
+    border-radius: 10px;
+    margin-bottom: 12px;
+}
+.mn-mobile-cats::-webkit-scrollbar { display: none; }
+.mn-mobile-cats a {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 14px;
+    font-size: 13px;
+    color: var(--mn-text-secondary);
+    background: var(--mn-bg-body);
+    white-space: nowrap;
+    transition: color .12s, background-color .12s;
+    margin-right: 6px;
+    flex-shrink: 0;
+}
+.mn-mobile-cats a.mn-mobile-cat-active {
+    color: var(--mn-text-white);
+    background: var(--mn-primary);
+    font-weight: 600;
+}
+/* 移动端分类/吸顶：规则已合并至「22b 统一响应式块」 */
+/* ====== 帖子正文基础样式（原 forum.css 迁移） ====== */
+.post-text-content { line-height: 1.8; color: var(--mn-content-text); font-size: 15px; overflow-x: auto; }
+
+/* 详情页主帖：全文直出，默认由 Alpine 切换 CSS 折叠，不发请求 */
+.thread-body {
+    position: relative;
+    transition: max-height .2s ease;
+}
+.thread-body--collapsed {
+    max-height: var(--thread-body-collapsed-height);
+    overflow: hidden;
+}
+.thread-body--collapsed::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 96px;
+    pointer-events: none;
+    background: linear-gradient(to bottom, transparent, var(--mn-bg-card));
+}
+.thread-body--expanded {
+    max-height: none;
+    overflow-x: auto;
+}
+.thread-expand-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--mn-border);
+}
+.thread-expand-btn {
+    min-width: 160px;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, .25);
+}
+.thread-expand-btn:hover {
+    opacity: .9;
+}
+.thread-expand-quote {
+    border: 1px solid var(--mn-border);
+    color: var(--mn-text-muted);
+    background: var(--mn-bg-card);
+}
+.thread-expand-quote:hover {
+    color: var(--mn-primary);
+    border-color: var(--mn-primary);
+    background: var(--mn-primary-subtle);
+}
+[x-cloak] { display: none !important; }
+
+/* 正文图片约束：max-width 防溢出容器，max-height 防超高图铺满（论坛/博客详情页共用） */
+.post-text-content img {
+    max-width: 100%;
+    max-height: 500px;
+    height: auto;
+    width: auto;
+    object-fit: contain;
+}
+/* Markdown 标题字号（桌面端）：按 GitHub 风格 1.6em/1.35em/1.2em/1em 递降 */
+.post-text-content h1,
+.post-text-content h2,
+.post-text-content h3,
+.post-text-content h4,
+.post-text-content h5,
+.post-text-content h6 {
+    margin: 1.2em 0 .6em;
+    line-height: 1.4;
+    font-weight: 600;
+}
+.post-text-content h1 { font-size: 24px; }
+.post-text-content h2 { font-size: 20px; }
+.post-text-content h3 { font-size: 18px; }
+.post-text-content h4 { font-size: 16px; }
+.post-text-content h5 { font-size: 15px; }
+.post-text-content h6 { font-size: 13px; }
+.post-text-content ul,
+.post-text-content ol {
+    margin: 0 0 1em;
+    padding: 0 0 0 2em;
+}
+.post-text-content li {
+    margin: 0;
+    line-height: 1.8;
+}
+/* 帖子引用块样式 */
+.post-text-content blockquote {
+    margin: 10px 0;
+    padding: 10px 14px;
+    border-left: 4px solid var(--mn-primary);
+    background: var(--mn-bg-body);
+    border-radius: 0 6px 6px 0;
+    color: var(--mn-text-secondary);
+    font-size: 13px;
+    line-height: 1.6;
+}
+.post-text-content blockquote cite {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--mn-primary);
+    font-style: normal;
+    margin-bottom: 4px;
+}
+.post-text-content blockquote cite::before {
+    content: '◆ ';
+    opacity: 0.6;
+}
+.post-text-content blockquote p,
+.post-text-content blockquote div {
+    margin: 0;
+}
+/* 嵌套引用块缩进 */
+.post-text-content blockquote blockquote {
+    margin-left: 10px;
+}
+.post-text-content table {
+    width: 100%;
+    max-width: 100%;
+    table-layout: auto;
+    border-collapse: collapse;
+    margin: 1em 0;
+    font-size: 14px;
+}
+.post-text-content th,
+.post-text-content td {
+    border: 1px solid var(--mn-content-border);
+    padding: 8px 12px;
+    text-align: left;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+.post-text-content th {
+    background: var(--mn-bg-body);
+    font-weight: 600;
+}
+.post-text-content tr:nth-child(even) {
+    background: var(--mn-bg-row-hover);
+}
+.mn-mt-8 { margin-top: 8px; }
+.mn-mt-12 { margin-top: 12px; }
+.mn-mt-16 { margin-top: 16px; }
+.mn-mb-8 { margin-bottom: 8px; }
+.mn-mb-12 { margin-bottom: 12px; }
+.mn-mb-16 { margin-bottom: 16px; }
+.mn-mb-14 { margin-bottom: 14px; }
+.mn-mb-20 { margin-bottom: 20px; }
+.mn-mb-24 { margin-bottom: 24px; }
+.mn-hidden { display: none; }
+/* 字号工具类 */
+.mn-fs-11 { font-size: 11px; }
+.mn-fs-12 { font-size: 12px; }
+.mn-fs-13 { font-size: 13px; }
+.mn-fs-14 { font-size: 14px; }
+.mn-fs-15 { font-size: 15px; }
+.mn-fs-16 { font-size: 16px; }
+.mn-fs-18 { font-size: 18px; }
+.mn-fs-20 { font-size: 20px; }
+.mn-fs-22 { font-size: 22px; }
+.mn-fs-24 { font-size: 24px; }
+.mn-fs-48 { font-size: 48px; }
+/* 字重工具类 */
+.mn-fw-500 { font-weight: 500; }
+.mn-fw-600 { font-weight: 600; }
+.mn-fw-700 { font-weight: 700; }
+.mn-fw-bold { font-weight: bold; }
+/* 行高工具类 */
+.mn-lh-14 { line-height: 1.4; }
+.mn-lh-16 { line-height: 1.6; }
+.mn-lh-17 { line-height: 1.7; }
+.mn-lh-18 { line-height: 1.8; }
+/* 宽度工具类 */
+.mn-w-full { width: 100%; }
+.mn-w-auto { width: auto; }
+.mn-wp-100 { width: 100px; }
+.mn-wp-200 { width: 200px; }
+.mn-wp-300 { width: 300px; }
+.mn-wp-400 { width: 400px; }
+.mn-wp-500 { width: 500px; }
+.mn-maxw-200 { max-width: 200px; }
+.mn-maxw-300 { max-width: 300px; }
+.mn-maxw-400 { max-width: 400px; }
+.mn-maxw-500 { max-width: 500px; }
+.mn-maxw-600 { max-width: 600px; }
+/* 圆角工具类 */
+.mn-rounded-4 { border-radius: 4px; }
+.mn-rounded-6 { border-radius: 6px; }
+.mn-rounded-8 { border-radius: 8px; }
+.mn-rounded-10 { border-radius: 10px; }
+.mn-rounded-50 { border-radius: 50%; }
+/* 边框工具类 */
+.mn-border-bottom { border-bottom: 1px solid var(--mn-border-light); }
+.mn-border-top { border-top: 1px solid var(--mn-border-light); }
+.mn-border { border: 1px solid var(--mn-border); }
+.mn-border-dashed { border-top: 1px dashed var(--mn-border-light); }
+/* 背景工具类 */
+.mn-bg-body { background: var(--mn-bg-body); }
+.mn-bg-card { background: var(--mn-bg-card); }
+.mn-bg-primary-subtle { background: var(--mn-primary-subtle); }
+/* 指针 */
+.mn-cursor-pointer { cursor: pointer; }
+/* 溢出隐藏 */
+.mn-overflow-hidden { overflow: hidden; }
+/* 内联块 */
+.mn-inline-block { display: inline-block; }
+/* 内联 */
+.mn-inline { display: inline; }
+/* 无边框 */
+.mn-border-none { border: none; }
+/* 无背景 */
+.mn-bg-none { background: none; }
+/* 错误色文字 */
+.mn-text-error { color: var(--mn-error); }
+/* flex 不换行 */
+.mn-flex-nowrap { flex-wrap: nowrap; }
+/* 图片覆盖填充 */
+.mn-object-cover { object-fit: cover; }
+/* 像素宽高 */
+.mn-wp-18 { width: 18px; }
+.mn-hp-18 { height: 18px; }
+/* 内边距 */
+.mn-p-6-10 { padding: 6px 10px; }
+.mn-p-10-14 { padding: 10px 14px; }
+.mn-px-8 { padding-left: 8px; padding-right: 8px; }
+/* 后台主体容器 */
+.mn-admin-body {
+    padding-top: 20px;
+    padding-bottom: 40px;
+    min-height: calc(100vh - var(--mn-nav-height) - 60px);
+}
+/* 内边距（扩展） */
+.mn-p-10-20 { padding: 10px 20px; }
+.mn-p-16-20 { padding: 16px 20px; }
+.mn-py-12 { padding-top: 12px; padding-bottom: 12px; }
+/* 外边距 */
+.mn-mt-2 { margin-top: 2px; }
+.mn-mt-4 { margin-top: 4px; }
+/* 未读红点 */
+.mn-unread-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--mn-primary);
+    margin-left: 6px;
+}
+/* 块级 */
+.mn-block { display: block; }
+/* 文字左对齐 */
+.mn-text-left { text-align: left; }
+/* 三列网格 */
+.mn-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+/* 基础表格 */
+.mn-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+/* 内边距（扩展） */
+.mn-p-24-20 { padding: 24px 20px; }
+.mn-py-6 { padding-top: 6px; padding-bottom: 6px; }
+.mn-p-10-6 { padding: 10px 6px; }
+.mn-p-8-6 { padding: 8px 6px; }
+/* 成功/警告色文字 */
+.mn-text-success { color: var(--mn-success); }
+.mn-text-warning { color: var(--mn-warning); }
+/* 外边距 */
+.mn-mb-2 { margin-bottom: 2px; }
+/* 加粗底边 */
+.mn-border-bottom-2 { border-bottom: 2px solid var(--mn-border); }
+/* 左外边距 */
+.mn-ml-4 { margin-left: 4px; }
+/* 左外边距 auto（替代旧 .ml-auto，父级 flex 时推右对齐） */
+.mn-ml-auto { margin-left: auto; }
+/* 间距工具（旧类迁移补充，值等价） */
+.mn-gap-2 { gap: 2px; }
+.mn-gap-5 { gap: 5px; }
+.mn-gap-15 { gap: 15px; }
+.mn-mb-15 { margin-bottom: 15px; }
+.mn-mt-15 { margin-top: 15px; }
+.mn-mt-20 { margin-top: 20px; }
+.mn-m-0 { margin: 0; }
+.mn-text-nowrap { white-space: nowrap; }
+.mn-p-15 { padding: 15px; }
+.mn-mb-0 { margin-bottom: 0; }
+.mn-ml-8 { margin-left: 8px; }
+.mn-pt-2 { padding-top: 2px; }
+.mn-fw-400 { font-weight: 400; }
+/* checkbox 主题色 */
+.mn-accent-primary { accent-color: var(--mn-primary); }
+/* 24px 圆形图标 */
+.mn-icon-circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+/* 白字 */
+.mn-text-white { color: var(--mn-text-white); }
+/* 下内边距 */
+.mn-pb-12 { padding-bottom: 12px; }
+/* 10px 内边距 */
+.mn-p-10 { padding: 10px; }
+/* 字号 */
+.mn-fs-28 { font-size: 28px; }
+/* 字重 normal */
+.mn-fw-normal { font-weight: normal; }
+/* 居中 flex */
+.mn-justify-center { justify-content: center; }
+/* 内边距 10px 24px */
+.mn-p-10-24 { padding: 10px 24px; }
+/* 自动填充网格 */
+.mn-grid-auto-fill {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+}
+/* 字号 */
+.mn-fs-26 { font-size: 26px; }
+/* 胶囊圆角 */
+.mn-rounded-pill { border-radius: 50px; }
+/* 内边距 */
+.mn-p-12-48 { padding: 12px 48px; }
+/* 字号 10px */
+.mn-fs-10 { font-size: 10px; }
+/* 外边距 */
+.mn-mt-6 { margin-top: 6px; }
+/* flex 居中对齐 */
+.mn-items-center { align-items: center; }
+/* flex 顶部对齐 */
+.mn-items-start { align-items: flex-start; }
+/* 外边距 */
+.mn-mt-10 { margin-top: 10px; }
+.mn-mb-10 { margin-bottom: 10px; }
+/* flex 不收缩 */
+.mn-flex-shrink-0 { flex-shrink: 0; }
+/* 宽度 50px */
+.mn-wp-50 { width: 50px; }
+/* 像素宽高 36 */
+.mn-wp-36 { width: 36px; }
+.mn-hp-36 { height: 36px; }
+/* 下内边距 */
+.mn-pb-8 { padding-bottom: 8px; }
+/* 内边距 10px 12px */
+.mn-p-10-12 { padding: 10px 12px; }
+/* 主题选中徽章 */
+.mn-theme-badge {
+    background: var(--mn-bg-theme-badge);
+    color: var(--mn-text-white);
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+/* ===== 代码块样式 ===== */
+.post-text-content pre {
+    background: var(--mn-code-bg);
+    color: var(--mn-code-text);
+    padding: 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 12px 0;
+    border: 1px solid var(--mn-border);
+}
+.post-text-content code {
+    font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+}
+.post-text-content p > code,
+.post-text-content li > code {
+    background: var(--mn-bg-body);
+    color: var(--mn-primary);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+.post-text-content pre code {
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    color: inherit;
+    font-size: inherit;
+}
+
+/* 表单标签 */
+.mn-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: var(--mn-text-secondary);
+}
+
+/* 内边距 */
+/* ★ 设计 token：区块纵向内边距基准。子面板需紧贴其上区块底部时，
+      用下方 .mn-bleed-top 抵消该值，避免业务各自手写负数边距。 */
+:root { --mn-pad-flow: 20px; }
+.mn-p-20 { padding: var(--mn-pad-flow); }
+/* 语义化"贴顶"工具：子面板向上抵消 --mn-pad-flow，贴住其上区块底部。
+   负偏移由核心封装，插件/其他开发只需加该类，不再手写 -XXpx。 */
+.mn-bleed-top { margin-top: calc(-1 * var(--mn-pad-flow)); }
+.mn-p-24 { padding: 24px; }
+.mn-p-16 { padding: 16px; }
+.mn-p-12 { padding: 12px; }
+.mn-px-24 { padding-left: 24px; padding-right: 24px; }
+.mn-py-30 { padding-top: 30px; padding-bottom: 30px; }
+
+/* 全宽按钮 */
+.mn-btn-block {
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+}
+
+/* 认证页面容器 */
+.mn-auth-box {
+    max-width: 420px;
+    margin: 40px auto;
+}
+
+/* ===== 22. 响应式 ===== */
+@media (max-width: 1024px) {
+    .mn-right {
+        display: none;
+    }
+    .mn-body {
+        gap: 16px;
+    }
+}
+
+/* 移动端侧栏（热门标签 + 友链）：桌面隐藏，≤768px 在中栏内容底部显示 */
+.mn-mobile-sidebar {
+    display: none;
+}
+/* 移动端侧栏显示：规则已合并至「22b 统一响应式块」 */
+
+/* 主体/页脚/标题字号移动端规则：已合并至「22b 统一响应式块」 */
+
+/* ===== 23. 移动端底部导航 ===== */
+.mn-mobile-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    background: var(--mn-bg-nav);
+    border-top: 1px solid var(--mn-border);
+    padding: 4px 0;
+    box-shadow: var(--mn-shadow-mobile-nav);
+}
+
+/* 底部导航显示：规则已合并至「22b 统一响应式块」 */
+
+.mn-mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+    padding: 4px 8px;
+    color: var(--mn-text-nav);
+    text-decoration: none;
+    font-size: 11px;
+    transition: color 0.12s;
+}
+.mn-mobile-nav-item:hover {
+    color: var(--mn-text-nav-hover);
+}
+.mn-mobile-nav-item.mn-active {
+    color: var(--mn-text-nav-hover);
+}
+
+.mn-mobile-nav-plus {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--mn-primary);
+    color: var(--mn-text-white);
+    justify-content: center;
+    margin-top: -16px;
+    box-shadow: var(--mn-shadow-primary-glow);
+}
+.mn-mobile-nav-plus:hover {
+    background: var(--mn-primary-hover);
+}
+
+/* 底部导航「我的」弹出菜单（原顶部头像下拉迁入，bottom:100% 向上弹出） */
+.mn-mobile-nav-mine {
+    position: relative;
+}
+.mn-mobile-nav-mine-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: inherit;
+}
+.mn-mobile-nav-mine-menu {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 10px);
+    right: 0;
+    background: var(--mn-bg-card);
+    border: 1px solid var(--mn-border);
+    border-radius: 10px;
+    box-shadow: var(--mn-shadow-dropdown-up);
+    min-width: 160px;
+    overflow: hidden;
+    z-index: 300;
+}
+.mn-mobile-nav-mine-menu a,
+.mn-mobile-nav-mine-menu button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    color: var(--mn-text);
+    text-decoration: none;
+    transition: background 0.1s;
+}
+.mn-mobile-nav-mine-menu a:hover,
+.mn-mobile-nav-mine-menu button:hover {
+    background: var(--mn-bg-hover);
+}
+.mn-mobile-nav-mine.mn-open .mn-mobile-nav-mine-menu {
+    display: block;
+}
+.mn-mobile-nav-mine-trigger:active {
+    background: var(--mn-bg-nav-hover);
+    transform: scale(0.92);
+}
+
+/* 导航栏内按钮颜色适配深色导航栏 */
+.mn-nav-right button.mn-text-secondary {
+    color: var(--mn-text-nav);
+}
+.mn-nav-right button.mn-text-secondary:hover {
+    background: var(--mn-bg-nav-hover);
+    color: var(--mn-text-nav-hover);
+}
+
+/* ===== 22b. 统一响应式（≤768px）=====
+ * 原 9 处 @media (max-width:768px) 合并于此：
+ * 位于 .mn-mobile-nav 基类之后（避免基类 display:none 覆盖）、480px 块之前（保持级联顺序） */
+@media (max-width: 768px) {
+    /* 顶部导航：隐藏站点描述、抽屉按钮显示 */
+    .mn-logo-desc {
+        display: none;
+    }
+    .mn-nav-inner {
+        gap: 8px;
+    }
+    .mn-drawer-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        flex-shrink: 0;
+        margin-left: -4px;
+        background: none;
+        border: none;
+        border-radius: 6px;
+        color: var(--mn-text-nav-hover);
+        cursor: pointer;
+    }
+    .mn-drawer-toggle:active {
+        background: var(--mn-bg-nav-hover);
+    }
+    .mn-drawer-logo-icon {
+        display: none;
+    }
+
+    /* 主体布局：左栏隐藏、中栏补底边距留出底部导航空间 */
+    .mn-left {
+        display: none;
+    }
+    .mn-body {
+        padding-top: 12px;
+        padding-bottom: 70px;
+    }
+    .mn-container {
+        padding: 0 12px;
+    }
+    .mn-nav-inner {
+        padding: 0 12px;
+    }
+
+    /* 导航链接/右侧项 */
+    .mn-nav-links {
+        display: none;
+    }
+    .mn-nav-toggle {
+        display: none;
+    }
+    .mn-nav-right {
+        margin-left: auto;
+    }
+    .mn-nav-right a span {
+        display: none;
+    }
+    .mn-desktop-only {
+        display: none;
+    }
+    .mn-nav-right .mn-desktop-only {
+        display: none;
+    }
+    /* 隐藏元信息次要项（浏览/回复计数、按钮文字等） */
+    .mn-hide-mobile {
+        display: none;
+    }
+    /* 同时显示回复数与浏览数（浏览数基态可见，无需隐藏） */
+    .mn-mobile-reply {
+        display: inline-flex;
+    }
+    .mn-mobile-icon {
+        display: inline-flex;
+        align-items: center;
+    }
+    .mn-row-right {
+        display: none;
+    }
+
+    /* 页脚：版权行与统计行均居中显示 */
+    .mn-footer-right,
+    .mn-footer-left {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+    }
+    .mn-footer {
+        padding-bottom: calc(20px + 52px);
+    }
+    /* 版权行居中，并与统计行间距收窄（基态 mn-gap-16 → 4px） */
+    .mn-footer .mn-container {
+        justify-content: center;
+        gap: 4px;
+    }
+
+    /* 移动端侧栏（热门标签 + 友链）：中栏内容底部显示 */
+    .mn-mobile-sidebar {
+        display: block;
+        margin-top: 16px;
+    }
+    .mn-mobile-sidebar .mn-panel {
+        margin-bottom: 14px;
+    }
+
+    /* 分页条缩小：按钮更紧凑，配合 flex-wrap 防止窄屏溢出变形 */
+    .mn-pagination {
+        gap: 2px;
+        padding: 12px 8px;
+    }
+    .mn-page-link {
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+    .mn-page-dots {
+        padding: 4px 2px;
+        font-size: 12px;
+    }
+
+    /* 博客行单列 */
+    .mn-blog-cover {
+        width: 100%;
+        height: 80px;
+        margin-right: 0;
+        margin-bottom: 2px;
+    }
+    .mn-blog-row {
+        flex-direction: column;
+    }
+
+    /* 分类：移动端横滚分类条 + 版块头部吸顶（避开顶部导航 56px，留 8px 间隙） */
+    .mn-mobile-cats {
+        display: flex;
+    }
+    .mn-cat-mobile {
+        display: inline-flex;
+    }
+    .mn-cat-head-sticky {
+        position: sticky;
+        top: 64px;
+        z-index: 50;
+    }
+
+    /* 详情页标题与内容区标题缩小 */
+    .mn-section h1.mn-fs-20 {
+        font-size: 17px;
+    }
+    .post-text-content h1 { font-size: 19px; }
+    .post-text-content h2 { font-size: 17px; }
+    .post-text-content h3 { font-size: 15px; }
+    .post-text-content h4 { font-size: 14px; }
+    .post-text-content h5 { font-size: 13px; }
+    .post-text-content h6 { font-size: 12px; }
+
+    /* 底部导航显示 */
+    .mn-mobile-nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    /* 通用卡片 */
+    .post-container,
+    .message-container,
+    .search-container,
+    .auth-box {
+        padding: 24px 20px;
+    }
+    .stat-cards .bg-light {
+        padding: 14px 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mn-body {
+        padding: 8px 8px 16px;
+    }
+    .mn-container {
+        padding: 0 8px;
+    }
+    .mn-nav-inner {
+        padding: 0 8px;
+    }
+    .mn-section-header {
+        padding: 12px 14px;
+    }
+    .mn-row {
+        padding: 12px 14px;
+    }
+    .mn-section-header h2 {
+        font-size: 14px;
+    }
+    /* 窄屏：头部按钮只留图标（隐藏文字），避免挤压标题换行 */
+    .mn-section-header .btn-label { display: none; }
+    .mn-section-header .mn-btn-sm { padding: 5px 8px; }
+}
+
+/* ====== 帖子详情页 ====== */
+.thread-avatar-img { width:40px; height:40px; object-fit:cover; }
+.thread-avatar-placeholder { width:40px; height:40px; background:var(--mn-primary-light); color:var(--mn-primary); font-size:15px; font-weight:600; }
+.thread-title { color: var(--mn-text); }
+.thread-title-color-red { color: #dc2626; }
+.thread-title-color-amber { color: #d97706; }
+.thread-title-color-green { color: #16a34a; }
+.thread-title-color-blue { color: #2563eb; }
+.thread-title-color-purple { color: #7c3aed; }
+.thread-info-bar { padding:12px 20px; }
+.thread-info-bar-right .fav-btn { order: 1; }
+.thread-info-bar-right .mn-report { order: 2; }
+.thread-post-user-bar { padding:12px 20px; }
+.thread-tags-row { margin-top:6px; }
+.thread-meta-divider { margin:0 6px; }
+.thread-attachment-img { max-width:200px; max-height:150px; }
+.thread-attachment-item { margin:0 8px 8px 0; }
+.thread-signature { margin-top:16px; padding-top:12px; }
+.thread-edit-info { margin-top:10px; padding-top:8px; }
+.thread-attachment-section { margin-top:16px; padding-top:16px; }
+.thread-post-attachment { margin-top:12px; padding-top:12px; }
+.thread-post-signature { margin-top:12px; padding-top:8px; }
+.thread-vote-actions { margin-top:10px; padding-top:10px; gap:10px; }
+.thread-reply-to-view { padding:30px; }
+.thread-pagination { margin-top:-10px; }
+.thread-inline-form { display:inline; }
+.thread-file-name { word-break:break-all; }
+.thread-float-bar { position:fixed; bottom:90px; right:20px; z-index:150; gap:8px; }
+.thread-float-btn { width:44px; height:44px; padding:0; box-shadow:var(--mn-shadow-float); background:var(--mn-bg-card); border-radius:50%; }
+.thread-float-btn-primary { width:44px; height:44px; padding:0; box-shadow:var(--mn-shadow-primary-glow); border-radius:50%; }
+.vote-btn-clean { background:none; border:none; cursor:pointer; display:inline-flex; align-items:center; gap:3px; font-size:13px; color:var(--mn-text-muted); }
+.vote-btn-clean-sm { background:none; border:none; cursor:pointer; display:inline-flex; align-items:center; gap:3px; font-size:12px; color:var(--mn-text-muted); }
+.btn-compact { padding:2px 8px; }
+.quote-link { gap:4px; }
+.post-text-color { color:var(--mn-text); }
+
+/* ====== 个人中心 ====== */
+.profile-avatar-img { width:60px; height:60px; object-fit:cover; }
+.profile-avatar-placeholder { width:60px; height:60px; background:var(--mn-primary-light); color:var(--mn-primary); font-size:24px; font-weight:600; }
+.profile-username { margin-bottom:4px; }
+.profile-stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:24px; }
+.profile-stat-card { padding:14px; }
+.profile-stat-value { color:var(--mn-primary); }
+.profile-stat-label { margin-top:2px; }
+.profile-tab-nav { margin-bottom:24px; flex-wrap:wrap; gap:12px; }
+.profile-recent { margin-top:24px; padding-top:20px; border-top:1px solid var(--mn-border-light); }
+.profile-recent-title { font-size:15px; font-weight:600; margin-bottom:14px; }
+.profile-recent-item { padding:10px 0; }
+.profile-recent-meta { font-size:12px; color:var(--mn-text-muted); margin-top:2px; }
+
+/* ====== Modern 默认配色（原 assets/themes/modern/default.css，已整合） ====== */
+:root {
+    /* 主色 */
+    --mn-primary: #4f6ef7;
+    --mn-primary-hover: #3b5de7;
+    --mn-primary-light: #eef1ff;
+    --mn-primary-subtle: #f0f3ff;
+
+    /* 背景 */
+    --mn-bg: #ffffff;
+    --mn-bg-body: #f4f5f7;
+    --mn-bg-card: #ffffff;
+    --mn-bg-nav: #ffffff;
+    --mn-bg-sidebar: #ffffff;
+    --mn-bg-row-hover: #f8f9fb;
+    --mn-bg-input: #ffffff;
+    --mn-bg-tag: #f0f3ff;
+    --thread-body-collapsed-height: 600px;
+
+    /* 文字 */
+    --mn-text: #1a1a2e;
+    --mn-text-secondary: #5b6778;
+    --mn-text-muted: #9ca3af;
+    --mn-text-inverse: #ffffff;
+    --mn-text-link: #4f6ef7;
+    --mn-text-nav: #5b6778;
+    --mn-text-nav-hover: #4f6ef7;
+    --mn-bg-nav-hover: #f0f3ff;
+
+    /* 边框 */
+    --mn-border: #e8eaee;
+    --mn-border-light: #f0f1f3;
+    --mn-divider: #f0f1f3;
+
+    /* 语义色 */
+    --mn-success: #22c55e;
+    --mn-error: #ef4444;
+    --mn-warning: #f59e0b;
+
+    /* 标签 */
+    --mn-tag-bg: #eef1ff;
+    --mn-tag-text: #4f6ef7;
+    --mn-tag-hot-bg: #fef2f2;
+    --mn-tag-hot-text: #dc2626;
+    --mn-tag-elite-bg: #fefce8;
+    --mn-tag-elite-text: #a16207;
+
+    /* 阴影 */
+    --mn-shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+    --mn-shadow: 0 1px 3px rgba(0,0,0,0.06);
+
+    /* 白字（主色底/深色底上的文字） */
+    --mn-text-white: #ffffff;
+
+    /* 标签-警告 */
+    --mn-tag-warning-bg: #fef3c7;
+    --mn-tag-warning-text: #d97706;
+
+    /* 提示框 */
+    --mn-alert-success-bg: #f0fdf4;
+    --mn-alert-success-text: #16a34a;
+    --mn-alert-success-border: #bbf7d0;
+    --mn-alert-error-bg: #fef2f2;
+    --mn-alert-error-text: #dc2626;
+    --mn-alert-error-border: #fecaca;
+
+    /* 正文内容（帖子/博客正文、表格） */
+    --mn-content-text: #333333;
+    --mn-content-border: #dde0e4;
+
+    /* 代码块 */
+    --mn-code-bg: #1e1e2e;
+    --mn-code-text: #cdd6f4;
+
+    /* 杂项 */
+    --mn-bg-theme-badge: rgba(255,255,255,0.2);
+    --mn-bg-strength-track: #eeeeee;
+
+    /* 阴影（增强/特型） */
+    --mn-shadow-dropdown: 0 4px 16px rgba(0,0,0,0.1);
+    --mn-shadow-dropdown-up: 0 -4px 16px rgba(0,0,0,0.1);
+    --mn-shadow-mobile-nav: 0 -2px 8px rgba(0,0,0,0.05);
+    --mn-shadow-primary-glow: 0 2px 8px rgba(79,110,247,0.3);
+    --mn-shadow-float: 0 2px 8px rgba(0,0,0,0.12);
+
+    /* 编辑器（WYSIWYG / Markdown） */
+    --mn-editor-toolbar-bg: #f8f9fa;
+    --mn-editor-tab-hover-bg: rgba(0,0,0,0.03);
+    --mn-editor-btn-text: #495057;
+    --mn-editor-btn-hover-bg: #e9ecef;
+    --mn-editor-btn-hover-text: #212529;
+    --mn-editor-btn-press-bg: #dee2e6;
+    --mn-editor-separator-bg: #ced4da;
+    --mn-editor-placeholder-text: #adb5bd;
+    --mn-editor-quote-bg: #f0f4ff;
+    --mn-editor-quote-text: #495057;
+    --mn-editor-quote-bg-2: #f4f5f7;
+    --mn-editor-quote-text-2: #555555;
+    --mn-editor-code-inline-bg: #e9ecef;
+    --mn-editor-code-inline-text: #e03131;
+    --mn-editor-table-border: #dee2e6;
+    --mn-editor-table-th-bg: #f8f9fa;
+    --mn-editor-emoji-border: #e0e0e0;
+    --mn-editor-emoji-hover-bg: #f0f0f0;
+    --mn-editor-btn-highlight-bg: #d0d7de;
+    --mn-editor-btn-highlight-text: #0969da;
+    --mn-editor-btn-highlight-shadow: inset 0 1px 3px rgba(0,0,0,0.12);
+    --mn-editor-word-count-text: #8b949e;
+
+    /* 旧组件（components.css 收编，前台按需加载页面用） */
+    --mn-comp-tag-hot-bg: #fff3e0;
+    --mn-comp-tag-hot-text: #ff9800;
+    --mn-comp-tag-danger-bg: #fce4ec;
+    --mn-comp-tag-danger-text: #e91e63;
+    --mn-comp-alert-error-bg: #fee;
+    --mn-comp-alert-error-border: #f00;
+    --mn-comp-alert-error-text: #c00;
+    --mn-comp-alert-success-bg: #d4edda;
+    --mn-comp-alert-success-border: #28a745;
+    --mn-comp-alert-success-text: #155724;
+    --mn-comp-alert-warning-bg: #fff3cd;
+    --mn-comp-alert-warning-border: #ffc107;
+    --mn-comp-alert-warning-text: #856404;
+    --mn-comp-input-border: #ddd;
+    --mn-comp-label-text: #333333;
+    --mn-comp-hint-text: #999999;
+    --mn-comp-btn-danger-bg: #dc3545;
+    --mn-comp-tag-badge-bg: #667eea;
+    --mn-comp-tag-badge-hover-bg: #5a6fd6;
+    --mn-comp-vote-up-active: #f44336;
+    --mn-comp-vote-up-hover-bg: #ffebee;
+    --mn-comp-reply-lock-bg: #fff3e0;
+    --mn-comp-reply-lock-border: #ff9800;
+    --mn-comp-pagination-active-bg: #667eea;
+    --mn-comp-swatch-border: #ddd;
+    --mn-comp-preview-border: #e0e0e0;
+    --mn-comp-overlay-bg: rgba(0,0,0,0.85);
+
+    /* 尺寸 */
+    --mn-left-width: 200px;
+    --mn-right-width: 260px;
+    --mn-nav-height: 54px;
+}
+
+/* ====== 旧版通用变量（兼容 style.css / editor.css / 插件 CSS） ======
+   统一指向 --mn-*，主题换肤时旧组件颜色自动跟随 */
+:root {
+    --primary-color: var(--mn-primary);
+    --primary-hover: var(--mn-primary-hover);
+    --bg-light: var(--mn-primary-subtle);
+    --bg-white: var(--mn-bg-card);
+    --border-color: var(--mn-border);
+    --text-dark: var(--mn-text);
+    --text-muted: var(--mn-text-muted);
+    --success-color: var(--mn-success);
+}
+
+/* ====== 标签通用 ====== */
+.form-label { font-size:13px; font-weight:500; color:var(--mn-text-secondary); display:block; }
+/* 密码强度条轨道（收编视图内联色值） */
+.mn-strength-track { height:4px; border-radius:2px; background:var(--mn-bg-strength-track); overflow:hidden; }
+
+/* =============================================
+   合并收编区 (components.css) — 合并后该文件废弃
+   说明：
+   - 与 admin.css 重叠的类已按核对结果剔除/注释：后台依赖 admin.css
+     的裸类或作用域版本（.btn-edit 紫底 / .c-666 #666 / .c-999 #999 /
+     .form-input / .btn-secondary / .btn-del / .c-333 / .lv-badge /
+     .color-swatch），防 modern.css 后加载覆盖后台样式；
+   - 死代码类（视图零引用）一并清理（.link-primary / .form-hint /
+     .tag-badges / .tag-badge / .reply-lock / .pagination-custom /
+     .form-list / .mt-5 / .px-15 / .ml-10 / .word-break / .c-danger）；
+   - .form-label 统一使用 modern.css 原版（13px/500），旧 14px/600 版已弃；
+   - 旧原子工具类已全部迁移至 mn-*（Section 21）：.flex/.gap-*/.fs-*/
+     .fw-*/.mb-*/.mt-*/.m-0/.inline-block/.items-center/.text-*/等，
+     视图已同步改为 mn-*，旧类定义已删除（见下方 [迁移] 注释）。
+   ============================================= */
+
+/* ===== Flex 布局 / 间距 / 排版 ===== */
+/* [迁移] 旧原子类已全部迁移至 mn-*（Section 21）：
+   .flex/.flex-wrap/.flex-center/.flex-between/.flex-1 → .mn-flex*；
+   .gap-2/4/8/10/15/20/5 → .mn-gap-*；
+   .mt-12/15/.mb-10/12/15/20/.m-0/.pointer → .mn-mt-*/.mn-mb-*/.mn-m-0/.mn-cursor-pointer；
+   .text-muted/.text-nowrap → .mn-text-muted/.mn-text-nowrap */
+.stat-card { flex: 1; text-align: center; padding: 16px; border-radius: 8px; }
+
+/* ===== 组件 ===== */
+.card {
+    margin-bottom: 20px;
+    padding: 20px;
+    background: var(--bg-white);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+/* [死代码] .link-primary 已清理（前台/后台视图零引用；admin.css 有 .admin-container .link-primary 作用域版） */
+
+.tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+.tag-hot { color: var(--mn-comp-tag-hot-text); background: var(--mn-comp-tag-hot-bg); }
+.tag-danger { color: var(--mn-comp-tag-danger-text); background: var(--mn-comp-tag-danger-bg); }
+
+.alert {
+    padding: 12px 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+.alert-error { background: var(--mn-comp-alert-error-bg); border-left: 3px solid var(--mn-comp-alert-error-border); color: var(--mn-comp-alert-error-text); }
+.alert-success { background: var(--mn-comp-alert-success-bg); border-left: 3px solid var(--mn-comp-alert-success-border); color: var(--mn-comp-alert-success-text); }
+.alert-warning { background: var(--mn-comp-alert-warning-bg); border-left: 3px solid var(--mn-comp-alert-warning-border); color: var(--mn-comp-alert-warning-text); }
+
+/* ===== 表单 ===== */
+/* [剔除-后台覆盖] .form-input 已弃：后台由 admin.css .admin-content/.admin-verify-wrapper .form-input 作用域提供完整样式 */
+/* [剔除-统一] .form-label 已弃：统一使用 modern.css 原版（13px/500） */
+/* [死代码] .form-hint 已清理（视图零引用） */
+
+/* ===== 按钮 ===== */
+.btn-primary {
+    padding: 10px 24px;
+    background: var(--primary-color);
+    color: var(--mn-text-white);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-block;
+}
+.btn-primary:hover { opacity: 0.9; }
+/* [剔除-后台覆盖] .btn-secondary 已弃：后台由 admin.css .admin-content .btn-secondary 作用域提供 */
+.btn-danger {
+    padding: 6px 12px;
+    background: var(--mn-comp-btn-danger-bg);
+    color: var(--mn-text-white);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+/* ===== 空状态 ===== */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: var(--mn-bg-card);
+    border-radius: 8px;
+    color: var(--mn-comp-hint-text);
+}
+
+/* [死代码] .tag-badges / .tag-badge / a.tag-badge:hover 已清理（视图零引用） */
+
+/* ===== Vote Buttons ===== */
+.vote-buttons {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.vote-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 6px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--mn-comp-hint-text);
+
+    line-height: 1;
+}
+
+.vote-btn:hover {
+    color: var(--primary-color);
+}
+
+.vote-btn.vote-up.active {
+    color: var(--mn-comp-vote-up-active);
+}
+
+.vote-btn .vote-icon {
+    font-size: 14px;
+}
+
+.vote-btn .vote-count {
+    font-weight: bold;
+}
+
+.vote-btn.vote-up:hover:not(.active) {
+    background: var(--mn-comp-vote-up-hover-bg);
+}
+
+.vote-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ===== 背景色 ===== */
+/* 原 components.css 中 .bg-light/.bg-f0/.bg-faf/.bg-f5 为悬空选择器，与 .c-333 共享 { color: var(--text-dark); }；
+   .c-333 已剔除（后台由 admin.css .admin-container .c-333 提供）；.bg-f5 为死成员已拆组清理 */
+.bg-light,
+.bg-f0,
+.bg-faf { color: var(--text-dark); }
+
+/* ===== 文字颜色 ===== */
+/* [剔除-后台覆盖] .c-666 已弃：admin.css 有裸类 .c-666{color:#666}，保留会覆盖后台 */
+/* [剔除-后台覆盖] .c-999 已弃：admin.css 有裸类 .c-999{color:#999}，保留会覆盖后台 */
+.c-primary { color: var(--primary-color); }
+/* [死代码] .c-danger 已清理（视图零引用） */
+
+/* ===== 边框 ===== */
+/* [死代码] .border-f0/.border-f5 为选择器组内死成员，已拆组清理 */
+.border,
+.border-ddd { border: 1px solid var(--border-color); }
+.border-bottom { border-bottom: 1px solid var(--border-color); }
+/* [迁移] .rounded-8 已迁移至 .mn-rounded-8 */
+
+/* ===== Padding ===== */
+/* [迁移] .p-15/.py-10 已迁移至 .mn-p-15/.mn-py-* */
+/* [死代码] .px-15 已清理（视图零引用） */
+
+/* ===== Font ===== */
+/* [迁移] .fs-12/13/14/15/16/22、.fw-500/600/bold、.text-center、.text-decoration-none 已迁移至 .mn-fs-*/.mn-fw-*/.mn-text-center/.mn-text-decoration-none */
+
+/* ===== Width / Height ===== */
+/* [迁移] .d-inline-block 已迁移至 .mn-inline-block */
+
+/* ===== 基础布局块 ===== */
+/* [迁移] .inline-block/.block 已迁移至 .mn-inline-block/.mn-block */
+
+/* ===== 按钮变体 ===== */
+.btn-sm {
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+/* [剔除-后台覆盖] .btn-edit 已弃：admin.css 裸类 .btn-edit 为紫底(var(--c-primary))，保留会覆盖后台 */
+/* [剔除-后台覆盖] .btn-del 已弃：后台由 admin.css .admin-content .btn-del 作用域提供 */
+
+/* ===== 回复可见遮罩 ===== */
+/* [死代码] .reply-lock 已清理（视图零引用） */
+
+/* ===== 分页 ===== */
+/* [死代码] .pagination-custom 已清理（视图零引用） */
+
+/* ===== 表单列表样式 ===== */
+/* [死代码] .form-list（含 .checkbox-inline 依赖）已清理：admin.css 有裸类 .checkbox-inline */
+
+/* ===== 分隔线变体 ===== */
+/* [死代码] .ml-10 已清理（视图零引用） */
+/* [迁移] .ml-auto/.mt-20 已迁移至 .mn-ml-auto/.mn-mt-20 */
+
+/* ===== 等级徽章 ===== */
+/* [剔除-后台覆盖] .lv-badge 已弃：后台由 admin.css .admin-container .lv-badge 作用域提供（值不同：radius 10px→4px、weight bold→600） */
+/* [剔除-后台覆盖] .color-swatch 已弃：后台由 admin.css .admin-container .color-swatch 作用域提供（值不同：18px vs 24px） */
+
+/* ===== 表格式列宽辅助 ===== */
+/* [迁移] .w-100 已迁移至 .mn-wp-100 */
+
+/* [死代码] .word-break 已清理（视图零引用） */
+
+/* ===== 移动端通用卡片样式 ===== */
+/* 规则已合并至「22b 统一响应式块」（.post-container/.message-container/.search-container/.auth-box、.stat-cards .bg-light） */
+
+/* [迁移] .mt-4/.fs-11/.items-center/.cursor-pointer 已迁移至 .mn-mt-4/.mn-fs-11/.mn-items-center/.mn-cursor-pointer */
+
+/* 附件图片缩略图 */
+.attachment-image {
+    max-width: 200px;
+    max-height: 150px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid var(--mn-comp-preview-border);
+    cursor: pointer;
+
+}
+.attachment-image:hover {
+    opacity: .85;
+}
+
+/* 灯箱遮罩 */
+.image-lightbox {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--mn-comp-overlay-bg);
+    z-index: 99999;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    touch-action: none; /* 移动端手势全部交给 JS 处理 */
+}
+.image-lightbox.show {
+    display: flex;
+}
+.image-lightbox img,
+#lightboxImg {
+    max-width: 60vw;
+    max-height: 60vh;
+    border-radius: 8px;
+
+    object-fit: contain;
+    cursor: zoom-out;
+    transform-origin: center center;
+    transition: transform .15s ease;
+}
+#lightboxImg.lb-zoomed {
+    cursor: grab;
+}
+#lightboxImg.lb-zoomed.lb-dragging {
+    cursor: grabbing;
+    transition: none; /* 拖拽时去掉过渡，避免跟手延迟 */
+}
+.image-lightbox .lb-close {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    color: var(--mn-text-white);
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+    opacity: .8;
+    z-index: 100000;
+}
+.image-lightbox .lb-close:hover {
+    opacity: 1;
+}

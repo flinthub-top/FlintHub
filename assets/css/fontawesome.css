@@ -1,0 +1,136 @@
+/* Font Awesome 6 Free - SIL OFL 1.1 License */
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('/assets/fonts/fontawesome-webfont.woff2') format('woff2'),
+       url('/assets/fonts/fontawesome-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.fa {
+  display: inline-block;
+  width: 1.25em;          /* 统一图标外框宽度（字形固有宽度不同 → 图标+文字时列不齐） */
+  text-align: center;     /* 字形在统一宽度内居中 */
+  font-family: 'FontAwesome';
+  font-size: inherit;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  vertical-align: middle;
+}
+
+/* ===== 常用图标 ===== */
+.fa-quote-left:before { content: "\f10d"; }
+.fa-quote-right:before { content: "\f10e"; }
+.fa-pencil:before { content: "\f040"; }
+.fa-pencil-square-o:before { content: "\f044"; }
+.fa-pencil-square:before { content: "\f14b"; }
+.fa-home:before { content: "\f015"; }
+.fa-comments:before { content: "\f086"; }
+.fa-comment:before { content: "\f075"; }
+.fa-tags:before { content: "\f02c"; }
+.fa-tag:before { content: "\f02b"; }
+.fa-search:before { content: "\f002"; }
+.fa-user:before { content: "\f007"; }
+.fa-users:before { content: "\f0c0"; }
+.fa-cog:before { content: "\f013"; }
+.fa-cogs:before { content: "\f085"; }
+.fa-trash:before { content: "\f014"; }
+.fa-trash-o:before { content: "\f12d"; }
+.fa-edit:before { content: "\f044"; }
+.fa-reply:before { content: "\f112"; }
+.fa-reply-all:before { content: "\f122"; }
+.fa-thumbs-up:before { content: "\f164"; }
+.fa-thumbs-down:before { content: "\f165"; }
+.fa-thumb-tack:before { content: "\f08d"; }
+.fa-star:before { content: "\f005"; }
+.fa-star-o:before { content: "\f006"; }
+.fa-clock-o:before { content: "\f017"; }
+.fa-calendar:before { content: "\f073"; }
+.fa-eye:before { content: "\f06e"; }
+.fa-link:before { content: "\f0c1"; }
+.fa-paperclip:before { content: "\f0c6"; }
+.fa-image:before { content: "\f03e"; }
+.fa-code:before { content: "\f121"; }
+.fa-bold:before { content: "\f032"; }
+.fa-italic:before { content: "\f033"; }
+.fa-list-ul:before { content: "\f0ca"; }
+.fa-list-ol:before { content: "\f0cb"; }
+.fa-smile-o:before { content: "\f118"; }
+.fa-ellipsis-h:before { content: "\f141"; }
+.fa-ellipsis-v:before { content: "\f142"; }
+.fa-bars:before { content: "\f0c9"; }
+.fa-times:before { content: "\f00d"; }
+.fa-check:before { content: "\f00c"; }
+.fa-exclamation-triangle:before { content: "\f071"; }
+.fa-info-circle:before { content: "\f05a"; }
+.fa-question-circle:before { content: "\f059"; }
+.fa-sign-out:before { content: "\f08b"; }
+.fa-sign-in:before { content: "\f090"; }
+.fa-plus:before { content: "\f067"; }
+.fa-plus-circle:before { content: "\f055"; }
+.fa-minus:before { content: "\f068"; }
+.fa-close:before { content: "\f00d"; }
+.fa-envelope:before { content: "\f0e0"; }
+.fa-lock:before { content: "\f023"; }
+.fa-unlock:before { content: "\f09c"; }
+.fa-arrow-up:before { content: "\f062"; }
+.fa-arrow-down:before { content: "\f063"; }
+.fa-arrow-left:before { content: "\f060"; }
+.fa-arrow-right:before { content: "\f061"; }
+.fa-angle-up:before { content: "\f106"; }
+.fa-angle-down:before { content: "\f107"; }
+.fa-angle-left:before { content: "\f104"; }
+.fa-angle-right:before { content: "\f105"; }
+.fa-chevron-up:before { content: "\f077"; }
+.fa-chevron-down:before { content: "\f078"; }
+.fa-chevron-left:before { content: "\f053"; }
+.fa-chevron-right:before { content: "\f054"; }
+.fa-fire:before { content: "\f06d"; }
+.fa-gem:before { content: "\f3a5"; }
+.fa-heart:before { content: "\f004"; }
+.fa-flag:before { content: "\f024"; }
+.fa-bookmark:before { content: "\f02e"; }
+.fa-download:before { content: "\f019"; }
+.fa-upload:before { content: "\f093"; }
+.fa-external-link:before { content: "\f08e"; }
+.fa-rss:before { content: "\f09e"; }
+.fa-globe:before { content: "\f0ac"; }
+.fa-filter:before { content: "\f0b0"; }
+.fa-sort:before { content: "\f0dc"; }
+.fa-sort-asc:before { content: "\f0de"; }
+.fa-sort-desc:before { content: "\f0dd"; }
+.fa-warning:before { content: "\f071"; }
+.fa-spinner:before { content: "\f110"; }
+.fa-refresh:before { content: "\f021"; }
+.fa-file:before { content: "\f15b"; }
+.fa-file-text:before { content: "\f15c"; }
+.fa-file-image-o:before { content: "\f1c5"; }
+.fa-folder:before { content: "\f07b"; }
+.fa-folder-open:before { content: "\f07c"; }
+
+/* ===== 编辑器工具栏额外图标 ===== */
+.fa-underline:before { content: "\f0cd"; }
+.fa-strikethrough:before { content: "\f0cc"; }
+.fa-header:before { content: "\f1dc"; }
+.fa-font:before { content: "\f031"; }
+.fa-align-left:before { content: "\f036"; }
+.fa-align-center:before { content: "\f037"; }
+.fa-align-right:before { content: "\f039"; }
+.fa-undo:before { content: "\f0e2"; }
+.fa-repeat:before { content: "\f01e"; }
+.fa-eraser:before { content: "\f12d"; }
+.fa-arrows-alt:before { content: "\f0b2"; }
+
+/* 固定宽度 */
+.fa-fw { width: 1.28571429em; text-align: center; }
+/* 旋转动画 */
+.fa-spin { animation: fa-spin 2s infinite linear; }
+@keyframes fa-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(359deg); } }
+/* 放大 */
+.fa-lg { font-size: 1.33333333em; line-height: 0.75em; vertical-align: -15%; }
+.fa-2x { font-size: 2em; }
+.fa-3x { font-size: 3em; }

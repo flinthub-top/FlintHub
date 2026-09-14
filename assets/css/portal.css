@@ -1,0 +1,606 @@
+/* ============================================================
+   Flagstone Home Portal 通栏门户首页专属样式
+   全部基于 --mn-* 主题变量，跟随站点主题自动切换配色
+   前缀 pr- 避免与全局 mn- 体系冲突
+   ============================================================ */
+
+/* ---- 模块卡片：每个大功能模块独立成一张卡片 ---- */
+.pr-card {
+    background: var(--mn-bg-card);
+    border: 1px solid var(--mn-border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--mn-shadow);
+    margin-bottom: 20px;
+}
+
+.pr-card:last-child { margin-bottom: 0; }
+
+.pr-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 40px 0 36px;
+}
+
+.pr-hero::before {
+    content: "";
+    position: absolute;
+    top: -160px;
+    right: -160px;
+    width: 520px;
+    height: 520px;
+    background: radial-gradient(circle, color-mix(in srgb, var(--mn-primary) 10%, transparent) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.pr-container {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ---- Hero ---- */
+
+.pr-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--mn-primary);
+    margin-bottom: 18px;
+    padding: 5px 12px;
+    border: 1px solid color-mix(in srgb, var(--mn-primary) 40%, transparent);
+    border-radius: 4px;
+    background: var(--mn-primary-subtle);
+}
+
+.pr-hero h1 {
+    font-size: 25px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 18px;
+    color: var(--mn-text);
+    letter-spacing: -0.5px;
+}
+
+.pr-hero h1 .pr-accent {
+    color: var(--mn-primary);
+}
+
+.pr-hero-desc {
+    font-size: 16px;
+    color: var(--mn-text-secondary);
+    line-height: 1.8;
+    margin-bottom: 28px;
+    max-width: 520px;
+}
+
+.pr-cta-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.pr-hero-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 48px;
+    align-items: center;
+}
+
+.pr-hero-spec {
+    padding: 26px;
+}
+
+.pr-hero-spec-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--mn-text);
+    margin-bottom: 20px;
+}
+
+.pr-hero-spec-title i { color: var(--mn-primary); }
+
+.pr-hero-spec-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.pr-spec-value {
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--mn-primary);
+    line-height: 1.1;
+    margin-bottom: 6px;
+}
+
+.pr-spec-label {
+    font-size: 13px;
+    color: var(--mn-text-secondary);
+}
+
+/* ---- 按钮（基于主题变量） ---- */
+.pr-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 22px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all .15s;
+    color: var(--mn-text);
+    text-decoration: none;
+}
+
+.pr-btn-primary {
+    background: var(--mn-primary);
+    color: var(--mn-text-inverse);
+    border-color: var(--mn-primary);
+}
+
+.pr-btn-primary:hover {
+    background: var(--mn-primary-hover);
+    border-color: var(--mn-primary-hover);
+    color: var(--mn-text-inverse);
+}
+
+.pr-btn-ghost {
+    background: transparent;
+    border-color: var(--mn-border);
+}
+
+.pr-btn-ghost:hover {
+    border-color: var(--mn-primary);
+    color: var(--mn-primary);
+}
+
+.pr-btn-lg {
+    padding: 12px 26px;
+    font-size: 15px;
+}
+
+/* ---- 通用区块（每个模块独立卡片） ---- */
+.pr-section {
+    padding: 36px 0;
+}
+
+.pr-section-head {
+    margin-bottom: 26px;
+}
+
+.pr-section-head .pr-eyebrow {
+    margin-bottom: 10px;
+}
+
+.pr-section-title {
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.3;
+    margin-bottom: 10px;
+    color: var(--mn-text);
+}
+
+.pr-section-desc {
+    font-size: 15px;
+    color: var(--mn-text-secondary);
+    max-width: 620px;
+}
+
+/* ---- 特性网格 ---- */
+.pr-features {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.pr-feature {
+    background: var(--mn-bg-body);
+    border: 1px solid var(--mn-border);
+    border-radius: 8px;
+    padding: 26px 22px;
+    transition: border-color .2s, transform .2s;
+}
+
+.pr-feature:hover {
+    border-color: var(--mn-primary);
+    transform: translateY(-2px);
+}
+
+.pr-feature-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    color: var(--mn-primary);
+    border-radius: 8px;
+    background: var(--mn-primary-subtle);
+}
+
+.pr-feature h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--mn-text);
+}
+
+.pr-feature p {
+    font-size: 13px;
+    color: var(--mn-text-secondary);
+    line-height: 1.7;
+}
+
+/* ---- 门户内容聚合 ---- */
+.pr-portal {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 28px;
+}
+
+.pr-col h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--mn-text);
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--mn-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pr-col h3 .pr-col-more {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--mn-primary);
+    text-decoration: none;
+}
+
+.pr-col h3 .pr-col-more:hover { text-decoration: underline; }
+
+.pr-post-list,
+.pr-blog-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* 帖子 */
+.pr-post-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--mn-divider);
+}
+
+.pr-post-item:last-child { border-bottom: none; }
+
+.pr-post-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--mn-primary-subtle);
+    border: 1px solid var(--mn-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--mn-primary);
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.pr-post-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.pr-post-body { flex: 1; min-width: 0; }
+
+.pr-post-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--mn-text);
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color .15s;
+}
+
+.pr-post-title a { color: inherit; text-decoration: none; }
+
+.pr-post-item:hover .pr-post-title { color: var(--mn-primary); }
+
+.pr-post-meta {
+    font-size: 12px;
+    color: var(--mn-text-muted);
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.pr-post-meta .pr-tag {
+    color: var(--mn-primary);
+    background: var(--mn-primary-subtle);
+    padding: 1px 7px;
+    border-radius: 2px;
+    font-size: 11px;
+    text-decoration: none;
+}
+
+.pr-post-stats {
+    display: flex;
+    gap: 12px;
+    font-size: 12px;
+    color: var(--mn-text-muted);
+    flex-shrink: 0;
+    font-family: "SF Mono", "Cascadia Code", Consolas, monospace;
+}
+
+.pr-post-stats .pr-replies { color: var(--mn-text-secondary); }
+
+/* 博客 */
+.pr-blog-item {
+    padding: 15px 0;
+    border-bottom: 1px solid var(--mn-divider);
+}
+
+.pr-blog-item:last-child { border-bottom: none; }
+
+.pr-blog-date {
+    font-family: "SF Mono", "Cascadia Code", Consolas, monospace;
+    font-size: 11px;
+    color: var(--mn-text-muted);
+    margin-bottom: 6px;
+    letter-spacing: .5px;
+}
+
+.pr-blog-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--mn-text);
+    margin-bottom: 6px;
+    line-height: 1.5;
+    transition: color .15s;
+}
+
+.pr-blog-title a { color: inherit; text-decoration: none; }
+
+.pr-blog-item:hover .pr-blog-title { color: var(--mn-primary); }
+
+.pr-blog-excerpt {
+    font-size: 12px;
+    color: var(--mn-text-secondary);
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ---- 下载 CTA（独立卡片，与其它卡片统一底色） ---- */
+.pr-cta {
+    text-align: center;
+    padding: 44px 0 48px;
+}
+
+.pr-cta h2 {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 14px;
+    color: var(--mn-text);
+}
+
+.pr-cta p {
+    font-size: 16px;
+    color: var(--mn-text-secondary);
+    margin-bottom: 28px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pr-cta .pr-cta-row { justify-content: center; }
+
+/* ============================================================
+   响应式
+   ============================================================ */
+@media (max-width: 960px) {
+    .pr-hero-grid { grid-template-columns: 1fr; gap: 28px; }
+    .pr-features { grid-template-columns: repeat(2, 1fr); }
+    .pr-hero-spec-grid { grid-template-columns: repeat(4, 1fr); }
+    .pr-spec-value { font-size: 24px; }
+    .pr-portal { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+    .pr-hero { padding: 30px 0 26px; }
+    .pr-hero h1 { font-size: 20px; }
+    .pr-hero-desc { font-size: 15px; }
+    .pr-section { padding: 28px 0; }
+    .pr-section-title { font-size: 18px; }
+    .pr-features { grid-template-columns: 1fr; }
+    .pr-hero-spec-grid { grid-template-columns: repeat(2, 1fr); }
+    .pr-spec-value { font-size: 20px; }
+    .pr-cta h2 { font-size: 24px; }
+    .pr-cta { padding: 36px 0 40px; }
+    .pr-post-stats { display: none; }
+}
+
+/* ============================================================
+   站点富页脚（FlintHub 品牌 + 产品/资源/社区/联系我们）
+   ============================================================ */
+.pr-site-footer {
+    padding: 48px 0 40px;
+}
+
+.pr-footer-grid {
+    display: grid;
+    grid-template-columns: 1.6fr repeat(4, 1fr);
+    gap: 28px;
+}
+
+.pr-footer-logo {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--mn-text);
+    margin-bottom: 10px;
+}
+
+.pr-footer-logo .pr-accent { color: var(--mn-primary); }
+
+.pr-footer-tagline {
+    font-size: 13px;
+    color: var(--mn-text-secondary);
+    line-height: 1.7;
+    max-width: 260px;
+}
+
+.pr-footer-col h4 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--mn-text);
+    margin-bottom: 14px;
+}
+
+.pr-footer-col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.pr-footer-col li { margin-bottom: 9px; }
+
+.pr-footer-col a {
+    font-size: 13px;
+    color: var(--mn-text-secondary);
+    text-decoration: none;
+    transition: color .15s;
+}
+
+.pr-footer-col a:hover { color: var(--mn-primary); }
+
+@media (max-width: 960px) {
+    .pr-footer-grid { grid-template-columns: repeat(4, 1fr); }
+    .pr-footer-brand { grid-column: 1 / -1; }
+}
+
+@media (max-width: 600px) {
+    .pr-footer-grid { grid-template-columns: repeat(2, 1fr); }
+    .pr-footer-brand { grid-column: 1 / -1; }
+    .pr-footer-tagline { max-width: none; }
+}
+
+/* ============================================================
+   插件生态
+   ============================================================ */
+.pr-plugin-group {
+    margin-bottom: 34px;
+}
+
+.pr-plugin-group:last-child { margin-bottom: 0; }
+
+.pr-plugin-group-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--mn-text);
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--mn-divider);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pr-plugin-group-title::before {
+    content: "";
+    width: 4px;
+    height: 16px;
+    border-radius: 2px;
+    background: var(--mn-primary);
+}
+
+.pr-plugin-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.pr-plugin {
+    background: var(--mn-bg-body);
+    border: 1px solid var(--mn-border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    transition: border-color .15s;
+}
+
+.pr-plugin:hover { border-color: var(--mn-primary); }
+
+.pr-plugin-name {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+}
+
+.pr-plugin-name code {
+    font-family: "SF Mono", "Cascadia Code", Consolas, monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--mn-primary);
+    background: var(--mn-primary-subtle);
+    padding: 1px 6px;
+    border-radius: 4px;
+}
+
+.pr-plugin-name span {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--mn-text-muted);
+}
+
+.pr-plugin-desc {
+    font-size: 13px;
+    color: var(--mn-text-secondary);
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* Tab 导航：插件分组切换（Alpine x-show；默认激活面板不加 x-cloak） */
+.pr-plugin-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 22px;
+}
+.pr-plugin-tab {
+    border: 1px solid var(--mn-border);
+    color: var(--mn-text-secondary);
+    background: var(--mn-bg-body);
+}
+.pr-plugin-tab:hover { border-color: var(--mn-primary); color: var(--mn-primary); }
+.pr-plugin-tab-active,
+.pr-plugin-tab-active:hover {
+    border-color: var(--mn-primary);
+    background: var(--mn-primary);
+    color: #fff;
+}
+[x-cloak] { display: none !important; }
+
+@media (max-width: 600px) {
+    .pr-plugin-grid { grid-template-columns: 1fr; }
+}
