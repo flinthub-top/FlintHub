@@ -1,0 +1,13 @@
+﻿{
+    "name": "本地草稿保护",
+    "version": "1.0.0",
+    "author": "FlintHub",
+    "description": "发帖\/回帖\/博客表单本地草稿自动保存与恢复（纯前端 localStorage，零后端、零数据库）",
+    "activated": true,
+    "category": "community",
+    "icon": "save",
+    "hooks": {
+        "layout_head_end": "hook\/layout_head_end.php"
+    },
+    "permissions": []
+}

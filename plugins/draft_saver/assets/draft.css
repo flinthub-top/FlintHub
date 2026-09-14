@@ -1,0 +1,51 @@
+/* ============================================================
+   FlintHub — 本地草稿保护插件（draft_saver）样式
+   收敛于插件自身 assets/，零内联、不动核心 CSS
+   配色全部走 --mn-* 变量，随主题自动适配
+   ============================================================ */
+
+/* ---- 顶部悬浮提示条（恢复/过期/通知三态共用） ---- */
+.draft-restore-bar {
+    position: fixed;
+    top: 74px; /* 下移 60px：避开顶部导航栏遮挡 */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background: var(--mn-bg-card, #ffffff);
+    border: 1px solid var(--mn-border, #e2e8f0);
+    border-radius: 10px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.14);
+    font-size: 13px;
+    color: var(--mn-text, #1e293b);
+    max-width: min(92vw, 640px);
+}
+
+.draft-restore-text {
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+.draft-restore-bar .mn-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+/* 纯通知（存储已满 / 隐私模式）：稍弱化边框以示非交互 */
+.draft-restore-notice {
+    border-color: var(--mn-alert-warning-border, #fde68a);
+    background: var(--mn-alert-warning-bg, #fffbeb);
+    color: var(--mn-alert-warning-text, #92400e);
+}
+
+/* ---- 移动端窄屏：按钮换行，避免溢出 ---- */
+@media (max-width: 480px) {
+    .draft-restore-bar {
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+    }
+}

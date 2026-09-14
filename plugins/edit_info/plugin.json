@@ -1,0 +1,15 @@
+﻿{
+    "name": "编辑信息",
+    "version": "1.5.0",
+    "author": "SoSite",
+    "description": "记录帖子\/回复的最后编辑人和编辑时间，在前端展示",
+    "activated": true,
+    "category": "content",
+    "icon": "pencil",
+    "hooks": {
+        "init_after": "hook\/init_after.php",
+        "post_edit_after": "hook\/post_edit_after.php",
+        "thread_edit_after": "hook\/thread_edit_after.php",
+        "controller_view_before": "hook\/controller_view_before.php"
+    }
+}

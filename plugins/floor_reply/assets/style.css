@@ -1,0 +1,259 @@
+/* ===== 楼中楼插件样式（零内联，--mn-* 主题变量 + fallback） ===== */
+
+/* ---- 楼层回复按钮（post_operation_after 输出，script.js 移到投票操作栏「引用」之后） ---- */
+.fr-reply-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 0;
+    border: none;
+    background: none;
+    font-size: 12px;
+    line-height: 1;
+    color: var(--mn-text-muted, #9ca3af);
+    cursor: pointer;
+    transition: color .15s;
+}
+.fr-reply-btn:hover {
+    color: var(--mn-primary, #4f6ef7);
+}
+.fr-reply-btn .fa {
+    font-size: 12px;
+}
+/* 回复数括号 + 展开/收缩箭头（展开态箭头旋转 180°） */
+.fr-reply-count {
+    font-size: 12px;
+}
+.fr-caret {
+    font-size: 11px;
+    transition: transform .15s;
+}
+.fr-reply-btn.fr-open .fr-caret {
+    transform: rotate(180deg);
+}
+
+/* ---- 楼中楼列表挂载点（script.js 移到楼层末尾；无分割线，直接跟随楼层内容） ----
+   上边距由核心 token --mn-pad-flow 派生：抵消 .mn-p-20 的底部内边距一部分，
+   使楼中楼紧贴上方的楼中楼回复按钮（随 token 全局跟随，不写死 -XXpx）。 */
+.fr-anchor {
+    margin: calc(-1 * var(--mn-pad-flow, 20px) + 12px) 16px 0;
+}
+
+/* ---- 楼中楼列表（htmx 片段） ---- */
+.fr-box {
+    margin: calc(-1 * var(--mn-pad-flow, 20px) + 8px) 16px 4px;
+    padding: 10px 12px;
+    background: var(--mn-bg-body, #f4f5f7);
+    border-radius: 8px;
+}
+/* 收缩态：display:none 由 JS 切换 */
+.fr-box.fr-collapsed {
+    display: none;
+}
+.fr-error {
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    background: var(--mn-comp-alert-error-bg, #fef2f2);
+    border: 1px solid var(--mn-comp-alert-error-border, #fecaca);
+    color: var(--mn-comp-alert-error-text, #b91c1c);
+    font-size: 13px;
+}
+.fr-empty {
+    margin: 0 0 8px;
+    font-size: 12px;
+    color: var(--mn-text-muted, #9ca3af);
+}
+.fr-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.fr-item {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--mn-border-light, #eef0f3);
+}
+.fr-item:last-child {
+    border-bottom: none;
+}
+.fr-item-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.fr-avatar {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.fr-avatar-img {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+.fr-avatar-ph {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--mn-bg-card, #fff);
+    color: var(--mn-text-muted, #9ca3af);
+    font-size: 11px;
+}
+.fr-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+    flex-wrap: wrap;
+}
+.fr-username {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--mn-text, #333);
+    text-decoration: none;
+}
+.fr-username:hover {
+    color: var(--mn-primary, #4f6ef7);
+}
+.fr-at {
+    font-size: 12px;
+    color: var(--mn-text-muted, #9ca3af);
+}
+.fr-time {
+    font-size: 12px;
+    color: var(--mn-text-muted, #9ca3af);
+}
+.fr-del-form {
+    flex-shrink: 0;
+}
+.fr-del-btn {
+    border: none;
+    background: none;
+    padding: 2px 4px;
+    font-size: 13px;
+    color: var(--mn-text-muted, #9ca3af);
+    cursor: pointer;
+    transition: color .15s;
+}
+.fr-del-btn:hover {
+    color: var(--mn-error, #dc2626);
+}
+.fr-content {
+    margin-top: 4px;
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--mn-text, #333);
+    word-break: break-word;
+}
+/* @ 提及高亮：点击跳转个人主页 */
+.fr-mention {
+    color: var(--mn-primary, #4f6ef7);
+    font-weight: 600;
+    text-decoration: none;
+}
+.fr-mention:hover {
+    text-decoration: underline;
+}
+
+/* ---- 回复表单 ---- */
+.fr-form {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--mn-border-light, #eef0f3);
+}
+.fr-form-row {
+    display: flex;
+    gap: 8px;
+}
+.fr-input {
+    flex: 1;
+    min-width: 0;
+    padding: 7px 10px;
+    border: 1px solid var(--mn-border, #dde0e4);
+    border-radius: 6px;
+    background: var(--mn-bg-card, #fff);
+    color: var(--mn-text, #333);
+    font-size: 13px;
+    box-sizing: border-box;
+}
+.fr-input:focus {
+    outline: none;
+    border-color: var(--mn-primary, #4f6ef7);
+    box-shadow: 0 0 0 3px var(--mn-primary-subtle, #f5f7ff);
+}
+.fr-submit {
+    flex-shrink: 0;
+    padding: 7px 16px;
+    border: none;
+    border-radius: 6px;
+    background: var(--mn-primary, #4f6ef7);
+    color: #fff;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background .15s;
+}
+.fr-submit:hover {
+    background: var(--mn-primary-hover, #3b5de7);
+}
+.fr-hint {
+    margin: 5px 0 0;
+    font-size: 12px;
+    color: var(--mn-text-muted, #9ca3af);
+}
+.fr-login-hint {
+    margin: 8px 0 0;
+    font-size: 12px;
+    color: var(--mn-text-muted, #9ca3af);
+}
+
+/* ---- 分页器（每 10 条一页，htmx 切换） ---- */
+.fr-pagination {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin: 8px 0 4px;
+}
+.fr-page-btn {
+    display: inline-flex;
+    align-items: center;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    justify-content: center;
+    border: 1px solid var(--mn-border, #dde0e4);
+    border-radius: 4px;
+    background: var(--mn-bg-card, #fff);
+    color: var(--mn-text-secondary, #6b7280);
+    font-size: 12px;
+    line-height: 1;
+    text-decoration: none;
+    transition: all .15s;
+}
+.fr-page-btn:hover {
+    border-color: var(--mn-primary, #4f6ef7);
+    color: var(--mn-primary, #4f6ef7);
+}
+.fr-page-active {
+    border-color: var(--mn-primary, #4f6ef7);
+    background: var(--mn-primary, #4f6ef7);
+    color: #fff;
+    font-weight: 600;
+}
+.fr-page-total {
+    margin-left: 6px;
+    font-size: 12px;
+    color: var(--mn-text-muted, #9ca3af);
+}
+
+
+/* ===== 旧类收敛补丁 ===== */
+.fr-reply-text { margin-left: 4px; }

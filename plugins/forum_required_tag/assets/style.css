@@ -1,0 +1,159 @@
+/* ===== 版块强制 Tag 插件样式（后台管理页 + 前台提示条/前缀选择器，零内联）===== */
+
+/* hidden 强规则：防 display:flex 等样式覆盖 [hidden] 属性（head 内的 #frt-config 必须隐藏，不渲染） */
+.frt-hint[hidden],
+.frt-prefix-picker[hidden],
+#frt-config[hidden] { display: none !important; }
+
+/* 后台 Tab（复用 .admin-tabs 命名，避免与核心冲突用 frt- 前缀包裹） */
+.frt-tabs { margin-bottom: 18px; }
+.frt-tabs .admin-tab-btn {
+    padding: 8px 18px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #64748b;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    cursor: pointer;
+    transition: color .15s, border-color .15s;
+}
+.frt-tabs .admin-tab-btn:hover { color: #2563eb; }
+.frt-tabs .admin-tab-btn.active {
+    color: #2563eb;
+    font-weight: 600;
+    border-bottom-color: #2563eb;
+}
+.admin-tab-pane { display: none; }
+.admin-tab-pane.active { display: block; }
+
+.tab-pane-desc {
+    margin: 0 0 14px;
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.6;
+}
+
+.frt-forum-select { max-width: 360px; }
+
+/* 表单行（新增 + 复制） */
+.frt-inline-form {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+}
+.frt-input { max-width: 260px; }
+
+.frt-copy-form {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid #e2e8f0;
+    flex-wrap: wrap;
+}
+.frt-copy-form label { font-size: 13px; color: #475569; }
+
+/* 表格 */
+.frt-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+.frt-table th, .frt-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: left;
+}
+.frt-table th {
+    background: #f8fafc;
+    color: #475569;
+    font-weight: 600;
+}
+.frt-empty { color: #94a3b8; text-align: center; padding: 24px 0 !important; }
+
+/* 启用/禁用开关 */
+.frt-toggle {
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 3px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    background: #fff;
+    color: #64748b;
+}
+.frt-toggle.on { color: #059669; border-color: #a7f3d0; background: #ecfdf5; }
+.frt-toggle.off { color: #dc2626; border-color: #fecaca; background: #fef2f2; }
+
+.frt-pagination {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+/* ===== 前台发帖/编辑页提示条 + 前缀选择器 ===== */
+.frt-hint {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin: 8px 0;
+    padding: 8px 12px;
+    border-radius: 6px;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    color: #1d4ed8;
+    font-size: 13px;
+    line-height: 1.5;
+}
+.frt-hint-top { width: 100%; display: flex; align-items: center; gap: 6px; }
+.frt-hint-icon { flex-shrink: 0; }
+
+.frt-prefix-picker {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0;
+    flex-wrap: wrap;
+}
+.frt-prefix-label {
+    font-size: 13px;
+    color: #475569;
+    font-weight: 600;
+}
+.frt-prefix-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+/* Tag 提示条按钮与标题前缀按钮共用样式 */
+.frt-tag-btns { display: flex; gap: 6px; flex-wrap: wrap; margin-left: 2px; }
+.frt-prefix-btn,
+.frt-tag-btn {
+    padding: 4px 12px;
+    font-size: 13px;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    background: #fff;
+    color: #334155;
+    cursor: pointer;
+    transition: all .15s;
+}
+.frt-prefix-btn:hover,
+.frt-tag-btn:hover { border-color: #93c5fd; color: #1d4ed8; }
+.frt-prefix-btn.active,
+.frt-tag-btn.active {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: #fff;
+    font-weight: 600;
+}
+
+/* ===== 拦截错误页（views/error.php）：收编内联 margin / 字号 ===== */
+.frt-error-box { margin: 0 auto; }
+.frt-error-icon { font-size: 32px; line-height: 1; }
+
+
+/* ===== 旧类收敛补丁 ===== */
+.frt-del { cursor: pointer; }

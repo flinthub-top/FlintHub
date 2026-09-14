@@ -1,0 +1,17 @@
+﻿{
+    "name": "楼中楼",
+    "version": "1.0.0",
+    "author": "FlintHub",
+    "description": "楼中楼：在帖子楼层下方支持对楼层的再回复，支持@提及用户（高亮+跳转个人主页）",
+    "activated": true,
+    "category": "community",
+    "icon": "comments",
+    "hooks": {
+        "init_after": "hook\/init_after.php",
+        "route_register": "hook\/route_register.php",
+        "layout_head_end": "hook\/layout_head_end.php",
+        "post_operation_after": "hook\/post_operation_after.php",
+        "controller_view_before": "hook\/controller_view_before.php"
+    },
+    "permissions": []
+}

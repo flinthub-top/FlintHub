@@ -1,0 +1,17 @@
+﻿{
+    "name": "每日签到",
+    "version": "1.0.0",
+    "author": "SoSite",
+    "description": "用户每日签到获取积分，支持连续签到奖励",
+    "activated": false,
+    "category": "entertainment",
+    "icon": "calendar-check",
+    "hooks": {
+        "init_after": "hook\/init_after.php",
+        "route_register": "hook\/route_register.php",
+        "controller_view_before": "hook\/controller_view_before.php",
+        "nav_plugin_links": "hook\/nav_plugin_links.php",
+        "nav_user_menu_items": "hook\/nav_user_menu_items.php"
+    },
+    "permissions": ["system:settings"]
+}

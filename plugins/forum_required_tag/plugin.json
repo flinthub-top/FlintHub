@@ -1,0 +1,20 @@
+﻿{
+    "name": "版块强制 Tag",
+    "version": "1.0.0",
+    "author": "FlintHub",
+    "description": "版块强制 Tag 与标题前缀：后台为指定版块预设允许的 Tag 列表与标题前缀，发帖\/编辑时强制携带，否则无法提交（纯钩子实现，零核心侵入）",
+    "activated": false,
+    "category": "community",
+    "icon": "tags",
+    "admin_url": "\/admin\/forum-required-tag",
+    "hooks": {
+        "init_after": "hook\/init_after.php",
+        "admin_route_register": "hook\/admin_route_register.php",
+        "route_register": "hook\/route_register.php",
+        "route_before_dispatch": "hook\/route_before_dispatch.php",
+        "thread_create_after": "hook\/thread_create_after.php",
+        "thread_edit_after": "hook\/thread_edit_after.php",
+        "layout_head_end": "hook\/layout_head_end.php"
+    },
+    "permissions": ["route:admin"]
+}
