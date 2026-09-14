@@ -1,0 +1,23 @@
+﻿{
+    "name": "内容审核",
+    "version": "2.0.0",
+    "author": "SoSite",
+    "description": "发帖、回帖、上传头像审核 + 审核通知，支持后台统一管理",
+    "activated": false,
+    "category": "community",
+    "icon": "shield",
+    "admin_url": "/admin/content-review",
+    "hooks": {
+        "init_after": "hook\/init_after.php",
+        "route_register": "hook\/route_register.php",
+        "admin_route_register": "hook\/admin_route_register.php",
+        
+        "thread_create_after": "hook\/thread_create_after.php",
+        "post_create_after": "hook\/post_create_after.php",
+        "auth_register_after": "hook\/auth_register_after.php",
+        "avatar_upload_after": "hook\/avatar_upload_after.php",
+        "controller_view_before": "hook\/controller_view_before.php",
+        "layout_head_end": "hook\/layout_head_end.php"
+    },
+    "permissions": ["route:admin", "system:settings"]
+}

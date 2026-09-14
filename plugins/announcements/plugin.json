@@ -1,0 +1,16 @@
+{
+    "name": "站点公告",
+    "version": "1.2.0",
+    "author": "SoSite",
+    "description": "首页公告系统，支持多条公告、多种颜色样式、独立关闭",
+    "activated": true,
+    "category": "content",
+    "icon": "bell",
+    "admin_url": "/admin/announcements",
+    "hooks": {
+        "init_after": "hook\/init_after.php",
+        "announcements_display": "hook\/announcements_display.php",
+        "admin_route_register": "hook\/admin_route_register.php"
+    },
+    "permissions": ["route:admin", "system:settings"]
+}

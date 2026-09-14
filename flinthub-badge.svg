@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="165" height="21" viewBox="0 0 260 35" class="badge-svg">
+  <defs>
+    <!-- 左侧科技蓝渐变 -->
+    <linearGradient id="leftGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4D6BFE;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1E3A8A;stop-opacity:1" />
+    </linearGradient>
+    <!-- 右侧GitHub绿渐变 -->
+    <linearGradient id="rightGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2ea44f;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a7f37;stop-opacity:1" />
+    </linearGradient>
+    <!-- 4片晶体渐变 -->
+    <linearGradient id="coreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4D6BFE;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1E3A8A;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="highlightGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#BAE6FD;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#BAE6FD;stop-opacity:0" />
+    </linearGradient>
+  </defs>
+
+  <!-- 左侧深色块 (科技蓝) -->
+  <path d="M 4 0 L 115 0 L 115 35 L 4 35 Q 0 35 0 31 L 0 4 Q 0 0 4 0 Z" fill="url(#leftGrad)"/>
+  
+  <!-- 右侧GitHub绿块 -->
+  <path d="M 115 0 L 256 0 Q 260 0 260 4 L 260 31 Q 260 35 256 35 L 115 35 Z" fill="url(#rightGrad)"/>
+
+  <!-- 你的4片晶体图标，原样嵌入 -->
+  <g transform="translate(8, 6) scale(0.72)">
+    <rect width="32" height="32" rx="6" fill="#F0F4FF" />
+    <path d="M16 4 L22 10 L16 16 L10 10 Z" fill="url(#coreGrad)" stroke="#60A5FA" stroke-width="0.9" stroke-linejoin="round"/>
+    <path d="M10 10 L16 16 L14 22 L6 18 Z" fill="url(#coreGrad)" stroke="#60A5FA" stroke-width="0.9" stroke-linejoin="round"/>
+    <path d="M22 10 L16 16 L18 22 L26 18 Z" fill="url(#coreGrad)" stroke="#60A5FA" stroke-width="0.9" stroke-linejoin="round"/>
+    <path d="M14 22 L16 16 L18 22 L16 28 Z" fill="url(#coreGrad)" stroke="#60A5FA" stroke-width="0.9" stroke-linejoin="round"/>
+    <line x1="16" y1="4" x2="16" y2="28" stroke="url(#highlightGrad)" stroke-width="0.9" />
+  </g>
+
+  <!-- FLINTHUB文字，避开图标，居中显示在左侧块 -->
+  <text x="72" y="17.5" dy="0.35em" font-size="11" font-family="Verdana, sans-serif" fill="#ffffff" text-anchor="middle" letter-spacing="1.5" font-weight="700" font-style="normal" text-decoration="none" fill-opacity="1" font-variant="normal" style="text-transform: uppercase;">FLINTHUB</text>
+  
+  <!-- 右侧文字，舒展在绿色块 -->
+  <text x="187" y="17.5" dy="0.35em" font-size="9.5" font-family="Georgia, sans-serif" fill="#0a1f11" text-anchor="middle" font-weight="700" letter-spacing="1.2" font-style="normal" text-decoration="none" fill-opacity="1" font-variant="normal" style="text-transform: uppercase;">BASED ON FLINTHUB</text>
+</svg>

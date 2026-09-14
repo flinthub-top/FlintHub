@@ -1,0 +1,101 @@
+.announcements-container { margin-bottom:16px; }
+.announcement-bar { display:flex; align-items:center; gap:10px; padding:10px 14px; border:1px solid var(--ann-border, #eab308); border-radius:8px; margin-bottom:8px; font-size:14px; line-height:1.6; position:relative; max-height:120px; overflow:hidden; background:var(--ann-bg, #fefce8); color:var(--ann-text, #713f12); }
+
+/* ===== 公告配色预设类（收敛内联 --ann-* CSS 变量） ===== */
+.ann-style-yellow  { --ann-bg:#fff8e1; --ann-border:#ffe082; --ann-text:#856404; }
+.ann-style-red     { --ann-bg:#ffebee; --ann-border:#ef9a9a; --ann-text:#b71c1c; }
+.ann-style-gray    { --ann-bg:#f5f5f5; --ann-border:#ccc;     --ann-text:#555; }
+.ann-style-bluegray{ --ann-bg:#eceff1; --ann-border:#b0bec5;  --ann-text:#37474f; }
+.ann-style-blue   { --ann-bg:#e3f2fd; --ann-border:#90caf9; --ann-text:#0d47a1; }
+.ann-style-green  { --ann-bg:#e8f5e9; --ann-border:#a5d6a7; --ann-text:#1b5e20; }
+.announcement-bar.dismissed { max-height:0; padding-top:0; padding-bottom:0; margin-bottom:0; opacity:0; border-width:0; }
+.announcement-content { flex:1; min-width:0; }
+.announcement-close { flex-shrink:0; width:22px; height:22px; border:none; background:rgba(0,0,0,0.08); border-radius:4px; font-size:16px; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; opacity:0.5;  }
+.announcement-close:hover { opacity:1; }
+
+/* 滚动模式 */
+.announcement-scroll-wrap { margin-bottom:16px; border-radius:8px; overflow:hidden; }
+.announcement-scroll-inner { position:relative; }
+
+/* 已有公告条目：PC 内容+操作同一行；移动端操作区（颜色/编辑/删除）换到下一行 */
+.announcement-list-item { display:flex; flex-wrap:wrap; align-items:center; gap:12px; padding:10px 14px; border:1px solid var(--ann-border, #eab308); border-radius:8px; background:var(--ann-bg, #fefce8); color:var(--ann-text, #713f12); }
+.announcement-list-item .ann-admin-actions { display:flex; align-items:center; gap:10px; flex-shrink:0; }
+@media (max-width: 768px) {
+    .announcement-list-item .ann-admin-content { flex-basis:100%; min-width:0; }
+    .announcement-list-item .ann-admin-actions { flex-basis:100%; margin-top:4px; }
+}
+
+/* ===== 编辑弹窗 =====
+   display:flex：弹窗显隐由 Alpine x-show 控制，视图内联 style="display:none" 负责初始隐藏；
+   x-show 打开时移除内联 display 后回落为这里的 flex，故不能写死 display:none */
+.fl-modal-overlay { position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.4);z-index:9999;display:flex;align-items:center;justify-content:center; }
+.fl-modal { background:#fff;border-radius:10px;width:520px;max-width:90%;max-height:85vh;overflow-y:auto;box-shadow:0 8px 30px rgba(0,0,0,0.15); }
+.fl-modal-header { display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #eee; }
+.fl-modal-header h2 { margin:0;font-size:16px; }
+.fl-modal-close { background:none;border:none;font-size:24px;cursor:pointer;color:#999;padding:0;line-height:1; }
+.fl-modal-body { padding:20px; }
+.fl-modal-field { margin-bottom:14px; }
+.fl-modal-field label { display:block;font-size:13px;font-weight:500;margin-bottom:4px;color:#555; }
+.fl-modal-row { display:flex;gap:12px; }
+.fl-modal-field-sm { flex:1; }
+.fl-modal-footer { display:flex;justify-content:flex-end;gap:8px;padding:16px 20px;border-top:1px solid #eee; }
+
+/* ===== 编辑弹窗内表单控件自含样式 =====
+   弹窗 DOM 位于 .admin-container 之外，admin.css 的 .admin-content 作用域样式
+   （.form-input / .btn / label / .c-danger）不生效 → 弹窗内复刻后台一致外观。
+   色值硬编码（后台 CSS 变量同样只在 .admin-container 内定义）。 */
+.fl-modal .form-input,
+.fl-modal textarea.form-input,
+.fl-modal input.form-input,
+.fl-modal select.form-input {
+    width: 100%; padding: 8px 12px;
+    border: 1px solid #e2e8f0; border-radius: 6px;
+    font-size: 13px; color: #1e293b;
+    background: #ffffff; box-sizing: border-box;
+    font-family: inherit;
+}
+.fl-modal .form-input:focus {
+    outline: none; border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+}
+.fl-modal-field label {
+    display: block; margin-bottom: 5px;
+    font-size: 13px; font-weight: 500; color: #475569;
+}
+.fl-modal .c-danger { color: #ef4444; }
+.fl-modal .btn {
+    display: inline-block;
+    padding: 8px 18px; border-radius: 6px;
+    border: none; cursor: pointer;
+    font-size: 13px; font-weight: 500;
+    text-decoration: none; line-height: 1.4;
+    transition: background 0.15s, box-shadow 0.15s;
+}
+.fl-modal .btn-primary { background: #3b82f6; color: #ffffff; }
+.fl-modal .btn-primary:hover { background: #2563eb; }
+.fl-modal .btn-secondary { background: #f1f5f9; color: #475569; }
+.fl-modal .btn-secondary:hover { background: #e2e8f0; }
+.announcement-scroll-item { display:flex; align-items:center; gap:10px; padding:10px 14px; border:1px solid var(--ann-border, #eab308); border-radius:8px; font-size:14px; line-height:1.6; background:var(--ann-bg, #fefce8); color:var(--ann-text, #713f12); }
+
+/* 公告链接（原内联 color:inherit + 下划线，收编为 class） */
+.announcement-link { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+
+/* Alpine 弹窗初始隐藏：x-cloak 在 Alpine 初始化前隐藏元素，初始化后移除并交回 x-show 控制 */
+[x-cloak] { display: none !important; }
+
+/* ===== 后台工具类（收编内联样式） ===== */
+.ann-w-160 { width: 160px; }
+.ann-w-120 { width: 120px; }
+.ann-w-100 { width: 100px; }
+.ann-w-140 { width: 140px; }
+.ann-pt-24 { padding-top: 24px; }
+.ann-mb-10 { margin: 0 0 10px; }
+.ann-flex-center-wrap { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.ann-flex-col { display: flex; flex-direction: column; gap: 10px; }
+.ann-content-flex { flex: 1; font-size: 14px; word-break: break-all; min-width: 200px; }
+.ann-label-sub { font-size: 12px; opacity: 0.7; flex-shrink: 0; }
+.ann-shrink-0 { flex-shrink: 0; }
+
+
+/* ===== 旧类收敛补丁 ===== */
+.ann-edit-btn { cursor: pointer; }

@@ -1,0 +1,370 @@
+/* ============================================
+   SoSite 内容审核插件样式
+   与现有后台管理样式保持一致
+   ============================================ */
+
+/* ===== 审核设置表单 ===== */
+.cr-settings-form {
+    max-width: 500px;
+}
+.cr-settings-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--c-border, #e2e8f0);
+}
+.cr-settings-row:last-child {
+    border-bottom: none;
+}
+
+/* 免审用户组区域 */
+.cr-settings-divider {
+    border-top: 1px solid var(--c-border, #e2e8f0);
+    margin: 12px 0 8px;
+}
+.cr-settings-subtitle {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--c-text, #1e293b);
+    margin-bottom: 2px;
+}
+.cr-settings-desc {
+    font-size: 12px;
+    color: var(--c-text-muted, #64748b);
+    margin-bottom: 10px;
+}
+.cr-groups-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.cr-group-checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: var(--c-bg-light, #f1f5f9);
+    
+    font-size: 13px;
+    user-select: none;
+}
+.cr-group-checkbox:hover {
+    background: var(--c-bg-hover, #f8fafc);
+}
+.cr-group-checkbox input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+}
+.cr-group-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+.cr-group-disabled input[type="checkbox"] {
+    cursor: not-allowed;
+}
+.cr-group-badge {
+    display: inline-block;
+    padding: 1px 8px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    background: var(--cr-badge-bg, #3b82f6);
+}
+/* ===== 表格列宽工具类（收编内联样式） ===== */
+.cr-w-30 { width: 30px; }
+.cr-w-60 { width: 60px; }
+.cr-w-70 { width: 70px; }
+.cr-w-80 { width: 80px; }
+.cr-w-90 { width: 90px; }
+.cr-w-130 { width: 130px; }
+.cr-w-140 { width: 140px; }
+.cr-w-215 { width: 215px; }
+.cr-toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--c-text, #1e293b);
+    min-width: 100px;
+}
+.cr-toggle-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+.cr-toggle-desc {
+    font-size: 12px;
+    color: var(--c-text-muted, #64748b);
+}
+
+/* ===== 审核操作按钮 ===== */
+.cr-actions {
+    white-space: nowrap;
+}
+.cr-actions .btn {
+    margin-right: 4px;
+}
+
+/* ===== 驳回弹窗 ===== */
+.cr-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cr-modal {
+    background: #fff;
+    border-radius: 10px;
+    width: 420px;
+    max-width: 90vw;
+    
+}
+.cr-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px 0;
+}
+.cr-modal-header h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #0f172a;
+}
+.cr-modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #94a3b8;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+.cr-modal-close:hover {
+    color: #475569;
+}
+.cr-modal-body {
+    padding: 16px 20px;
+}
+.cr-modal-body textarea {
+    width: 100%;
+    resize: vertical;
+    min-height: 80px;
+}
+.cr-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 0 20px 16px;
+}
+
+/* ===== 前台通知列表 ===== */
+/* 通知卡片（收编内联 border/background） */
+.cr-noti-card { border: 1px solid var(--mn-border-light); }
+.cr-noti-card.cr-noti-unread { background: var(--mn-primary-subtle); }
+/* 状态图标（收编内联动态背景色） */
+.cr-noti-circle.cr-noti-circle-approve { background: var(--mn-success); }
+.cr-noti-circle.cr-noti-circle-reject { background: var(--mn-error); }
+.cr-notification-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--border-color, #e2e8f0);
+    border-radius: 8px;
+    overflow: hidden;
+}
+.cr-notification-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: #fff;
+    
+}
+.cr-notification-item.cr-unread {
+    background: #f0f7ff;
+}
+.cr-notification-item:hover {
+    background: var(--bg-hover, #f8fafc);
+}
+.cr-noti-icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    margin-top: 2px;
+}
+.cr-noti-check {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    padding-right: 4px;
+}
+.cr-noti-check input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+.cr-icon-approve {
+    background: #10b981;
+}
+.cr-icon-reject {
+    background: #ef4444;
+}
+.cr-noti-content {
+    flex: 1;
+    min-width: 0;
+}
+.cr-noti-title {
+    font-size: 14px;
+    color: #1e293b;
+    line-height: 1.5;
+}
+.cr-noti-link {
+    color: #1e293b;
+    text-decoration: none;
+}
+.cr-noti-link:hover {
+    color: #3b82f6;
+    text-decoration: underline;
+}
+.cr-noti-time {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-top: 4px;
+}
+
+/* ===== 审核提示条（前台帖子详情页） ===== */
+.pending-review-notice {
+    padding: 30px 20px;
+    background: #fff8e1;
+    border: 1px solid #ffe082;
+    border-radius: 8px;
+    text-align: center;
+    color: #f59e0b;
+    font-size: 15px;
+}
+.pending-review-notice p {
+    margin: 0;
+}
+/* 审核提示条变体（收编视图内联色值） */
+.pending-review-notice-author { border-color:#3b82f6; background:#eff6ff; color:#3b82f6; }
+.pending-review-notice-admin { border-color:#8b5cf6; background:#f5f3ff; color:#8b5cf6; }
+
+/* ===== 后台审核列表查看链接 ===== */
+.cr-preview-text {
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 13px;
+    color: #1e293b;
+}
+.cr-view-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 12px;
+    color: #3b82f6;
+    text-decoration: none;
+    margin-top: 2px;
+}
+.cr-view-link:hover {
+    text-decoration: underline;
+}
+
+/* ===== 审核中标记（帖子标题前） ===== */
+.cr-title-badge {
+    display: inline-block;
+    padding: 1px 7px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #fff;
+    background: #f59e0b;
+    border-radius: 4px;
+    vertical-align: middle;
+    margin-right: 2px;
+}
+
+/* ===== 导航栏通知铃铛 ===== */
+.cr-nav-bell {
+    position: relative;
+    display: inline-flex !important;
+    align-items: center;
+    padding: 6px 10px !important;
+}
+/* 覆盖 layout.css 的 !important 限制 */
+.navbar .nav-links a.cr-nav-bell .fa {
+    font-size: 15px !important;
+}
+.cr-nav-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 16px;
+    text-align: center;
+    color: #fff;
+    background: #ef4444;
+    border-radius: 8px;
+    transform: translate(2px, -2px);
+}
+
+/* ===== 页面白底容器（审核通知页） ===== */
+.content-wrapper .page-card {
+    background: #fff;
+    border-radius: 10px;
+    
+    overflow: hidden;
+}
+.page-card-header {
+    padding: 20px 24px 0;
+}
+.page-card-header h1 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
+}
+.page-card-body {
+    padding: 20px 24px 24px;
+}
+
+/* ===== 内联样式提取 ===== */
+.cr-nowrap { white-space:nowrap; }
+.cr-inline-form { display:inline; }
+.cr-btn-delete { padding:2px 8px; font-size:11px; }
+.cr-badge-blue { background:#3b82f6; }
+
+/* ===== Alpine 弹窗初始隐藏（x-cloak） ===== */
+[x-cloak] { display: none !important; }
+
+
+/* ===== 旧类收敛补丁（badge 色板，mn 变量适配） ===== */
+.admin-container .badge-warning { background: var(--mn-tag-warning-bg, #fef3c7); color: var(--mn-tag-warning-text, #92400e); }
+.admin-container .badge-success { background: var(--mn-success, #10b981); color: #fff; }
+.admin-container .badge-danger  { background: var(--c-danger, #ef4444); color: #fff; }
+.admin-container .badge-default { background: var(--mn-bg-muted, #e5e7eb); color: var(--mn-text-muted, #6b7280); }
