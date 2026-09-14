@@ -1,0 +1,16 @@
+﻿{
+    "name": "帖子收藏",
+    "version": "1.0.0",
+    "author": "SoSite",
+    "description": "用户收藏喜欢\/有价值的帖子，支持收藏\/取消收藏和收藏列表展示",
+    "activated": false,
+    "category": "community",
+    "icon": "star",
+    "hooks": {
+        "init_after": "hook\/init_after.php",
+        "route_register": "hook\/route_register.php",
+        "nav_user_menu_items": "hook\/nav_user_menu_items.php",
+        "nav_pc_user_links": "hook\/nav_pc_user_links.php",
+        "layout_head_end": "hook\/layout_head_end.php"
+    }
+}

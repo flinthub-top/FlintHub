@@ -1,0 +1,254 @@
+/* ===== 勋章中心插件样式（Modern 主题） ===== */
+
+/* 勋章本体：图标兜底（无图时显示内置图标，不画圆底/方形底） */
+.mn-medal {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--mn-medal-color, #f59e0b);
+    flex-shrink: 0;
+    vertical-align: middle;
+}
+.mn-medal i.fa { line-height: 1; }
+.mn-medal-img {
+    /* 图片按上传原尺寸显示，不做圆形/方形裁剪（如 20x35 竖长条原样展示） */
+    vertical-align: middle;
+}
+.mn-medal-group { display: inline-flex; align-items: center; gap: 8px; vertical-align: middle; }
+
+/* 勋章墙页面 */
+.medal-page { margin-bottom: 18px; }
+/* 勋章中心页内勋章图显示 50x50（覆盖 SVG 默认 17x17；其他展示位不受影响） */
+.medal-page .mn-medal-img { width: 50px; height: 50px; }
+/* 后台勋章管理列表图标显示 30x30 */
+.admin-table .mn-medal-img { width: 30px; height: 30px; }
+.medal-page-body { padding: 20px; }
+.medal-section-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.medal-empty { font-size: 14px; padding: 16px 0; }
+.medal-divider { border: none; border-top: 1px solid var(--mn-border-light, #eef0f3); margin: 20px 0; }
+
+/* 我的勋章选择 */
+.medal-my-section { margin-bottom: 4px; }
+.medal-my-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+/* 我的勋章选择 */
+.medal-hint { font-size: 12px; color: var(--mn-text-muted, #6b7280); margin: -6px 0 12px; }
+.medal-pick {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 14px;
+    border: 2px solid var(--mn-border-light, #eef0f3);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.12s;
+    background: var(--mn-bg-card, #fff);
+    user-select: none;
+}
+.medal-pick:hover { border-color: var(--mn-primary-light, #bfdbfe); }
+.medal-pick-on {
+    border-color: var(--mn-primary, #2563eb);
+    background: var(--mn-primary-subtle, #eff6ff);
+}
+.medal-pick-input { display: none; }
+.medal-pick-name { font-size: 12px; color: var(--mn-text, #333); }
+.medal-wear-msg { display: block; margin-top: 2px; }
+
+/* 全部勋章网格 */
+.medal-all-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+}
+.medal-card {
+    border: 1px solid var(--mn-border, #e5e7eb);
+    border-radius: 10px;
+    padding: 16px 12px;
+    text-align: center;
+    background: var(--mn-bg-card, #fff);
+    transition: transform 0.12s, box-shadow 0.12s;
+}
+.medal-card-owned { box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+.medal-card-locked { opacity: 0.72; }
+.medal-card-icon { margin-bottom: 10px; }
+.medal-card-name { font-size: 14px; font-weight: 600; color: var(--mn-text, #333); margin-bottom: 4px; }
+.medal-card-desc {
+    font-size: 12px;
+    color: var(--mn-text-muted, #6b7280);
+    min-height: 32px;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+.medal-card-cond { font-size: 12px; }
+.medal-cond-owned { color: var(--mn-success, #16a34a); font-weight: 500; }
+.medal-cond-txt { color: var(--mn-text-muted, #6b7280); }
+
+/* ===== 后台编辑弹窗（自包含，不依赖其他插件） ===== */
+.fl-modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 9999;
+    display: flex;               /* 不能写 display:none：Alpine x-show 只移除内联 display，CSS 写死 none 会钉死弹窗 */
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(2px);
+}
+.fl-modal {
+    background: #fff;
+    border-radius: 12px;
+    width: 92%;
+    max-width: 540px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+}
+.fl-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px 14px;
+    border-bottom: 1px solid #eee;
+    flex-shrink: 0;
+}
+.fl-modal-header h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a2e;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.fl-modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #999;
+    cursor: pointer;
+    padding: 0 4px;
+    line-height: 1;
+}
+.fl-modal-close:hover { color: #333; }
+.fl-modal-body {
+    padding: 20px 24px 8px;
+    overflow-y: auto;
+    flex: 1;
+}
+.fl-modal-row {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 4px;
+}
+.fl-modal-field {
+    margin-bottom: 14px;
+    flex: 1;
+}
+.fl-modal-field-sm {
+    flex: none;
+    width: 160px;
+}
+.fl-modal-field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 5px;
+}
+.fl-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 14px 24px 20px;
+    flex-shrink: 0;
+}
+
+/* ===== 编辑弹窗内表单控件自含样式 =====
+   弹窗 DOM 位于 .admin-container 之外，admin.css 的 .admin-content 作用域样式
+   （.form-input / .btn / label / .c-danger）不生效 → 弹窗内复刻后台一致外观。
+   色值硬编码（后台 CSS 变量同样只在 .admin-container 内定义）。 */
+.fl-modal .form-input,
+.fl-modal input.form-input,
+.fl-modal select.form-input {
+    width: 100%; padding: 8px 12px;
+    border: 1px solid #e2e8f0; border-radius: 6px;
+    font-size: 13px; color: #1e293b;
+    background: #ffffff; box-sizing: border-box;
+    font-family: inherit;
+}
+.fl-modal .form-input:focus {
+    outline: none; border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+}
+.fl-modal .c-danger { color: #ef4444; }
+.fl-modal .btn {
+    display: inline-block;
+    padding: 8px 18px; border-radius: 6px;
+    border: none; cursor: pointer;
+    font-size: 13px; font-weight: 500;
+    text-decoration: none; line-height: 1.4;
+    transition: background 0.15s, box-shadow 0.15s;
+}
+.fl-modal .btn-primary { background: #3b82f6; color: #ffffff; }
+.fl-modal .btn-primary:hover { background: #2563eb; }
+.fl-modal .btn-secondary { background: #f1f5f9; color: #475569; }
+.fl-modal .btn-secondary:hover { background: #e2e8e0; }
+.fl-modal .checkbox-inline {
+    width: auto; height: auto;
+    vertical-align: middle; margin-top: -2px; padding: 0;
+}
+/* 颜色选择器：保持方形小控件，不被 .fl-modal .form-input 的 width:100% 撑满 */
+.fl-modal input[type="color"].form-input { width: 56px; padding: 4px; height: 38px; }
+
+/* 移动端 */
+@media (max-width: 480px) {
+    .medal-all-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .medal-card { padding: 12px 8px; }
+}
+
+/* ===== 后台表单布局工具类（自包含，避免内联样式） ===== */
+.medal-form-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.medal-form-row-end { display: flex; align-items: flex-end; gap: 10px; flex-wrap: wrap; }
+.medal-form-grow { flex: 1; min-width: 140px; }
+.medal-w-56 { width: 56px; }
+.medal-w-64 { width: 64px; }
+.medal-w-70 { width: 70px; }
+.medal-w-90 { width: 90px; }
+.medal-w-110 { width: 110px; }
+.medal-w-120 { width: 120px; }
+.medal-w-140 { width: 140px; }
+.medal-w-150 { width: 150px; }
+.medal-w-170 { width: 170px; }
+.medal-w-200 { width: 200px; }
+.medal-w-260 { width: 260px; }
+.medal-pt-26 { padding-top: 26px; }
+.medal-fw-400 { font-weight: 400; }
+.medal-color-input { padding: 4px; height: 38px; }
+.medal-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+.medal-inline { display: inline; }
+.medal-mb-10 { margin-bottom: 10px; }
+.medal-m-0 { margin: 0; }
+.medal-gap-20 { display: flex; gap: 20px; flex-wrap: wrap; }
+.medal-modal-edit { width: 600px; max-width: 92%; }
+
+/* Alpine 弹窗初始隐藏：x-cloak 在 Alpine 初始化前隐藏元素，初始化后移除并交回 x-show 控制 */
+[x-cloak] { display: none !important; }
+
+
+
+/* ===== 旧类收敛补丁 ===== */
+.admin-content .c-danger { color: var(--c-danger, #ef4444); }
+.medal-edit-btn { cursor: pointer; }

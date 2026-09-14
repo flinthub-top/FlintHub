@@ -1,0 +1,225 @@
+/* ===== 友情链接插件样式 ===== */
+.fl-form { max-width: 700px; }
+.fl-form-row { display: flex; gap: 12px; margin-bottom: 12px; }
+@media (max-width: 600px) { .fl-form-row { flex-direction: column; gap: 0; } }
+
+/* ===== 后台工具类（收编内联样式） ===== */
+.fl-inline { display: inline; }
+.fl-flex-center-gap { display: flex; align-items: center; gap: 12px; }
+.fl-label-check { display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 14px; }
+.fl-w-70 { width: 70px; }
+.fl-w-80 { width: 80px; }
+.fl-w-100 { width: 100px; }
+.fl-w-120 { width: 120px; }
+.fl-w-160 { width: 160px; }
+.fl-w-170 { width: 170px; }
+.fl-pt-24 { padding-top: 24px; }
+.fl-fs-12 { font-size: 12px; }
+.fl-check-icon { vertical-align: -2px; margin-right: 4px; }
+
+/* ===== 编辑弹窗 ===== */
+.fl-modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(2px);
+    
+}
+.fl-modal {
+    background: #fff;
+    border-radius: 12px;
+    width: 92%;
+    max-width: 540px;
+    
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    
+}
+.fl-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px 14px;
+    border-bottom: 1px solid #eee;
+    flex-shrink: 0;
+}
+.fl-modal-header h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a2e;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.fl-modal-header h2 svg {
+    color: #3b82f6;
+}
+.fl-modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #999;
+    cursor: pointer;
+    padding: 0 4px;
+    line-height: 1;
+    
+}
+.fl-modal-close:hover { color: #333; }
+.fl-modal-body {
+    padding: 20px 24px 8px;
+    overflow-y: auto;
+    flex: 1;
+}
+.fl-modal-row {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 4px;
+}
+.fl-modal-field {
+    margin-bottom: 14px;
+    flex: 1;
+}
+.fl-modal-field-sm {
+    flex: none;
+    width: 160px;
+}
+.fl-modal-field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 5px;
+}
+.fl-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 14px 24px 20px;
+    flex-shrink: 0;
+}
+
+/* ===== 编辑弹窗底部按钮配色 =====
+   弹窗位于 .admin-container 之外，系统后台按钮样式(.admin-content .btn*)与
+   --c-* 颜色变量在此均不生效，故在插件内按系统语义补齐（复用同色值）。 */
+.fl-modal .btn,
+.fl-modal .btn-primary,
+.fl-modal .btn-secondary {
+    display: inline-block;
+    padding: 8px 18px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    line-height: 1.4;
+    transition: background 0.15s, box-shadow 0.15s;
+}
+.fl-modal .btn-primary { background: #3b82f6; color: #ffffff; }
+.fl-modal .btn-primary:hover { background: #2563eb; }
+.fl-modal .btn-secondary { background: #f1f5f9; color: #475569; }
+.fl-modal .btn-secondary:hover { background: #e2e8f0; }
+.form-input {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid #d0d5dd;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+    
+    background: #fff;
+}
+.form-input:focus {
+    border-color: #3b82f6;
+    outline: none;
+    
+}
+.form-input::placeholder { color: #aaa; }
+select.form-input {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 32px;
+}
+
+/* ===== 首页侧边栏友情链接 ===== */
+.friend-links-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.friend-link-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--text-dark);
+    font-size: 13px;
+    
+}
+.friend-link-item:hover {
+    background: var(--bg-light);
+    color: var(--primary-color);
+}
+.friend-link-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.friend-link-logo-item {
+    display: flex;
+    align-items: center;
+    padding: 4px 0;
+    text-decoration: none;
+}
+.friend-link-logo-img {
+    width: 200px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: 4px;
+    
+}
+.friend-link-logo-img:hover {
+    opacity: 0.8;
+}
+
+/* ===== 首页侧边栏 ===== */
+.friend-links-box { margin-top:16px; }
+.friend-links-box .home-sidebar-title { font-size:14px; font-weight:600; color:var(--text-dark); margin-bottom:10px; padding-bottom:8px; border-bottom:2px solid var(--border-color); }
+.friend-links-text { display:flex; flex-wrap:wrap; gap:6px; }
+.friend-link-text-item { display:inline-flex; align-items:center; padding:4px 10px; background:var(--bg-light); border:1px solid var(--border-color); border-radius:14px; font-size:12px; color:var(--text-muted); text-decoration:none; max-width:100%; }
+.friend-link-text-item:hover { background:var(--primary-color); border-color:var(--primary-color); color:#fff; }
+.friend-link-text-item .link-desc { display:none; }
+.friend-links-logo { display:grid; grid-template-columns:repeat(auto-fill,minmax(80px,1fr)); gap:8px; margin-top:8px; }
+.friend-link-logo-item { display:flex; align-items:center; justify-content:center; padding:6px; border:1px solid #eee; border-radius:6px; }
+.friend-link-logo-item:hover { border-color:#b3d8f0; }
+.friend-link-logo-img { max-width:100%; max-height:32px; object-fit:contain; }
+
+/* ===== 前台申请页（views/apply.php）：收编内联边距 ===== */
+.fl-apply-wrap { margin: 40px auto; }
+.fl-apply-title { margin: 0 0 6px; }
+.fl-apply-sub { margin: 0 0 20px; }
+.fl-apply-hint { margin: 4px 0 0; }
+
+/* ===== 侧边栏标题图标（原内联 font-size:14px）===== */
+.friend-link-title-icon { font-size: 14px; }
+
+/* ===== Alpine 弹窗初始隐藏（x-cloak）===== */
+[x-cloak] { display: none !important; }
+
+
+/* ===== 旧类收敛补丁（徽章/警示色/JS 钩子/前台挂件，mn 变量适配） ===== */
+.admin-container .badge-success { background: var(--mn-success, #10b981); color: #fff; }
+.admin-container .badge-default { background: var(--mn-bg-muted, #e5e7eb); color: var(--mn-text-muted, #6b7280); }
+.admin-content .c-danger { color: var(--c-danger, #ef4444); }
+.fl-edit-btn { cursor: pointer; }
+.home-sidebar-box { margin-bottom: 16px; }

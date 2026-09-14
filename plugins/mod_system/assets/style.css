@@ -1,0 +1,86 @@
+/* ===== 社区治理插件（mod_system）独立样式 ===== */
+/* 全部样式自包含：不依赖也不改写核心 admin.css 的设计变量，使用显式值，保持「一个插件一个目录」 */
+
+/* ---------- 后台「社区管理」Tab（插件作用域前缀，避免与其它插件样式冲突） ---------- */
+.mod-admin-tabs { display: flex; gap: 4px; margin: 4px 0 16px; border-bottom: 1px solid #e2e8f0; }
+.mod-admin-tab {
+    border: 0; border-bottom: 2px solid transparent; background: transparent;
+    color: #64748b; font-size: 14px; font-weight: 500;
+    padding: 8px 14px; margin-bottom: -1px; cursor: pointer; line-height: 1.4;
+    display: inline-flex; align-items: center; gap: 6px;
+    text-decoration: none; font-family: inherit;
+}
+.mod-admin-tab:hover { color: #3b82f6; }
+.mod-admin-tab.is-active { color: #3b82f6; border-bottom-color: #3b82f6; }
+.mod-admin-tabs i { color: inherit; }
+.mod-tab-count {
+    display: inline-block; min-width: 18px; padding: 0 5px; border-radius: 9px;
+    background: #e2e8f0; color: #64748b; font-size: 12px; font-weight: 500; line-height: 18px; text-align: center;
+}
+.mod-admin-tab.is-active .mod-tab-count { background: #dbeafe; color: #1d4ed8; }
+
+/* Alpine 未挂载前隐藏待切换面板，防止闪现 */
+[x-cloak] { display: none !important; }
+
+/* 封禁拦截提示框（route_before_dispatch 钩子输出，收编内联 max-width/margin） */
+.mod-ban-alert { max-width: 480px; margin: 48px auto; }
+
+/* ---------- 举报弹窗 ---------- */
+/* 举报入口：纯图标、无文字，外观对齐「引用」文字链（非胶囊按钮） */
+.mn-link-report { display: inline-flex; align-items: center; background: none; border: 0; padding: 0; cursor: pointer; font-family: inherit; }
+.mn-report-icon { font-size: 1em; line-height: 1; }
+.mn-report-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    background: rgba(0, 0, 0, .5);
+    display: flex; align-items: center; justify-content: center;
+    padding: 16px;
+}
+.mn-report-dialog {
+    background: var(--mn-bg, #fff); color: var(--mn-text, #1f2937);
+    border-radius: 10px; max-width: 440px; width: 100%;
+    max-height: 90vh; overflow: auto; padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .18);
+}
+.mn-report-head {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 16px; font-weight: 600; margin-bottom: 14px;
+}
+.mn-report-close { background: none; border: none; font-size: 22px; line-height: 1; cursor: pointer; color: #999; }
+.mn-report-field { margin-bottom: 14px; }
+.mn-report-label { display: block; margin-bottom: 4px; }
+.mn-report-cats { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.mn-report-cats label { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; }
+.mn-report-anon { display: flex; align-items: center; gap: 6px; font-size: 13px; margin-bottom: 12px; }
+.mn-report-msg { margin: 10px 0; font-size: 13px; line-height: 1.5; color: #e5533c; }
+.mn-report-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 6px; }
+
+/* ---------- 前台通知中心 ---------- */
+.mod-notify-list { list-style: none; margin: 0; padding: 0; }
+.mod-notify-item { padding: 12px 4px; border-bottom: 1px solid var(--mn-border, #e5e7eb); }
+.mod-notify-item.mod-notify-unread { background: var(--mn-bg, #fff); }
+
+/* ---------- 前台小黑屋公示 ---------- */
+.mod-blacklist-table-wrap { overflow-x: auto; }
+.mod-blacklist-table { width: 100%; border-collapse: collapse; }
+.mod-blacklist-table th,
+.mod-blacklist-table td { padding: 8px; text-align: left; font-size: 13px; }
+.mod-blacklist-table thead th { font-weight: 600; background: var(--mn-bg-subtle, #f3f4f6); }
+.mod-blacklist-table tbody tr { border-bottom: 1px solid var(--mn-border, #e5e7eb); }
+
+/* ---------- 后台「审核封禁」封禁区块 ---------- */
+.mod-ban-card { margin-bottom: 20px; padding: 16px; border: 1px solid var(--mn-border, #e5e7eb); border-radius: 8px; background: #fff; }
+.mod-ban-card-hd { font-weight: 600; margin-bottom: 8px; }
+.mod-ban-card-hd .mod-ban-hd-hint { font-size: 12px; color: #999; font-weight: 400; }
+.mod-ban-form { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+/* ---------- 后台表单固定宽度（由核心 admin.css [mod_system] 段迁入，本插件自持有） ----------
+   .w-* 裸类会被 .admin-content .form-input{width:100%} 覆盖，必须写成 .form-input.w-* 提权 */
+.admin-content .form-input.w-100 { width: 100px; flex-shrink: 0; }
+.admin-content .form-input.w-110 { width: 110px; flex-shrink: 0; }
+.admin-content .form-input.w-140 { width: 140px; flex-shrink: 0; }
+.admin-content .form-input.w-200 { width: 200px; flex-shrink: 0; }
+.admin-content .form-input.w-220 { width: 220px; flex-shrink: 0; }
+
+/* ===== 旧类收敛补丁（JS 钩子类最小样式，mn 变量适配） ===== */
+.admin-content .report-checkbox { accent-color: var(--mn-primary, #409eff); }
+.admin-content .report-ban-btn { cursor: pointer; }

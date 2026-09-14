@@ -1,0 +1,17 @@
+{
+    "name": "邀请注册",
+    "version": "1.5.0",
+    "author": "SoSite",
+    "description": "用户可用积分生成邀请码，被邀请用户凭码注册",
+    "activated": false,
+    "category": "community",
+    "icon": "user-group",
+    "hooks": {
+        "init_after": "hook\/init_after.php",
+        "route_register": "hook\/route_register.php",
+        "auth_register_before": "hook\/auth_register_before.php",
+        "auth_register_after": "hook\/auth_register_after.php",
+        "nav_plugin_links": "hook\/nav_plugin_links.php",
+        "layout_head_end": "hook\/layout_head_end.php"
+    }
+}

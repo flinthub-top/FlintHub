@@ -1,0 +1,24 @@
+﻿{
+    "name": "FlintHub 社区治理（举报中心 + 通知联动 + 小黑屋）",
+    "version": "1.0.0",
+    "author": "FlintHub",
+    "description": "举报中心、通知联动、小黑屋封禁等社区治理模块",
+    "activated": false,
+    "category": "community",
+    "icon": "shield",
+    "admin_url": "/admin/mod-system",
+    "hooks": {
+        "route_register": "hook/route_register.php",
+        "admin_route_register": "hook/admin_route_register.php",
+        "route_before_dispatch": "hook/route_before_dispatch.php",
+        "auth_login_check": "hook/auth_login_check.php",
+        "thread_operation_after": "hook/thread_operation_after.php",
+        "post_report_button": "hook/post_report_button.php",
+        "blog_detail_operation_after": "hook/blog_detail_operation_after.php",
+        "blog_comment_operation_after": "hook/blog_comment_operation_after.php",
+        "profile_user_card_after": "hook/profile_user_card_after.php",
+        "footer_links": "hook/footer_links.php",
+        "nav_drawer_links": "hook/nav_drawer_links.php"
+    },
+    "permissions": ["route:admin", "system:settings"]
+}

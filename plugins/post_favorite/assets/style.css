@@ -1,0 +1,257 @@
+/* ===== 帖子收藏插件样式 ===== */
+.fav-container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 16px;
+}
+.fav-card {
+    background: var(--bg-white);
+    border-radius: 10px;
+    overflow: hidden;
+    
+    border: 1px solid var(--border-color);
+}
+.fav-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--border-color);
+}
+.fav-header-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-dark);
+}
+.fav-header-title svg {
+    color: #f59e0b;
+    flex-shrink: 0;
+}
+.fav-count {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-muted);
+}
+.fav-empty {
+    padding: 60px 20px;
+    text-align: center;
+    color: var(--text-muted);
+}
+.fav-empty p {
+    margin: 12px 0 16px;
+}
+.fav-list {
+    display: flex;
+    flex-direction: column;
+}
+.fav-item {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border-color);
+    
+}
+.fav-item:hover {
+    background: var(--bg-light);
+}
+.fav-item:last-child {
+    border-bottom: none;
+}
+.fav-item-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.fav-item-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-dark);
+    text-decoration: none;
+    line-height: 1.5;
+}
+.fav-item-title:hover {
+    color: var(--primary-color);
+}
+.fav-item-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+.fav-item-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+.fav-dot {
+    color: #ddd;
+}
+.fav-del-btn {
+    background: none;
+    border: none;
+    color: #ccc;
+    cursor: pointer;
+    padding: 2px 8px;
+    font-size: 18px;
+    line-height: 1;
+    border-radius: 4px;
+    
+    flex-shrink: 0;
+}
+.fav-del-btn:hover {
+    color: #ef4444;
+    background: rgba(239,68,68,0.08);
+}
+
+/* PC 端标题单行截断 */
+@media (min-width: 769px) {
+    .fav-item-title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+/* 移动端 */
+@media (max-width: 768px) {
+    .fav-container {
+        margin: 16px auto;
+        padding: 0 10px;
+    }
+    .fav-header {
+        padding: 14px 16px;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .fav-header-title {
+        font-size: 16px;
+    }
+    .fav-item {
+        padding: 14px 16px;
+    }
+    .fav-item-title {
+        font-size: 14px;
+        font-weight: 600;
+        white-space: normal;
+        word-break: break-all;
+        overflow-wrap: break-word;
+        display: block;
+    }
+    .fav-item-bar {
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+    .fav-item-meta {
+        font-size: 11px;
+        gap: 3px;
+    }
+}
+@media (max-width: 480px) {
+    .fav-item {
+        padding: 12px 14px;
+    }
+    .fav-item-title {
+        font-size: 13px;
+    }
+}
+
+/* ===== 收藏按钮（帖子详情页） ===== */
+.fav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text-light, #999);
+    padding: 2px 6px;
+    border-radius: 4px;
+    
+    font-family: inherit;
+    vertical-align: middle;
+}
+.fav-btn:hover {
+    color: #f59e0b;
+    background: rgba(245,158,11,0.08);
+}
+.fav-btn .fav-label {
+    font-size: 13px;
+    line-height: 1;
+    white-space: nowrap;
+}
+.fav-btn.fav-active {
+    color: #f59e0b;
+}
+.fav-btn.fav-active svg {
+    fill: #f59e0b;
+}
+.fav-btn svg {
+    width: 16px;
+    height: 16px;
+    vertical-align: -3px;
+}
+/* 移动端只显示图标，隐藏"收藏/已收藏"文字 */
+@media (max-width: 768px) {
+    .fav-btn .fav-label {
+        display: none;
+    }
+}
+.fav-count-badge {
+    display: inline-block;
+    background: #f59e0b;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 0 5px;
+    border-radius: 8px;
+    line-height: 16px;
+    margin-left: 2px;
+    min-width: 16px;
+    text-align: center;
+}
+.fav-list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border-bottom: 1px solid #eee;
+    
+}
+.fav-list-item:hover {
+    background: #f8f9fa;
+}
+.fav-list-item .fav-title {
+    flex: 1;
+    font-size: 14px;
+    color: #333;
+    text-decoration: none;
+}
+.fav-list-item .fav-title:hover {
+    color: #3b82f6;
+}
+.fav-list-item .fav-meta {
+    font-size: 12px;
+    color: #999;
+    white-space: nowrap;
+    margin-left: 12px;
+}
+.fav-list-item .fav-del-btn {
+    background: none;
+    border: none;
+    color: #ccc;
+    cursor: pointer;
+    padding: 4px 8px;
+    font-size: 13px;
+    border-radius: 4px;
+    
+}
+.fav-list-item .fav-del-btn:hover {
+    color: #ef4444;
+    background: rgba(239,68,68,0.08);
+}
