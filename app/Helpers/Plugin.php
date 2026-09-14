@@ -258,7 +258,7 @@ class Plugin
                 $configFile = $dir . '/plugin.json';
                 if (!file_exists($configFile)) continue;
 
-                $config = @json_decode(file_get_contents($configFile), true);
+                $config = self::decodeJson((string)@file_get_contents($configFile));
                 if (empty($config) || empty($config['name'])) continue;
 
                 $config['dir'] = $pluginName;
@@ -358,6 +358,23 @@ class Plugin
     }
 
     /**
+     * JSON 解码（容错 UTF-8 BOM）：Windows 编辑器/打包工具保存的 JSON 常带 BOM，
+     * 直接 json_decode 会报 Syntax error，导致插件扫描/激活静默漏掉该插件。
+     *
+     * @param string $content 原始文件内容
+     * @return array|null 解码成功返回数组，失败返回 null
+     */
+    private static function decodeJson(string $content): ?array
+    {
+        // 去除 UTF-8 BOM（EF BB BF）
+        if (strncmp($content, "\xEF\xBB\xBF", 3) === 0) {
+            $content = substr($content, 3);
+        }
+        $decoded = json_decode($content, true);
+        return is_array($decoded) ? $decoded : null;
+    }
+
+    /**
      * 严格读取 JSON 配置文件：文件必须存在且为有效 JSON 对象，否则返回 null
      */
     private static function readJson(string $file): ?array
@@ -365,8 +382,7 @@ class Plugin
         if (!is_file($file)) return null;
         $content = @file_get_contents($file);
         if ($content === false) return null;
-        $decoded = @json_decode($content, true);
-        return is_array($decoded) ? $decoded : null;
+        return self::decodeJson($content);
     }
 
     /**
