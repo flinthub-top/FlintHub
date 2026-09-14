@@ -588,8 +588,8 @@ renderPage('欢迎', function () use ($checks, $envOk, $csrf, $defaults, $licens
         <h2 class="mn-fs-16 mn-fw-600 mn-mb-6">许可协议</h2>
         <p class="mn-text-muted mn-fs-13 mn-mb-12">请阅读以下协议全文后，勾选同意方可继续安装。</p>
         <div class="license-box"><?php echo e($licenseText); ?></div>
-        <label class="mn-check" x-on:click.prevent="agreed = !agreed">
-            <input type="checkbox" x-model="agreed">
+        <label class="mn-check">
+            <input type="checkbox" x-model="agreed" x-on:change="agreed = $event.target.checked">
             <span>我已阅读并同意上述《许可协议》（MIT License）</span>
         </label>
         <div class="install-actions">
