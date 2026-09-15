@@ -1,8 +1,11 @@
 # FlintHub 1.0
 
 > **燧石论坛** —— 轻量级、高性能、零 MySQL 依赖的 PHP 社区系统。
+> 
 > 内核：**SplitDB 纯 SQLite 分片存储引擎 v2.3**
+> 
 > 运行环境：PHP ≥ 8.0（推荐 8.2+）· SQLite ≥ 3.33 · 无 MySQL 依赖
+> 
 > 版本：`FLINTHUB_VERSION = V1.0.0`（`version.php` 为单一版本源）
 
 ---
